@@ -1,0 +1,19 @@
+# STS
+.apt_generated
+.classpath
+.factorypath
+.settings
+.springBeans
+.sts4-cache
+
+# Intellij IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+
+# Maven
+target/
+
+# Logs
+logs/
