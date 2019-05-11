@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:replace="include/header :: header-css"></div>
+</head>
+<body>
+<div class="container-fluid">
+    <div th:replace="include/header :: header"></div>
+    <h3>Feedbacks List</h3>
+
+    <table class="table">
+        <form id="feedbacks-delete-form" method="post" action="/feedbacks"></form>
+        <thead class="thead-light">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Message</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <th:block th:each="feedback : ${feedbacks} ">
+            <tr>
+                <td>
+                    <th:block>
+                        <div class="feedback-control">
+                            <input type="checkbox" name="ids" th:value="${feedback.id}" form="feedbacks-delete-form">
+                        </div>
+                    </th:block>
+                </td>
+                <td th:text="${feedback.id}">...</td>
+                <td th:text="${feedback.userDTO.getFirstname()}+' '
+                + ${feedback.userDTO.getMiddlename()}+' '
+                 + ${feedback.userDTO.getSurname()}">...
+                </td>
+                <td th:text="${feedback.date}">...</td>
+                <td th:text="${feedback.message}">...</td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+    <div>
+        <button th:form="feedbacks-delete-form" class="btn btn-primary btn-lg disabled">Delete</button>
+    </div>
+</div>
+
+<div th:replace="include/footer :: footer"></div>
+</body>
+</html>
