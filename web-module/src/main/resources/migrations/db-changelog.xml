@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="mdcatalog@tut.by">
+        <createTable tableName="role">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="mdcatalog@tut.by">
+        <createTable tableName="user">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(72)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firstname" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middlename" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_user_role" references="role(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2.1" author="mdcatalog@tut.by">
+        <createTable tableName="review">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date" type="varchar(70)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_review_user" references="user(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="mdcatalog@tut.by">
+        <insert tableName="role">
+            <column name="name" value="ADMINISTRATOR"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="SALE"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="CUSTOMER"/>
+        </insert>
+        <insert tableName="role">
+            <column name="name" value="SECURE API"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="4" author="mdcatalog@tut.by">
+        <insert tableName="user">
+            <column name="username" value="admin@email.com"/>
+            <column name="password" value="$2a$12$L9eDNHoC6pGJuQAdg4aL6OB1DlCwMObWUPqcpSFoxnah9nxTZbr7m"/>
+            <column name="firstname" value="Admin"/>
+            <column name="middlename" value="Adminovich"/>
+            <column name="surname" value="Adminov"/>
+            <column name="role_id" valueNumeric="1"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="5" author="mdcatalog@tut.by">
+        <insert tableName="user">
+            <column name="username" value="user@email.com"/>
+            <column name="password" value="$2a$10$l6wRkqfxG9xtKLDBunBtt.xgQ8VTmSKXa4HzRImvB03tGo/xzmuwG"/>
+            <column name="firstname" value="User"/>
+            <column name="middlename" value="Userovich"/>
+            <column name="surname" value="Userov"/>
+            <column name="role_id" valueNumeric="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="6" author="mdcatalog@tut.by">
+        <insert tableName="user">
+            <column name="username" value="customer@gmail.com"/>
+            <column name="password" value="$2a$10$l6wRkqfxG9xtKLDBunBtt.xgQ8VTmSKXa4HzRImvB03tGo/xzmuwG"/>
+            <column name="firstname" value="User2"/>
+            <column name="middlename" value="Userovich2"/>
+            <column name="surname" value="Userovich"/>
+            <column name="role_id" valueNumeric="3"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="7" author="mdcatalog@tut.by">
+        <insert tableName="review">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="message" value="This is second review message #1.
+            Your company is the BEST in the world! I will recommend your company to all of friends and relatives.
+             Thank you for the great service your provided!"/>
+            <column name="date" value="06/05/2019"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="8" author="mdcatalog@tut.by">
+        <insert tableName="review">
+            <column name="user_id" valueNumeric="2"/>
+            <column name="message" value="This is second review message #2.
+            Your company is the BEST in the world! I will recommend your company to all of friends and relatives.
+             Thank you for the great service your provided!"/>
+            <column name="date" value="06/05/2019"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="9" author="mdcatalog@tut.by">
+        <insert tableName="review">
+            <column name="user_id" valueNumeric="2"/>
+            <column name="message" value="This is second review message #2.
+            Your company is the WORST in the world! I will recommend your company to all of friends and relatives.
+             Thank you for the great service your provided!"/>
+            <column name="date" value="06/06/2019"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
