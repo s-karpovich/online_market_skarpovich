@@ -4,6 +4,7 @@
 <head>
     <div th:replace="include/header :: header-css"></div>
 </head>
+
 <body>
 <div class="container-fluid">
     <div th:replace="include/header :: header"></div>
@@ -43,7 +44,7 @@
                 <td><form method="post" th:action="@{/users/update}" th:object="${RoleDTOUpdatedObject}">
 
                         <th:block th:if="${user.id ==1}">
-                            <div th:text="${user.roleDTO.name}">...</div>
+                            <div th:text="${user.role}">...</div>
                         </th:block>
 
                         <th:block th:if="${user.id !=1}">
@@ -52,8 +53,8 @@
                                 <option th:each="role,stat:${roles}"
                                         th:value="${roles[__${stat.index}__].id}"
                                         th:text="${roles[__${stat.index}__].name}"
-                                        th:selected="${user.roleDTO.name == roles[__${stat.index}__].name}"
-                                        th:disabled="${user.roleDTO.name == roles[__${stat.index}__].name}">
+                                        th:selected="${user.role == roles[__${stat.index}__].name}"
+                                        th:disabled="${user.role == roles[__${stat.index}__].name}">
                                 </option>
                             </select>
                         </th:block>
@@ -73,6 +74,8 @@
         <button th:form="users-delete-form" class="btn btn-primary btn-lg disabled">Delete</button>
     </div>
 </div>
+
 <div th:replace="include/footer :: footer"></div>
+
 </body>
 </html>

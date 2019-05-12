@@ -1,7 +1,7 @@
 package by.tut.mdcatalog.project2.web.controller;
 
-import by.tut.mdcatalog.project2.service.FeedbackService;
-import by.tut.mdcatalog.project2.service.model.FeedbackDTO;
+import by.tut.mdcatalog.project2.service.ReviewService;
+import by.tut.mdcatalog.project2.service.model.ReviewDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,31 +13,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-public class FeedbackController {
+public class ReviewController {
 
-    private static final Logger logger = LoggerFactory.getLogger(FeedbackController.class);
-    private final FeedbackService feedbackService;
+    private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
+    private final ReviewService reviewService;
 
-    public FeedbackController(FeedbackService feedbackService) {
-        this.feedbackService = feedbackService;
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
     }
 
-    @GetMapping("/feedbacks")
-    public String getFeedbacks(Model model) {
-        List<FeedbackDTO> feedbackDTOList = feedbackService.getFeedbacks();
-        model.addAttribute("feedbacks", feedbackDTOList);
-        return "feedbacks";
+    @GetMapping("/reviews")
+    public String getReviews(Model model) {
+        List<ReviewDTO> reviewDTOList = reviewService.getReviews();
+        model.addAttribute("reviews", reviewDTOList);
+        return "reviews";
     }
 
-    @PostMapping("/feedbacks")
-    public String deleteFeedbacks(@RequestParam(value = "ids", required = false) int[] ids) {
+    @PostMapping("/reviews/delete")
+    public String deleteReviews(@RequestParam(value = "ids", required = false) int[] ids) {
         if (ids == null) {
-            logger.info("no feedbacks selected");
-            return "/feedbacks";
+            logger.info("no reviews selected");
+            return "/reviews";
         } else {
-            feedbackService.deleteFeedbacks(ids);
-            logger.info("Feedbacks deleted(IDs):{}", ids);
-            return "redirect:/feedbacks";
+            reviewService.deleteReviews(ids);
+            logger.info("Reviews deleted(IDs):{}", ids);
+            return "redirect:/success";
         }
     }
 }

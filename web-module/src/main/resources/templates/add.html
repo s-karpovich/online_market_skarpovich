@@ -47,7 +47,7 @@
         <div class="form-group">
             <div class="col-md-4">
                 <td>
-                    <select class="form-control mb-4" th:name="roleDTO.name" required>
+                    <select class="form-control mb-4" th:name="role" required>
                         <option value="">Choose User Role</option>
                         <option value="ADMINISTRATOR">ADMINISTRATOR</option>
                         <option value="SALE">SALE</option>
@@ -79,6 +79,8 @@
     </form>
 
 </div>
+
 <div th:replace="include/footer :: footer"></div>
+
 </body>
 </html>

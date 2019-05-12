@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS feedback;
+DROP TABLE IF EXISTS review;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS role;
 
@@ -53,7 +53,7 @@ INSERT INTO user (username,password,firstname,middlename,surname,deleted,role_id
 (SELECT id FROM role WHERE name='CUSTOMER')
 );
 
-CREATE TABLE IF NOT EXISTS feedback (
+CREATE TABLE IF NOT EXISTS review (
 id BIGINT UNSIGNED      NOT NULL AUTO_INCREMENT PRIMARY KEY,
 date VARCHAR(70)        NOT NULL,
 message VARCHAR(200)    NOT NULL,
@@ -61,36 +61,85 @@ deleted  TINYINT(1)     NOT NULL,
 user_id BIGINT UNSIGNED NOT NULL, FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
-INSERT INTO feedback (date,message,deleted,user_id) VALUES (
+INSERT INTO review (date,message,deleted,user_id) VALUES (
 '05/05/2019',
-'This is second feedback message #1. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
+'This is second review message #1. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
 '0',
 (SELECT id FROM user WHERE username='admin@email.com')
 );
-INSERT INTO feedback (date,message,deleted,user_id) VALUES (
+INSERT INTO review (date,message,deleted,user_id) VALUES (
 '06/05/2019',
-'This is second feedback message #2. Your company is the WORST in the world! I will NOT recommend your company to all of friends and relatives. Thank you for the great service your provided!',
+'This is second review message #2. Your company is the WORST in the world! I will NOT recommend your company to all of friends and relatives. Thank you for the great service your provided!',
 '1',
 (SELECT id FROM user WHERE username='user@email.com')
 );
 
-INSERT INTO feedback (date,message,deleted,user_id) VALUES (
+INSERT INTO review (date,message,deleted,user_id) VALUES (
 '06/05/2019',
-'This is second feedback message #3. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
+'This is second review message #3. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
 '0',
 (SELECT id FROM user WHERE username='user@email.com')
 );
 
-INSERT INTO feedback (date,message,deleted,user_id) VALUES (
+INSERT INTO review (date,message,deleted,user_id) VALUES (
 '06/05/2019',
-'This is second feedback message #4. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
+'This is second review message #4. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
 '0',
 (SELECT id FROM user WHERE username='user@email.com')
 );
 
-INSERT INTO feedback (date,message,deleted,user_id) VALUES (
+INSERT INTO review (date,message,deleted,user_id) VALUES (
 '06/05/2019',
-'This is second feedback message #5. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
+'This is second review message #5. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
+'0',
+(SELECT id FROM user WHERE username='user@email.com')
+);
+
+INSERT INTO review (date,message,deleted,user_id) VALUES (
+'06/07/2019',
+'This is second review message #6. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
+'0',
+(SELECT id FROM user WHERE username='user@email.com')
+);
+
+INSERT INTO review (date,message,deleted,user_id) VALUES (
+'06/07/2019',
+'This is second review message #7. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
+'0',
+(SELECT id FROM user WHERE username='user@email.com')
+);
+
+INSERT INTO review (date,message,deleted,user_id) VALUES (
+'06/07/2019',
+'This is second review message #8. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
+'0',
+(SELECT id FROM user WHERE username='user@email.com')
+);
+
+INSERT INTO review (date,message,deleted,user_id) VALUES (
+'06/07/2019',
+'This is second review message #9. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
+'0',
+(SELECT id FROM user WHERE username='user@email.com')
+);
+
+INSERT INTO review (date,message,deleted,user_id) VALUES (
+'06/07/2019',
+'This is second review message #10. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
+'0',
+(SELECT id FROM user WHERE username='user@email.com')
+);
+
+INSERT INTO review (date,message,deleted,user_id) VALUES (
+'06/07/2019',
+'This is second review message #11. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
+'0',
+(SELECT id FROM user WHERE username='user@email.com')
+);
+
+INSERT INTO review (date,message,deleted,user_id) VALUES (
+'06/07/2019',
+'This is second review message #12. Your company is the BEST in the world! I will recommend your company to all of friends and relatives. Thank you for the great service your provided!',
 '0',
 (SELECT id FROM user WHERE username='user@email.com')
 );

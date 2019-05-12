@@ -4,13 +4,14 @@
 <head>
     <div th:replace="include/header :: header-css"></div>
 </head>
+
 <body>
 <div class="container-fluid">
     <div th:replace="include/header :: header"></div>
-    <h3>Feedbacks List</h3>
+    <h3>Reviews List</h3>
 
     <table class="table">
-        <form id="feedbacks-delete-form" method="post" action="/feedbacks"></form>
+        <form id="reviews-delete-form" method="post" action="/reviews/delete"></form>
         <thead class="thead-light">
         <tr>
             <th scope="col"></th>
@@ -22,31 +23,32 @@
         </thead>
 
         <tbody>
-        <th:block th:each="feedback : ${feedbacks} ">
+        <th:block th:each="review : ${reviews} ">
             <tr>
                 <td>
                     <th:block>
-                        <div class="feedback-control">
-                            <input type="checkbox" name="ids" th:value="${feedback.id}" form="feedbacks-delete-form">
+                        <div class="review-control">
+                            <input type="checkbox" name="ids" th:value="${review.id}" form="reviews-delete-form">
                         </div>
                     </th:block>
                 </td>
-                <td th:text="${feedback.id}">...</td>
-                <td th:text="${feedback.userDTO.getFirstname()}+' '
-                + ${feedback.userDTO.getMiddlename()}+' '
-                 + ${feedback.userDTO.getSurname()}">...
+                <td th:text="${review.id}">...</td>
+                <td th:text="${review.userDTO.getFirstname()}+' '
+                + ${review.userDTO.getMiddlename()}+' '
+                 + ${review.userDTO.getSurname()}">...
                 </td>
-                <td th:text="${feedback.date}">...</td>
-                <td th:text="${feedback.message}">...</td>
+                <td th:text="${review.date}">...</td>
+                <td th:text="${review.message}">...</td>
             </tr>
         </th:block>
         </tbody>
     </table>
     <div>
-        <button th:form="feedbacks-delete-form" class="btn btn-primary btn-lg disabled">Delete</button>
+        <button th:form="reviews-delete-form" class="btn btn-primary btn-lg disabled">Delete</button>
     </div>
 </div>
 
 <div th:replace="include/footer :: footer"></div>
 </body>
+
 </html>

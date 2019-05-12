@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/add/**", "/users/**")
                 .hasAuthority("ADMINISTRATOR").expressionHandler(new DefaultWebSecurityExpressionHandler())
-                .antMatchers("/", "/login", "/about", "/feedbacks", "/success", "/403", "/404", "/error", "/success")
+                .antMatchers("/", "/login", "/about", "/messages/**")
                 .permitAll()
                 .and()
                 .formLogin()

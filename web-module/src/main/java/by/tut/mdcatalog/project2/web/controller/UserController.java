@@ -7,7 +7,6 @@ import by.tut.mdcatalog.project2.service.model.RoleDTOUpdated;
 import by.tut.mdcatalog.project2.service.model.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class UserController implements ErrorController {
+public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
@@ -28,27 +27,6 @@ public class UserController implements ErrorController {
         this.userService = userService;
         this.roleService = roleService;
     }
-
-    @GetMapping("/login") public String login() { return "/login"; }
-
-    @GetMapping("/") public String slash() { return "redirect:/login"; }
-
-    @GetMapping("/about") public String aboutUs() { return "about"; }
-
-    @GetMapping("/403")
-    public String error403() { return "/messages/403"; }
-
-    @GetMapping("/404")
-    public String error404() { return "/messages/404"; }
-
-    @GetMapping("/success")
-    public String success() { return "messages/success"; }
-
-    @RequestMapping("/error")
-    public String handleError() { return "/messages/error"; }
-
-    @Override
-    public String getErrorPath() { return "/messages/error"; }
 
     @GetMapping("/users")
     public String getUsers(Model model, RoleDTOUpdated roleDTOUpdated) {
@@ -77,7 +55,7 @@ public class UserController implements ErrorController {
             return "redirect:/error";
         }
         userService.add(userDTO);
-        logger.info("User has been added{}", userDTO.getUsername());
+        logger.info("User has been added: {}", userDTO.getUsername());
         return "redirect:/success";
     }
 
