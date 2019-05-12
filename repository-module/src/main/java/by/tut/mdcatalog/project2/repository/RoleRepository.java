@@ -5,7 +5,7 @@ import by.tut.mdcatalog.project2.repository.model.Role;
 import java.sql.Connection;
 import java.util.List;
 
-public interface RoleRepository {
+public interface RoleRepository extends GenericRepository {
 
     Role getById(Connection connection, Long id);
 

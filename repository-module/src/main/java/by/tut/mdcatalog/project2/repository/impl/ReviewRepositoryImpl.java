@@ -3,8 +3,8 @@ package by.tut.mdcatalog.project2.repository.impl;
 import by.tut.mdcatalog.project2.repository.constant.RepositoryErrors;
 import by.tut.mdcatalog.project2.repository.exception.DataBaseException;
 import by.tut.mdcatalog.project2.repository.model.User;
-import by.tut.mdcatalog.project2.repository.FeedbackRepository;
-import by.tut.mdcatalog.project2.repository.model.Feedback;
+import by.tut.mdcatalog.project2.repository.ReviewRepository;
+import by.tut.mdcatalog.project2.repository.model.Review;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -19,37 +19,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class FeedbackRepositoryImpl implements FeedbackRepository {
+public class ReviewRepositoryImpl extends GenericRepositoryImpl implements ReviewRepository {
 
-    private static final Logger logger = LoggerFactory.getLogger(FeedbackRepositoryImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ReviewRepositoryImpl.class);
 
     @Override
-    public List<Feedback> getFeedbacks(Connection connection) {
-        String sqlQuery = "SELECT * FROM feedback WHERE deleted=false";  // Read excepting deleted
-        List<Feedback> feedbackList = new ArrayList<>();
+    public List<Review> getReviews(Connection connection) {
+        String sqlQuery = "SELECT * FROM review WHERE deleted=false";  // Read excepting deleted
+        List<Review> reviewList = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    feedbackList.add(buildFeedback(resultSet));
+                    reviewList.add(buildReview(resultSet));
                 }
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
             throw new DataBaseException(String.format(RepositoryErrors.DATABASE_QUERY_ERROR, sqlQuery), e);
         }
-        return feedbackList;
+        return reviewList;
     }
 
     @Override
-    public void deleteFeedbacks(Connection connection, int[] ids) {
-        StringBuilder sqlQuery = new StringBuilder("UPDATE feedback SET deleted=true WHERE id IN (");
+    public void deleteReviews(Connection connection, int[] ids) {
+        StringBuilder sqlQuery = new StringBuilder("UPDATE review SET deleted=true WHERE id IN (");
         for (int i = 0; i < ids.length; i++) {
             if (i != ids.length-1) sqlQuery.append(ids[i]).append(',');
             else  sqlQuery.append(ids[i]).append(')');
         }
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString())) {
             preparedStatement.executeUpdate();
-            logger.info("Feedbacks deleted:{}", ids.length);
+            logger.info("Reviews deleted:{}", ids.length);
 
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
@@ -57,20 +57,20 @@ public class FeedbackRepositoryImpl implements FeedbackRepository {
         }
     }
 
-    private Feedback buildFeedback(ResultSet resultSet) throws SQLException {
-        Feedback feedback = new Feedback();
-        feedback.setId(resultSet.getLong("id"));
+    private Review buildReview(ResultSet resultSet) throws SQLException {
+        Review review = new Review();
+        review.setId(resultSet.getLong("id"));
         try {
-            feedback.setDate(new SimpleDateFormat("dd/MM/yyyy").parse(resultSet.getString("date")));
+            review.setDate(new SimpleDateFormat("dd/MM/yyyy").parse(resultSet.getString("date")));
         } catch (ParseException e) {
             logger.error(e.getMessage(), e);
             throw new DataBaseException(String.format(RepositoryErrors.DATABASE_QUERY_ERROR, e.getMessage()), e);
         }
         User user = new User();
         user.setId(resultSet.getLong("user_id"));
-        feedback.setUser(user);
-        feedback.setMessage(resultSet.getString("message"));
-        feedback.setDeleted(resultSet.getBoolean("deleted"));
-        return feedback;
+        review.setUser(user);
+        review.setMessage(resultSet.getString("message"));
+        review.setDeleted(resultSet.getBoolean("deleted"));
+        return review;
     }
 }

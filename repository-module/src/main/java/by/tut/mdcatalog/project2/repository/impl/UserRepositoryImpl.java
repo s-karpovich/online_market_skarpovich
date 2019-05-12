@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository {
+public class UserRepositoryImpl extends GenericRepositoryImpl implements UserRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(UserRepositoryImpl.class);
 

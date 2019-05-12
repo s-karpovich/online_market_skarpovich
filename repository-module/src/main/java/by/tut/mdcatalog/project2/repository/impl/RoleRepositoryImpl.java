@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class RoleRepositoryImpl implements RoleRepository {
+public class RoleRepositoryImpl extends GenericRepositoryImpl implements RoleRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(RoleRepositoryImpl.class);
 
@@ -29,7 +29,7 @@ public class RoleRepositoryImpl implements RoleRepository {
             while (resultSet.next()) {
                 roles.add(buildRole(resultSet));
             }
-            logger.info("Role name founded, count of roles is:{}", roles.size());
+            logger.info("Roles found:{}", roles.size());
             return roles;
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);

@@ -1,13 +1,13 @@
 package by.tut.mdcatalog.project2.repository;
 
-import by.tut.mdcatalog.project2.repository.model.Feedback;
+import by.tut.mdcatalog.project2.repository.model.Review;
 
 import java.sql.Connection;
 import java.util.List;
 
-public interface FeedbackRepository {
+public interface ReviewRepository  extends GenericRepository {
 
-    List<Feedback> getFeedbacks(Connection connection);
+    List<Review> getReviews(Connection connection);
 
-    void deleteFeedbacks(Connection connection, int[] ids);
+    void deleteReviews(Connection connection, int[] ids);
 }

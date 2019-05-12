@@ -11,10 +11,23 @@
     <artifactId>repository-module</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <luquibase.version>3.6.3</luquibase.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${luquibase.version}</version>
         </dependency>
     </dependencies>
 

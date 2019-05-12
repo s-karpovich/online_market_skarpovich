@@ -5,7 +5,7 @@ import by.tut.mdcatalog.project2.repository.model.User;
 import java.sql.Connection;
 import java.util.List;
 
-public interface UserRepository {
+public interface UserRepository extends GenericRepository {
 
     List<User> getUsers(Connection connection);
 
