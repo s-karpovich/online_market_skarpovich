@@ -2,7 +2,7 @@ package by.tut.mdcatalog.project2.service.model;
 
 import java.util.Date;
 
-public class FeedbackDTO {
+public class ReviewDTO {
 
     private Long id;
     private Date date;
