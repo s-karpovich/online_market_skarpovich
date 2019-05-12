@@ -40,7 +40,7 @@ public class UserConverterImpl implements UserConverter {
         user.setSurname(userDTO.getSurname());
         user.setDeleted(userDTO.getDeleted());
         Role role = new Role();
-        role.setName(userDTO.getRoleDTO().getName());
+        role.setName(userDTO.getRole());
         user.setRole(role);
         return user;
     }

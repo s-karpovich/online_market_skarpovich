@@ -1,17 +1,16 @@
 package by.tut.mdcatalog.project2.service.impl;
 
-import by.tut.mdcatalog.project2.repository.FeedbackRepository;
+import by.tut.mdcatalog.project2.repository.ReviewRepository;
 import by.tut.mdcatalog.project2.repository.UserRepository;
-import by.tut.mdcatalog.project2.repository.connection.ConnectionService;
-import by.tut.mdcatalog.project2.repository.model.Feedback;
+import by.tut.mdcatalog.project2.repository.model.Review;
 import by.tut.mdcatalog.project2.repository.model.User;
 import by.tut.mdcatalog.project2.service.constant.ServiceErrors;
-import by.tut.mdcatalog.project2.service.converter.FeedbackConverter;
+import by.tut.mdcatalog.project2.service.converter.ReviewConverter;
 import by.tut.mdcatalog.project2.service.converter.UserConverter;
 import by.tut.mdcatalog.project2.service.exception.ServiceException;
-import by.tut.mdcatalog.project2.service.model.FeedbackDTO;
+import by.tut.mdcatalog.project2.service.model.ReviewDTO;
 import by.tut.mdcatalog.project2.service.model.UserDTO;
-import by.tut.mdcatalog.project2.service.FeedbackService;
+import by.tut.mdcatalog.project2.service.ReviewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -22,45 +21,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class FeedbackServiceImpl implements FeedbackService {
+public class ReviewServiceImpl implements ReviewService {
 
-    private static final Logger logger = LoggerFactory.getLogger(FeedbackServiceImpl.class);
-    private final ConnectionService connectionService;
-    private final FeedbackConverter feedbackConverter;
-    private final FeedbackRepository feedbackRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ReviewServiceImpl.class);
+    private final ReviewConverter reviewConverter;
+    private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
     private final UserConverter userConverter;
 
 
-    public FeedbackServiceImpl(ConnectionService connectionService,
-                               FeedbackConverter feedbackConverter,
-                               FeedbackRepository feedbackRepository,
+    public ReviewServiceImpl(
+                               ReviewConverter reviewConverter,
+                               ReviewRepository reviewRepository,
                                UserRepository userRepository,
                                UserConverter userConverter) {
-        this.connectionService = connectionService;
-        this.feedbackConverter = feedbackConverter;
-        this.feedbackRepository = feedbackRepository;
+        this.reviewConverter = reviewConverter;
+        this.reviewRepository = reviewRepository;
         this.userRepository = userRepository;
         this.userConverter = userConverter;
     }
 
     @Override
-    public List<FeedbackDTO> getFeedbacks() {
-        try (Connection connection = connectionService.getConnection()) {
+    public List<ReviewDTO> getReviews() {
+        try (Connection connection = reviewRepository.getConnection()) {
             try {
                 connection.setAutoCommit(false);
-                List<FeedbackDTO> feedbackDTOList = new ArrayList<>();
-                List<Feedback> feedbackList = feedbackRepository.getFeedbacks(connection);
-                for (Feedback feedback : feedbackList) {
-                    User user = userRepository.getById(connection, feedback.getUser().getId());
-                    if (user == null) continue;     // Skip to show feedbacks of deleted users
+                List<ReviewDTO> reviewDTOList = new ArrayList<>();
+                List<Review> reviewList = reviewRepository.getReviews(connection);
+                for (Review review : reviewList) {
+                    User user = userRepository.getById(connection, review.getUser().getId());
+                    if (user == null) continue;     // Skip to show reviews of deleted users
                     UserDTO userDTO = userConverter.toDTO(user);
-                    FeedbackDTO feedbackDTO = feedbackConverter.toDTO(feedback);
-                    feedbackDTO.setUserDTO(userDTO);
-                    feedbackDTOList.add(feedbackDTO);
+                    ReviewDTO reviewDTO = reviewConverter.toDTO(review);
+                    reviewDTO.setUserDTO(userDTO);
+                    reviewDTOList.add(reviewDTO);
                 }
                 connection.commit();
-                return feedbackDTOList;
+                return reviewDTOList;
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
@@ -73,11 +70,11 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public void deleteFeedbacks(int[] ids) {
-        try (Connection connection = connectionService.getConnection()) {
+    public void deleteReviews(int[] ids) {
+        try (Connection connection = reviewRepository.getConnection()) {
             try {
                 connection.setAutoCommit(false);
-                feedbackRepository.deleteFeedbacks(connection, ids);
+                reviewRepository.deleteReviews(connection, ids);
                 connection.commit();
             } catch (SQLException e) {
                 connection.rollback();

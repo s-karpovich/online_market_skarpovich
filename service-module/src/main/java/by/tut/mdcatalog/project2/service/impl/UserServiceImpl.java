@@ -2,7 +2,6 @@ package by.tut.mdcatalog.project2.service.impl;
 
 import by.tut.mdcatalog.project2.repository.RoleRepository;
 import by.tut.mdcatalog.project2.repository.UserRepository;
-import by.tut.mdcatalog.project2.repository.connection.ConnectionService;
 import by.tut.mdcatalog.project2.repository.model.Role;
 import by.tut.mdcatalog.project2.repository.model.User;
 import by.tut.mdcatalog.project2.service.constant.ServiceErrors;
@@ -29,20 +28,17 @@ import java.util.Random;
 public class UserServiceImpl implements UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-    private final ConnectionService connectionService;
     private final PasswordEncoder serviceEncoder;
     private final UserConverter userConverter;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final RoleConverter roleConverter;
 
-    public UserServiceImpl(ConnectionService connectionService,
-                           PasswordEncoder serviceEncoder,
+    public UserServiceImpl(PasswordEncoder serviceEncoder,
                            UserConverter userConverter,
                            UserRepository userRepository,
                            RoleRepository roleRepository,
                            RoleConverter roleConverter) {
-        this.connectionService = connectionService;
         this.serviceEncoder = serviceEncoder;
         this.userConverter = userConverter;
         this.userRepository = userRepository;
@@ -52,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getUsers() {
-        try (Connection connection = connectionService.getConnection()) {
+        try (Connection connection = userRepository.getConnection()) {
             try {
                 connection.setAutoCommit(false);
                 List<UserDTO> userDTOList = new ArrayList<>();
@@ -61,7 +57,7 @@ public class UserServiceImpl implements UserService {
                     Role role = roleRepository.getById(connection, user.getRole().getId());
                     RoleDTO roleDTO = roleConverter.toDTO(role);
                     UserDTO userDTO = userConverter.toDTO(user);
-                    userDTO.setRoleDTO(roleDTO);
+                    userDTO.setRole(roleDTO.getName());
                     userDTOList.add(userDTO);
                 }
                 connection.commit();
@@ -79,15 +75,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getByUsername(String username) {
-        try (Connection connection = connectionService.getConnection()) {
+        try (Connection connection = userRepository.getConnection()) {
             try {
                 connection.setAutoCommit(false);
                 User user = userRepository.getByUsername(connection, username);
-                UserDTO readUserDTO = userConverter.toDTO(user);
+                UserDTO getUserDTO = userConverter.toDTO(user);
                 Role role = roleRepository.getById(connection, user.getRole().getId());
-                readUserDTO.setRoleDTO(roleConverter.toDTO(role));
+                getUserDTO.setRole(roleConverter.toDTO(role).getName());
                 connection.commit();
-                return readUserDTO;
+                return getUserDTO;
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
@@ -102,7 +98,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void add(UserDTO userDTO) {
         User user = userConverter.fromDTO(userDTO);
-        try (Connection connection = connectionService.getConnection()) {
+        try (Connection connection = userRepository.getConnection()) {
             try {
                 connection.setAutoCommit(false);
                 userRepository.add(connection, user);
@@ -120,7 +116,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserRole(RoleDTOUpdated roleDTOUpdated) {
-        try (Connection connection = connectionService.getConnection()) {
+        try (Connection connection = userRepository.getConnection()) {
             connection.setAutoCommit(false);
             try {
                 userRepository.updateUserRole(connection, roleDTOUpdated.getRoleId(), roleDTOUpdated.getId());
@@ -140,7 +136,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUsers(int[] ids) {
-        try (Connection connection = connectionService.getConnection()) {
+        try (Connection connection = userRepository.getConnection()) {
             try {
                 connection.setAutoCommit(false);
                 userRepository.deleteUsers(connection, ids);
@@ -161,7 +157,7 @@ public class UserServiceImpl implements UserService {
     public void resetPassword(Long id) {
         String generatedPassword = generatePassword(12);
         String encodedPassword = serviceEncoder.encode(generatedPassword);
-        try (Connection connection = connectionService.getConnection()) {
+        try (Connection connection = userRepository.getConnection()) {
             try {
                 connection.setAutoCommit(false);
                 userRepository.resetPassword(connection, encodedPassword, id);

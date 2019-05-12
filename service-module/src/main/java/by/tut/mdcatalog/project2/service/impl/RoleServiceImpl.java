@@ -1,7 +1,6 @@
 package by.tut.mdcatalog.project2.service.impl;
 
 import by.tut.mdcatalog.project2.repository.RoleRepository;
-import by.tut.mdcatalog.project2.repository.connection.ConnectionService;
 import by.tut.mdcatalog.project2.repository.model.Role;
 import by.tut.mdcatalog.project2.service.RoleService;
 import by.tut.mdcatalog.project2.service.constant.ServiceErrors;
@@ -23,17 +22,15 @@ public class RoleServiceImpl implements RoleService {
     private final static Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
     private final RoleRepository roleRepository;
     private final RoleConverter roleConverter;
-    private final ConnectionService connectionService;
 
-    public RoleServiceImpl(ConnectionService connectionService, RoleRepository roleRepository, RoleConverter roleConverter) {
+    public RoleServiceImpl(RoleRepository roleRepository, RoleConverter roleConverter) {
         this.roleRepository = roleRepository;
         this.roleConverter = roleConverter;
-        this.connectionService = connectionService;
     }
 
     @Override
     public List<RoleDTO> getRoles() {
-        try (Connection connection = connectionService.getConnection()) {
+        try (Connection connection = roleRepository.getConnection()) {
             connection.setAutoCommit(false);
             try {
                 List<Role> roleNames = roleRepository.getRoles(connection);

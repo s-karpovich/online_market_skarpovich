@@ -22,7 +22,29 @@ public class UserDTO {
 
     private Boolean isDeleted;
     @NotNull
-    private RoleDTO roleDTO;
+    private String role;
+
+    public UserDTO() {
+    }
+    public UserDTO(
+            Long id,
+            String username,
+            String password,
+            String firstname,
+            String middlename,
+            String surname,
+            Boolean isDeleted,
+            String role)
+    {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.surname = surname;
+        this.isDeleted = isDeleted;
+        this.role = role;
+    }
 
     public Long getId() { return id; }
 
@@ -72,11 +94,11 @@ public class UserDTO {
 
     public void setDeleted(Boolean deleted) { isDeleted = deleted; }
 
-    public RoleDTO getRoleDTO() {
-        return roleDTO;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoleDTO(RoleDTO roleDTO) {
-        this.roleDTO = roleDTO;
+    public void setRole(String role) {
+        this.role = role;
     }
 }
