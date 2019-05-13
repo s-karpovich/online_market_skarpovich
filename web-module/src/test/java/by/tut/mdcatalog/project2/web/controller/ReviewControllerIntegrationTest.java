@@ -1,4 +1,4 @@
-package by.tut.mdcatalog.project2.web;
+package by.tut.mdcatalog.project2.web.controller;
 
 import by.tut.mdcatalog.project2.web.app.SpringBootModuleApp;
 import org.junit.Assert;

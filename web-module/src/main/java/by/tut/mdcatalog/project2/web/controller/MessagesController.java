@@ -1,4 +1,4 @@
-package by.tut.mdcatalog.project2.web;
+package by.tut.mdcatalog.project2.web.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
