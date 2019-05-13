@@ -1,4 +1,4 @@
-package by.tut.mdcatalog.project2.web.controller;
+package by.tut.mdcatalog.project2.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

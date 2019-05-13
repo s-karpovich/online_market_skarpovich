@@ -1,4 +1,4 @@
-package by.tut.mdcatalog.project2.web.controller;
+package by.tut.mdcatalog.project2.web;
 
 import org.junit.Before;
 import org.junit.Test;

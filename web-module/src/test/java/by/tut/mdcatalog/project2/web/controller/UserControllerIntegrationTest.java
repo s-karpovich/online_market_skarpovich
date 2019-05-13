@@ -1,4 +1,4 @@
-package by.tut.mdcatalog.project2.web.controller;
+package by.tut.mdcatalog.project2.web;
 
 import by.tut.mdcatalog.project2.service.model.RoleDTOUpdated;
 import by.tut.mdcatalog.project2.web.app.SpringBootModuleApp;
