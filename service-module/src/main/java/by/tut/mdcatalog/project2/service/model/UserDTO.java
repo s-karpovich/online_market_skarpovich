@@ -26,29 +26,14 @@ public class UserDTO {
 
     public UserDTO() {
     }
-    public UserDTO(
-            Long id,
-            String username,
-            String password,
-            String firstname,
-            String middlename,
-            String surname,
-            Boolean isDeleted,
-            String role)
-    {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.surname = surname;
-        this.isDeleted = isDeleted;
-        this.role = role;
+
+    public Long getId() {
+        return id;
     }
 
-    public Long getId() { return id; }
-
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -90,9 +75,13 @@ public class UserDTO {
         this.middlename = middlename;
     }
 
-    public Boolean getDeleted() { return isDeleted; }
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
 
-    public void setDeleted(Boolean deleted) { isDeleted = deleted; }
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
 
     public String getRole() {
         return role;

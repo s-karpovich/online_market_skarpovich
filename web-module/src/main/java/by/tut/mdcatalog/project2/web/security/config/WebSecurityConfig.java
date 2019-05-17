@@ -14,8 +14,10 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.ADMIN_ROLE_NAME;
+
 @Configuration
-@Order(2)
+@Order(1)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
@@ -35,8 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/add/**", "/users/**")
-                .hasAuthority("ADMINISTRATOR").expressionHandler(new DefaultWebSecurityExpressionHandler())
+                .antMatchers("/add/**", "/users/**", "/reviews/**")
+                .hasAuthority(ADMIN_ROLE_NAME).expressionHandler(new DefaultWebSecurityExpressionHandler())
                 .antMatchers("/", "/login", "/about", "/messages/**")
                 .permitAll()
                 .and()

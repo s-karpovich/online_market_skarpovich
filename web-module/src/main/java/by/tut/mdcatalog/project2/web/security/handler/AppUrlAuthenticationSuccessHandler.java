@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collection;
 
+import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.ADMIN_ROLE_NAME;
+
 @Component
 public class AppUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -49,7 +51,7 @@ public class AppUrlAuthenticationSuccessHandler implements AuthenticationSuccess
         boolean isAdministrator = false;
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("ADMINISTRATOR")) {
+            if (grantedAuthority.getAuthority().equals(ADMIN_ROLE_NAME)) {
                 isAdministrator = true;
                 break;
             }
@@ -57,7 +59,7 @@ public class AppUrlAuthenticationSuccessHandler implements AuthenticationSuccess
         if (isAdministrator) {
             return "/users";
         } else {
-            logger.info("Impossible to redirect. User :" + authentication.getCredentials() + " - is neither ADMINISTRATOR nor CUSTOMER.");
+            logger.info("Impossible to redirect. User :" + authentication.getCredentials() + " - is not " +  ADMIN_ROLE_NAME);
             return "redirect:/login?role";
         }
     }

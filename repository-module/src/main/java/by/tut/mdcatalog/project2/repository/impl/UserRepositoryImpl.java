@@ -85,7 +85,7 @@ public class UserRepositoryImpl extends GenericRepositoryImpl implements UserRep
             preparedStatement.setString(3, user.getFirstname());
             preparedStatement.setString(4, user.getMiddlename());
             preparedStatement.setString(5, user.getSurname());
-            preparedStatement.setBoolean(6, false);
+            preparedStatement.setBoolean(6, user.getDeleted());
             preparedStatement.setString(7, user.getRole().getName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -110,17 +110,24 @@ public class UserRepositoryImpl extends GenericRepositoryImpl implements UserRep
 
     @Override
     public void deleteUsers(Connection connection, int[] ids) {
-        StringBuilder sqlQuery = new StringBuilder("UPDATE user SET deleted=true WHERE id IN (");
+        StringBuilder inQuery = new StringBuilder("(");
         for (int i = 0; i < ids.length; i++) {
-            if (i != ids.length - 1) sqlQuery.append(ids[i]).append(',');
-            else sqlQuery.append(ids[i]).append(')');
+            if (i != ids.length - 1) inQuery.append(ids[i]).append(',');
+            else inQuery.append(ids[i]).append(")");
         }
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString())) {
+        String userSql = "UPDATE user SET deleted=true WHERE id IN" + inQuery;
+        String reviewSql = "UPDATE review SET deleted=true WHERE user_id IN" + inQuery;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(userSql);
+             PreparedStatement preparedStatement2 = connection.prepareStatement(reviewSql))
+        {
             preparedStatement.executeUpdate();
+            preparedStatement2.executeUpdate();
+
             logger.info("Users deleted (IDs):{}", ids);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new DataBaseException(String.format(RepositoryErrors.DATABASE_QUERY_ERROR, sqlQuery), e);
+            throw new DataBaseException(String.format(RepositoryErrors.DATABASE_QUERY_ERROR, userSql, reviewSql), e);
         }
     }
 

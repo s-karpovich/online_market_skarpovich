@@ -1,5 +1,6 @@
 package by.tut.mdcatalog.project2.service.impl;
 
+import by.tut.mdcatalog.project2.repository.ReviewRepository;
 import by.tut.mdcatalog.project2.repository.RoleRepository;
 import by.tut.mdcatalog.project2.repository.UserRepository;
 import by.tut.mdcatalog.project2.repository.model.Role;
@@ -31,17 +32,20 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder serviceEncoder;
     private final UserConverter userConverter;
     private final UserRepository userRepository;
+    private final ReviewRepository reviewRepository;
     private final RoleRepository roleRepository;
     private final RoleConverter roleConverter;
 
     public UserServiceImpl(PasswordEncoder serviceEncoder,
                            UserConverter userConverter,
                            UserRepository userRepository,
+                           ReviewRepository reviewRepository,
                            RoleRepository roleRepository,
                            RoleConverter roleConverter) {
         this.serviceEncoder = serviceEncoder;
         this.userConverter = userConverter;
         this.userRepository = userRepository;
+        this.reviewRepository = reviewRepository;
         this.roleRepository = roleRepository;
         this.roleConverter = roleConverter;
     }

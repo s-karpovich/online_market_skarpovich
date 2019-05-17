@@ -11,6 +11,7 @@ public class RoleDTOUpdated {
 
     public RoleDTOUpdated() {
     }
+
     public RoleDTOUpdated(Long roleId, Long id) {
         this.roleId = roleId;
         this.id = id;

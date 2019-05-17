@@ -9,5 +9,5 @@ public interface ReviewRepository  extends GenericRepository {
 
     List<Review> getReviews(Connection connection);
 
-    void deleteReviews(Connection connection, int[] ids);
+    void deleteReviews(Connection connection, int[] ids, String column);
 }

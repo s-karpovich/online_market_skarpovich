@@ -50,7 +50,6 @@ public class ReviewServiceImpl implements ReviewService {
                 List<Review> reviewList = reviewRepository.getReviews(connection);
                 for (Review review : reviewList) {
                     User user = userRepository.getById(connection, review.getUser().getId());
-                    if (user == null) continue;     // Skip to show reviews of deleted users
                     UserDTO userDTO = userConverter.toDTO(user);
                     ReviewDTO reviewDTO = reviewConverter.toDTO(review);
                     reviewDTO.setUserDTO(userDTO);
@@ -74,7 +73,7 @@ public class ReviewServiceImpl implements ReviewService {
         try (Connection connection = reviewRepository.getConnection()) {
             try {
                 connection.setAutoCommit(false);
-                reviewRepository.deleteReviews(connection, ids);
+                reviewRepository.deleteReviews(connection, ids, "id");
                 connection.commit();
             } catch (SQLException e) {
                 connection.rollback();

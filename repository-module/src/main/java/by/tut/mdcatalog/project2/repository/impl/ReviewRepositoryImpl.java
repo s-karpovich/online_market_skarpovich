@@ -13,8 +13,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class ReviewRepositoryImpl extends GenericRepositoryImpl implements Revie
 
     @Override
     public List<Review> getReviews(Connection connection) {
-        String sqlQuery = "SELECT * FROM review WHERE deleted=false";  // Read excepting deleted
+        String sqlQuery = "SELECT * FROM review WHERE deleted=false";  // Get all excepting deleted
         List<Review> reviewList = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -41,11 +39,14 @@ public class ReviewRepositoryImpl extends GenericRepositoryImpl implements Revie
     }
 
     @Override
-    public void deleteReviews(Connection connection, int[] ids) {
-        StringBuilder sqlQuery = new StringBuilder("UPDATE review SET deleted=true WHERE id IN (");
+    public void deleteReviews(Connection connection, int[] ids, String column) {
+        StringBuilder sqlQuery = new StringBuilder("UPDATE review SET deleted=true WHERE + " + column + " IN (");
         for (int i = 0; i < ids.length; i++) {
-            if (i != ids.length-1) sqlQuery.append(ids[i]).append(',');
-            else  sqlQuery.append(ids[i]).append(')');
+            if (i != ids.length - 1) {
+                sqlQuery.append(ids[i]).append(',');
+            } else {
+                sqlQuery.append(ids[i]).append(')');
+            }
         }
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString())) {
             preparedStatement.executeUpdate();
@@ -57,15 +58,11 @@ public class ReviewRepositoryImpl extends GenericRepositoryImpl implements Revie
         }
     }
 
+
     private Review buildReview(ResultSet resultSet) throws SQLException {
         Review review = new Review();
         review.setId(resultSet.getLong("id"));
-        try {
-            review.setDate(new SimpleDateFormat("dd/MM/yyyy").parse(resultSet.getString("date")));
-        } catch (ParseException e) {
-            logger.error(e.getMessage(), e);
-            throw new DataBaseException(String.format(RepositoryErrors.DATABASE_QUERY_ERROR, e.getMessage()), e);
-        }
+        review.setDate(resultSet.getDate("date"));
         User user = new User();
         user.setId(resultSet.getLong("user_id"));
         review.setUser(user);

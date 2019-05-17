@@ -1,5 +1,6 @@
 package by.tut.mdcatalog.project2.web.controller;
 
+
 import by.tut.mdcatalog.project2.service.model.RoleDTOUpdated;
 import by.tut.mdcatalog.project2.web.app.SpringBootModuleApp;
 import org.junit.Assert;
@@ -17,10 +18,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.context.WebApplicationContext;
 
+import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.ADMIN_ROLE_NAME;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SpringBootModuleApp.class)
@@ -60,7 +63,7 @@ public class UserControllerIntegrationTest {
                 .andExpect(redirectedUrl("/login?error"));
     }
 
-    @WithMockUser(authorities = "ADMINISTRATOR")
+    @WithMockUser(authorities = {ADMIN_ROLE_NAME})
     @Test
     public void shouldShowUsersPageforAdmin() throws Exception {
         mvc.perform(get("/users"))
@@ -68,7 +71,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser(authorities = {"ADMINISTRATOR"})
+    @WithMockUser(authorities = {ADMIN_ROLE_NAME})
     public void shouldUpdateUserRole() {
         RoleDTOUpdated roleDTOUpdated = new RoleDTOUpdated();
         roleDTOUpdated.setId(3L);
@@ -79,14 +82,14 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser(authorities = {"ADMINISTRATOR"})
+    @WithMockUser(authorities = {ADMIN_ROLE_NAME})
     public void shouldResetPassword() {
         String url = userController.resetPassword(2L);
         Assert.assertEquals("redirect:/success", url);
     }
 
     @Test
-    @WithMockUser(authorities = {"ADMINISTRATOR"})
+    @WithMockUser(authorities = {ADMIN_ROLE_NAME})
     public void shouldDeleteUsers() {
         int[] ids = {2, 3};
         String url = userController.deleteUsers(ids);
