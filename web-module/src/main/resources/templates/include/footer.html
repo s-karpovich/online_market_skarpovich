@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+</head>
+<body>
+<div style="padding-top:50px;" th:fragment="footer">
+
+    <footer class="bd-footer text-muted">
+        <nav class="navbar fixed-bottom navbar-light bg-light">
+
+            <div align="center">© 2019 Online Market. All rights reserved.</div>
+            <div> <span sec:authorize="isAuthenticated()">
+                | Logged user: <span sec:authentication="name"></span> |
+                Role: <span sec:authentication="principal.authorities"></span> |
+                <a th:href="@{/logout}">Log Out</a>
+           </span></div>
+
+        </nav>
+    </footer>
+
+</div>
+</body>
+</html>
