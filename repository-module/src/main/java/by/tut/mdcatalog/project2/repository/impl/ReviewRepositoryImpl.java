@@ -39,8 +39,8 @@ public class ReviewRepositoryImpl extends GenericRepositoryImpl implements Revie
     }
 
     @Override
-    public void deleteReviews(Connection connection, int[] ids, String column) {
-        StringBuilder sqlQuery = new StringBuilder("UPDATE review SET deleted=true WHERE + " + column + " IN (");
+    public void deleteReviews(Connection connection, int[] ids) {
+        StringBuilder sqlQuery = new StringBuilder("UPDATE review SET deleted=true WHERE user_id IN (");
         for (int i = 0; i < ids.length; i++) {
             if (i != ids.length - 1) {
                 sqlQuery.append(ids[i]).append(',');

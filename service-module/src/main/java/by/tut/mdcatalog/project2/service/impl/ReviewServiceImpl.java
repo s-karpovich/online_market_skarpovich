@@ -73,7 +73,7 @@ public class ReviewServiceImpl implements ReviewService {
         try (Connection connection = reviewRepository.getConnection()) {
             try {
                 connection.setAutoCommit(false);
-                reviewRepository.deleteReviews(connection, ids, "id");
+                reviewRepository.deleteReviews(connection, ids);
                 connection.commit();
             } catch (SQLException e) {
                 connection.rollback();
