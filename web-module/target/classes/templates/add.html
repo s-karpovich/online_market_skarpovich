@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+    <div th:replace="include/header :: header-css"></div>
+</head>
+<div class="container-fluid">
+    <div th:replace="include/header :: header"></div>
+    <h3>Add User</h3>
+
+    <form class="form-horizontal" action="#" th:action="@{/users/add}" th:object="${userDTO}" method="post">
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="username">Email address</label>
+                <input th:name="username" type="email" class="form-control mb-4" id="username"
+                       aria-describedby="emailHelp"
+                       placeholder="Enter email" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4"><label for="password">Password</label>
+                <input th:name="password" type="password" class="form-control mb-4" id="password"
+                       placeholder="Password"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <input th:name="firstname" type="textinput" class="form-control mb-4" id="firstname"
+                       placeholder="First Name" required /></div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <input th:name="middlename" type="textinput" class="form-control mb-4" id="middlename"
+                       placeholder="Middle Name" /></div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <input th:name="surname" type="textinput" class="form-control mb-4" id="surname" placeholder="Surname" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <td>
+                    <select class="form-control mb-4" th:name="role" required>
+                        <option value="">Choose User Role</option>
+                        <option value="ADMINISTRATOR">ADMINISTRATOR</option>
+                        <option value="SALE">SALE</option>
+                        <option value="CUSTOMER">CUSTOMER</option>
+                        <option value="SECURE API">SECURE API</option>
+                    </select>
+                </td>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                Request has not been completed!
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="alert alert-success" role="alert" th:if="${param.success}">
+                User has been successfully added!
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary btn-lg disabled">Add User</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div th:replace="include/footer :: footer"></div>
+
+</body>
+</html>
