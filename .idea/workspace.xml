@@ -2,11 +2,183 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58848e01-90ae-4a18-bab0-742c0e7e9bc2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_9_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jayway_jsonpath_json_path_2_4_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vaadin_external_google_android_json_0_0_20131108_vaadin1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_3_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_annotation_javax_annotation_api_1_3_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_validation_validation_api_2_0_1_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_15.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_9_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_9_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_accessors_smart_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_minidev_json_smart_2_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_11_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_11_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_assertj_assertj_core_3_11_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_library_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_16_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_3_2_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_liquibase_liquibase_core_3_6_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_2_23_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_0_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_skyscreamer_jsonassert_1_5_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_26.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_26.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_devtools_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_1_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_config_5_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_core_5_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_test_5_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_web_5_1_5_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_extras_thymeleaf_extras_java8time_3_0_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_extras_thymeleaf_extras_springsecurity5_3_0_4_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_11_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_11_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xmlunit_xmlunit_core_2_6_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_23.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/repository-module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/src/main/java/by/tut/mdcatalog/project2/repository/ArticleRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/src/main/java/by/tut/mdcatalog/project2/repository/CommentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/src/main/java/by/tut/mdcatalog/project2/repository/impl/ArticleRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/src/main/java/by/tut/mdcatalog/project2/repository/impl/CommentRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/src/main/java/by/tut/mdcatalog/project2/repository/model/Article.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/src/main/java/by/tut/mdcatalog/project2/repository/model/Comment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/META-INF/repository-module.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/ArticleRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/CommentRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/GenericRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/ReviewRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/RoleRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/UserRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/config/LiquiBaseConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/constant/RepositoryErrors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/enums/ItemStatusEnum.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/exception/DataBaseException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/impl/ArticleRepositoryImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/impl/CommentRepositoryImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/impl/GenericRepositoryImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/impl/ReviewRepositoryImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/impl/RoleRepositoryImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/impl/UserRepositoryImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/model/Article.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/model/Comment.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/model/Review.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/model/Role.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/repository-module/target/classes/by/tut/mdcatalog/project2/repository/model/User.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/service-module.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/main/java/by/tut/mdcatalog/project2/service/ArticleService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/main/java/by/tut/mdcatalog/project2/service/CommentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/main/java/by/tut/mdcatalog/project2/service/converter/ArticleConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/main/java/by/tut/mdcatalog/project2/service/converter/CommentConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/main/java/by/tut/mdcatalog/project2/service/converter/impl/ArticleConverterImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/main/java/by/tut/mdcatalog/project2/service/converter/impl/CommentConverterImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/main/java/by/tut/mdcatalog/project2/service/impl/ArticleServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/main/java/by/tut/mdcatalog/project2/service/impl/CommentServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/main/java/by/tut/mdcatalog/project2/service/model/ArticleDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/main/java/by/tut/mdcatalog/project2/service/model/CommentDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/test/java/by/tut/mdcatalog/project2/service/impl/ReviewServiceUnitTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/test/java/by/tut/mdcatalog/project2/service/impl/RoleServiceUnitTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/src/test/java/by/tut/mdcatalog/project2/service/impl/UserServiceUnitTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/META-INF/service-module.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/ArticleService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/CommentService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/PageService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/ReviewService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/RoleService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/UserService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/config/BCryptConfigurer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/constant/PagesConstant.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/constant/ServiceErrors.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/converter/ArticleConverter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/converter/CommentConverter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/converter/ReviewConverter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/converter/RoleConverter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/converter/UserConverter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/converter/impl/ArticleConverterImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/converter/impl/CommentConverterImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/converter/impl/ReviewConverterImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/converter/impl/RoleConverterImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/converter/impl/UserConverterImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/exception/ServiceException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/impl/AppUserDetailsService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/impl/ArticleServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/impl/CommentServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/impl/PageServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/impl/ReviewServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/impl/RoleServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/model/AppUserPrincipal.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/model/ArticleDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/model/CommentDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/model/ReviewDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/model/ReviewsDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/model/RoleDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/model/RoleDTOUpdated.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/classes/by/tut/mdcatalog/project2/service/model/UserDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/test-classes/META-INF/service-module.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/test-classes/by/tut/mdcatalog/project2/service/impl/RoleServiceUnitTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-module/target/test-classes/by/tut/mdcatalog/project2/service/impl/UserServiceUnitTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-module/src/main/java/by/tut/mdcatalog/project2/web/controller/ArticleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-module/src/main/java/by/tut/mdcatalog/project2/web/controller/ProfileController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-module/src/main/resources/migrations/db-changelog.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-module/src/main/resources/templates/article.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-module/src/main/resources/templates/articles.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web-module/src/main/resources/templates/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-module/src/main/java/by/tut/mdcatalog/project2/web/constant/AuthorizationConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-module/src/main/java/by/tut/mdcatalog/project2/web/constant/AuthorizationConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-module/src/main/java/by/tut/mdcatalog/project2/web/security/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-module/src/main/java/by/tut/mdcatalog/project2/web/security/config/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-module/src/main/java/by/tut/mdcatalog/project2/web/security/handler/AppUrlAuthenticationSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/web-module/src/main/java/by/tut/mdcatalog/project2/web/security/handler/AppUrlAuthenticationSuccessHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web-module/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/web-module/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web-module/src/main/resources/migrations/db-changelog.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/web-module/src/main/resources/templates/include/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/web-module/src/main/resources/templates/include/header.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/web-module/target/" />
@@ -657,7 +829,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558182684724" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558183233498" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../temppp/online_market_drudenko-develop" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -823,7 +995,7 @@
       <workItem from="1557681608410" duration="20684000" />
       <workItem from="1557906550950" duration="19508000" />
       <workItem from="1557935518818" duration="45221000" />
-      <workItem from="1558093212942" duration="22285000" />
+      <workItem from="1558093212942" duration="22692000" />
     </task>
     <servers />
   </component>
@@ -860,7 +1032,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133966000" />
+    <option name="totallyTimeSpent" value="134373000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
