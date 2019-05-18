@@ -14,17 +14,18 @@
         <thead class="thead-light">
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Date</th>
-            <th scope="col">Name</th>
-            <th scope="col">Author</th>
-            <th scope="col">Article</th>
+            <th scope="col">UserName</th>
+            <th scope="col">First Name</th>
+            <th scope="col">SurName</th>
         </tr>
         </thead>
         <tbody>
         <tr>
+
             <td th:text="${user.id}">...</td>
             <td th:text="${user.username}">...</td>
-            <td th:text="${article.name}">...</td>
+            <td th:text="${user.firstname}">...</td>
+            <td th:text="${user.surname}">...</td>
         </tr>
         </tbody>
     </table>
