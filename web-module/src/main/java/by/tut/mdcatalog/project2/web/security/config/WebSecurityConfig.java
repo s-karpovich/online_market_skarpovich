@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/add/**", "/users/**", "/reviews/**")
                 .hasAuthority(ADMIN_ROLE_NAME).expressionHandler(new DefaultWebSecurityExpressionHandler())
-                .antMatchers("/items", "/profile")
+                .antMatchers( "/profile")
                 .hasAuthority(USER_ROLE_NAME)
                 .antMatchers("/", "/login", "/about", "/messages/**", "/articles")
                 .permitAll()

@@ -57,7 +57,7 @@ public class CommentServiceImpl implements CommentService {
             try {
                 connection.setAutoCommit(false);
                 List<CommentDTO> commentDTOList = new ArrayList<>();
-                List<Comment> commentList = commentRepository.getByArticleId(connection, id);
+                List<Comment> commentList = commentRepository.getByUserId(connection, id);
                 Article article = articleRepository.getById(connection, id);
                 ArticleDTO articleDTO = articleConverter.toDTO(article);
                 for (Comment comment : commentList) {

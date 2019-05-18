@@ -111,6 +111,26 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="2.4" author="mdcatalog@tut.by">
+        <createTable tableName="contact">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="address" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_contact_user" references="user(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
     <changeSet id="3" author="mdcatalog@tut.by">
         <insert tableName="role">
             <column name="name" value="ADMINISTRATOR"/>
@@ -252,6 +272,15 @@
             <column name="article_id" valueNumeric="2"/>
             <column name="message" value="I think this article is stupid enough"/>
             <column name="date" valueDate="2019-05-17"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="8.1" author="mdcatalog@tut.by">
+        <insert tableName="contact">
+            <column name="user_id" valueNumeric="2"/>
+            <column name="phone" value="333-555-777"/>
+            <column name="address" value="New York Street 2"/>
             <column name="deleted" valueBoolean="false"/>
         </insert>
     </changeSet>

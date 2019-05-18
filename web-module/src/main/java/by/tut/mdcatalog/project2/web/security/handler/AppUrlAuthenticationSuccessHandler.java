@@ -62,7 +62,7 @@ public class AppUrlAuthenticationSuccessHandler implements AuthenticationSuccess
             }
         }
         if (isCustomer) {
-            return "/items";
+            return "/profile";
         } else if (isAdministrator) {
             return "/users";
         } else {

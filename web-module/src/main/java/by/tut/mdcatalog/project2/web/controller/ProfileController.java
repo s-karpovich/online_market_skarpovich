@@ -1,7 +1,9 @@
 package by.tut.mdcatalog.project2.web.controller;
 
+import by.tut.mdcatalog.project2.service.ContactService;
 import by.tut.mdcatalog.project2.service.RoleService;
 import by.tut.mdcatalog.project2.service.UserService;
+import by.tut.mdcatalog.project2.service.model.ContactDTO;
 import by.tut.mdcatalog.project2.service.model.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,18 +15,22 @@ import java.security.Principal;
 @Controller
 public class ProfileController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
     private final UserService userService;
+    private final ContactService contactService;
 
-    public ProfileController(UserService userService) {
-
+    public ProfileController(UserService userService,
+                             ContactService contactService) {
         this.userService = userService;
+        this.contactService = contactService;
     }
 
     @GetMapping("/profile")
     public String getUser(ModelMap model, Principal principal) {
-        UserDTO userDTO = userService.getByUsername(principal.getName());
+        String username = principal.getName();
+        UserDTO userDTO = userService.getByUsername(username);
+        ContactDTO contactDTO = contactService.getByUserId(userDTO.getId());
         model.addAttribute("user", userDTO);
+        model.addAttribute("contact", contactDTO);
         return "profile";
     }
 }

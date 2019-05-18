@@ -23,7 +23,7 @@ public class CommentRepositoryImpl extends GenericRepositoryImpl implements Comm
     private static final Logger logger = LoggerFactory.getLogger(CommentRepositoryImpl.class);
 
     @Override
-    public List<Comment> getByArticleId(Connection connection, Long id) {
+    public List<Comment> getByUserId(Connection connection, Long id) {
         String sqlQuery = "SELECT * FROM comment WHERE article_id=? AND deleted=false ORDER BY date DESC";  // Get all excepting deleted
         List<Comment> comments = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {

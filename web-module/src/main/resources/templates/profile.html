@@ -17,15 +17,18 @@
             <th scope="col">UserName</th>
             <th scope="col">First Name</th>
             <th scope="col">SurName</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-
             <td th:text="${user.id}">...</td>
             <td th:text="${user.username}">...</td>
             <td th:text="${user.firstname}">...</td>
             <td th:text="${user.surname}">...</td>
+            <td th:text="${contact.phone}">...</td>
+            <td th:text="${contact.address}">...</td>
         </tr>
         </tbody>
     </table>
