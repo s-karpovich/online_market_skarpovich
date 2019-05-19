@@ -12,4 +12,6 @@ public interface ArticleRepository extends GenericRepository {
     Article getById(Connection connection, Long id);
 
     void add(Connection connection, Article article);
+
+    void delete(Connection connection, Long id);
 }

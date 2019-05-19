@@ -18,7 +18,7 @@ import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.ADMI
 import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.USER_ROLE_NAME;
 
 @Configuration
-@Order(1)
+@Order(2)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;

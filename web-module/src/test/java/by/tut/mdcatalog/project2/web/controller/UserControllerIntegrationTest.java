@@ -1,6 +1,5 @@
 package by.tut.mdcatalog.project2.web.controller;
 
-
 import by.tut.mdcatalog.project2.service.model.RoleDTOUpdated;
 import by.tut.mdcatalog.project2.web.app.SpringBootModuleApp;
 import org.junit.Assert;
@@ -31,9 +30,12 @@ public class UserControllerIntegrationTest {
 
     @Autowired
     private WebApplicationContext context;
+
     private MockMvc mvc;
+
     @Autowired
     private UserController userController;
+
     @Mock
     BindingResult bindingResult;
 

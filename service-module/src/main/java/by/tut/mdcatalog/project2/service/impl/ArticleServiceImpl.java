@@ -91,7 +91,6 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
-
     @Override
     public void add(ArticleDTO articleDTO) {
         Article article = articleConverter.fromDTO(articleDTO);
@@ -100,12 +99,32 @@ public class ArticleServiceImpl implements ArticleService {
                 connection.setAutoCommit(false);
                 articleRepository.add(connection, article);
                 connection.commit();
+                logger.info("Article added (ID): {}", articleDTO.getId());
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
                 throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
             }
         } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
+        }
+    }
+
+    public void delete(Long id) {
+        try (Connection connection = articleRepository.getConnection()) {
+            try {
+                connection.setAutoCommit(false);
+                articleRepository.delete(connection, id);
+                connection.commit();
+                logger.info("Article deleted (ID): {}", id);
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(), e);
+                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
+            }
+        } catch (
+                SQLException e) {
             logger.error(e.getMessage(), e);
             throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
         }

@@ -76,6 +76,18 @@ public class ArticleRepositoryImpl extends GenericRepositoryImpl implements Arti
         }
     }
 
+    @Override
+    public void delete (Connection connection, Long id) {
+        String sqlQuery = "UPDATE article SET deleted=true WHERE id=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.executeUpdate();
+            logger.info("Article deleted (ID):{}", id);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DataBaseException(String.format(RepositoryErrors.DATABASE_QUERY_ERROR, sqlQuery), e);
+        }
+    }
+
     private Article buildArticle(ResultSet resultSet) throws SQLException {
         Article Article = new Article();
         Article.setId(resultSet.getLong("id"));
