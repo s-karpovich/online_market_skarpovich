@@ -8,4 +8,6 @@ import java.sql.Connection;
 public interface ContactRepository extends GenericRepository {
 
     Contact getByUserId(Connection connection, Long id);
+
+    void update(Connection connection, Contact contact);
 }

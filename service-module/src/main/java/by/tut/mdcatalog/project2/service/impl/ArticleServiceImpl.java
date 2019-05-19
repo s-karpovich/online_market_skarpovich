@@ -28,19 +28,16 @@ public class ArticleServiceImpl implements ArticleService {
     private final ArticleConverter articleConverter;
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final UserConverter userConverter;
 
     public ArticleServiceImpl(
-                               ArticleConverter articleConverter,
-                               ArticleRepository articleRepository,
-                               UserRepository userRepository,
-                               RoleRepository roleRepository,
-                               UserConverter userConverter) {
+            ArticleConverter articleConverter,
+            ArticleRepository articleRepository,
+            UserRepository userRepository,
+            UserConverter userConverter) {
         this.articleConverter = articleConverter;
         this.articleRepository = articleRepository;
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.userConverter = userConverter;
     }
 
@@ -83,6 +80,26 @@ public class ArticleServiceImpl implements ArticleService {
                 articleDTO.setUserDTO(userDTO);
                 connection.commit();
                 return articleDTO;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(), e);
+                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
+        }
+    }
+
+
+    @Override
+    public void add(ArticleDTO articleDTO) {
+        Article article = articleConverter.fromDTO(articleDTO);
+        try (Connection connection = articleRepository.getConnection()) {
+            try {
+                connection.setAutoCommit(false);
+                articleRepository.add(connection, article);
+                connection.commit();
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);

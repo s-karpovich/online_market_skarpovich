@@ -28,7 +28,7 @@ public class CommentConverterImpl implements CommentConverter {
         commentDTO.setId(comment.getId());
         commentDTO.setDate(comment.getDate());
         commentDTO.setUserDTO(userConverter.toDTO(comment.getUser()));
-//        commentDTO.setArticleDTO(articleConverter.toDTO(comment.getArticle()));
+//      commentDTO.setArticleDTO(articleConverter.toDTO(comment.getArticle()));
         commentDTO.setMessage(comment.getMessage());
         commentDTO.setDeleted(comment.getDeleted());
         return commentDTO;

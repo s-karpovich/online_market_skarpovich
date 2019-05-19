@@ -9,4 +9,6 @@ public interface ArticleService {
     List<ArticleDTO> getArticles();
 
     ArticleDTO getById(Long id);
+
+    void add(ArticleDTO articleDTO);
 }

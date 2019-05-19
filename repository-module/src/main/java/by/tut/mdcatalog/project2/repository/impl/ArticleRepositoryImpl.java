@@ -10,9 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +57,24 @@ public class ArticleRepositoryImpl extends GenericRepositoryImpl implements Arti
         return null;
     }
 
+    @Override
+    public void add(Connection connection, Article article) {
+        String sqlQuery = "INSERT INTO article (name,message,date,deleted,user_id) VALUES (?,?,?,?,?))";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                sqlQuery,
+                Statement.RETURN_GENERATED_KEYS
+        )) {
+            preparedStatement.setString(1, article.getName());
+            preparedStatement.setString(2, article.getMessage());
+            preparedStatement.setDate (3, new Date(article.getDate().getTime()));
+            preparedStatement.setBoolean(4, false);
+            preparedStatement.setLong(5, article.getUser().getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DataBaseException(String.format(RepositoryErrors.DATABASE_QUERY_ERROR, sqlQuery), e);
+        }
+    }
 
     private Article buildArticle(ResultSet resultSet) throws SQLException {
         Article Article = new Article();

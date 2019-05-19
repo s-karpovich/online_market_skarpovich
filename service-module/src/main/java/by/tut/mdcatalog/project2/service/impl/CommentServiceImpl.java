@@ -32,7 +32,6 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final UserConverter userConverter;
     private final UserRepository userRepository;
-
     private final ArticleRepository articleRepository;
     private final ArticleConverter articleConverter;
 

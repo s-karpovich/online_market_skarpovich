@@ -85,7 +85,7 @@ public class UserRepositoryImpl extends GenericRepositoryImpl implements UserRep
             preparedStatement.setString(3, user.getFirstname());
             preparedStatement.setString(4, user.getMiddlename());
             preparedStatement.setString(5, user.getSurname());
-            preparedStatement.setBoolean(6, user.getDeleted());
+            preparedStatement.setBoolean(6, false);
             preparedStatement.setString(7, user.getRole().getName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -117,17 +117,31 @@ public class UserRepositoryImpl extends GenericRepositoryImpl implements UserRep
         }
         String userSql = "UPDATE user SET deleted=true WHERE id IN" + inQuery;
         String reviewSql = "UPDATE review SET deleted=true WHERE user_id IN" + inQuery;
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(userSql);
-             PreparedStatement preparedStatement2 = connection.prepareStatement(reviewSql))
-        {
-            preparedStatement.executeUpdate();
-            preparedStatement2.executeUpdate();
-
+        try (PreparedStatement preparedStatementUser = connection.prepareStatement(userSql);
+             PreparedStatement preparedStatementReview = connection.prepareStatement(reviewSql)) {
+            preparedStatementUser.executeUpdate();
+            preparedStatementReview.executeUpdate();
             logger.info("Users deleted (IDs):{}", ids);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
             throw new DataBaseException(String.format(RepositoryErrors.DATABASE_QUERY_ERROR, userSql, reviewSql), e);
+        }
+    }
+
+    @Override
+    public void update(Connection connection, User user) {
+        String sqlQuery = "UPDATE user SET firstname =?, surname=?, password=? WHERE id=" + user.getId();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                sqlQuery,
+                Statement.RETURN_GENERATED_KEYS
+        )) {
+            preparedStatement.setString(1, user.getFirstname());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DataBaseException(String.format(RepositoryErrors.DATABASE_QUERY_ERROR, sqlQuery), e);
         }
     }
 

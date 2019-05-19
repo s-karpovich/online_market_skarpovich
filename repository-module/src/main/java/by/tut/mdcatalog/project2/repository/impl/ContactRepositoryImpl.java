@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 @Repository
 public class ContactRepositoryImpl extends GenericRepositoryImpl implements ContactRepository {
@@ -35,6 +36,22 @@ public class ContactRepositoryImpl extends GenericRepositoryImpl implements Cont
             throw new DataBaseException(String.format(RepositoryErrors.DATABASE_QUERY_ERROR, sqlQuery), e);
         }
         return contact;
+    }
+
+    @Override
+    public void update(Connection connection, Contact contact) {
+        String sqlQuery = "UPDATE contact SET phone=?, address=? WHERE user_id=" + contact.getUser().getId();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(
+                sqlQuery,
+                Statement.RETURN_GENERATED_KEYS
+        )) {
+            preparedStatement.setString(1, contact.getPhone());
+            preparedStatement.setString(2, contact.getAddress());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new DataBaseException(String.format(RepositoryErrors.DATABASE_QUERY_ERROR, sqlQuery), e);
+        }
     }
 
     private Contact buildContact(ResultSet resultSet) throws SQLException {
