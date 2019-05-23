@@ -40,7 +40,7 @@ public class ContactRepositoryImpl extends GenericRepositoryImpl implements Cont
 
     @Override
     public void update(Connection connection, Contact contact) {
-        String sqlQuery = "UPDATE contact SET phone=?, address=? WHERE user_id=?" + contact.getUser().getId();
+        String sqlQuery = "UPDATE contact SET phone=?, address=? WHERE user_id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             preparedStatement.setString(1, contact.getPhone());
             preparedStatement.setString(2, contact.getAddress());
