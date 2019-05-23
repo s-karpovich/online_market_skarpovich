@@ -1,16 +1,19 @@
 package by.tut.mdcatalog.project2.service.impl;
 
-import by.tut.mdcatalog.project2.repository.ReviewRepository;
+import by.tut.mdcatalog.project2.repository.ContactRepository;
 import by.tut.mdcatalog.project2.repository.RoleRepository;
 import by.tut.mdcatalog.project2.repository.UserRepository;
+import by.tut.mdcatalog.project2.repository.model.Contact;
 import by.tut.mdcatalog.project2.repository.model.Role;
 import by.tut.mdcatalog.project2.repository.model.User;
 import by.tut.mdcatalog.project2.service.constant.ServiceErrors;
+import by.tut.mdcatalog.project2.service.converter.ContactConverter;
 import by.tut.mdcatalog.project2.service.converter.RoleConverter;
 import by.tut.mdcatalog.project2.service.converter.UserConverter;
 import by.tut.mdcatalog.project2.service.exception.ServiceException;
-import by.tut.mdcatalog.project2.service.model.RoleDTO;
 import by.tut.mdcatalog.project2.service.UserService;
+import by.tut.mdcatalog.project2.service.model.ContactDTO;
+import by.tut.mdcatalog.project2.service.model.RoleDTO;
 import by.tut.mdcatalog.project2.service.model.RoleDTOUpdated;
 import by.tut.mdcatalog.project2.service.model.UserDTO;
 import org.slf4j.Logger;
@@ -32,22 +35,26 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder serviceEncoder;
     private final UserConverter userConverter;
     private final UserRepository userRepository;
-    private final ReviewRepository reviewRepository;
     private final RoleRepository roleRepository;
     private final RoleConverter roleConverter;
+    private final ContactConverter contactConverter;
+    private final ContactRepository contactRepository;
 
     public UserServiceImpl(PasswordEncoder serviceEncoder,
                            UserConverter userConverter,
                            UserRepository userRepository,
-                           ReviewRepository reviewRepository,
                            RoleRepository roleRepository,
-                           RoleConverter roleConverter) {
+                           RoleConverter roleConverter,
+                           ContactConverter contactConverter,
+                           ContactRepository contactRepository
+    ) {
         this.serviceEncoder = serviceEncoder;
         this.userConverter = userConverter;
         this.userRepository = userRepository;
-        this.reviewRepository = reviewRepository;
         this.roleRepository = roleRepository;
         this.roleConverter = roleConverter;
+        this.contactConverter = contactConverter;
+        this.contactRepository = contactRepository;
     }
 
     @Override
@@ -126,6 +133,28 @@ public class UserServiceImpl implements UserService {
                 userRepository.updateUserRole(connection, roleDTOUpdated.getRoleId(), roleDTOUpdated.getId());
                 logger.info("User role successfully updated , user id{} , new role id {}",
                         roleDTOUpdated.getId(), roleDTOUpdated.getRoleId());
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(), e);
+                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
+        }
+    }
+
+    @Override
+    public void updateProfile(UserDTO userDTO, ContactDTO contactDTO) {
+        try (Connection connection = userRepository.getConnection()) {
+            connection.setAutoCommit(false);
+            try {
+                User user = userConverter.fromDTO(userDTO);
+                Contact contact = contactConverter.fromDTO(contactDTO);
+                userRepository.update(connection, user);
+                contactRepository.update(connection, contact);
+                logger.info("User Profile successfully updated , user id{}", userDTO.getId());
                 connection.commit();
             } catch (SQLException e) {
                 connection.rollback();

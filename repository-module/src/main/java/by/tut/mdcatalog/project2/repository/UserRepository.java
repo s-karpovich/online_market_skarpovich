@@ -17,6 +17,8 @@ public interface UserRepository extends GenericRepository {
 
     void updateUserRole(Connection connection, Long roleId, Long userId);
 
+    void update(Connection connection, User user);
+
     void deleteUsers(Connection connection, int[] ids);
 
     void resetPassword(Connection connection, String encodedPassword, Long id);

@@ -15,9 +15,10 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.ADMIN_ROLE_NAME;
+import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.USER_ROLE_NAME;
 
 @Configuration
-@Order(1)
+@Order(2)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
@@ -39,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/add/**", "/users/**", "/reviews/**")
                 .hasAuthority(ADMIN_ROLE_NAME).expressionHandler(new DefaultWebSecurityExpressionHandler())
+                .antMatchers( "/profile", "/articles/**")
+                .hasAuthority(USER_ROLE_NAME)
                 .antMatchers("/", "/login", "/about", "/messages/**")
                 .permitAll()
                 .and()

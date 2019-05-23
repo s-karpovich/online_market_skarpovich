@@ -34,14 +34,17 @@
                 </td>
                 <td th:text="${user.id}">...</td>
                 <td th:text="${user.username}">...</td>
-                <td><form method="post" th:action="@{/users/reset}">
-                    <input hidden value="#" th:attr="value=${user.id}" th:name="id"/>
-                    <button class="btn btn-light btn-xs">Reset</button>
-                </form></td>
+                <td>
+                    <form method="post" th:action="@{/users/reset}">
+                        <input hidden value="#" th:attr="value=${user.id}" th:name="id"/>
+                        <button class="btn btn-light btn-xs">Reset</button>
+                    </form>
+                </td>
 
                 <td th:text="${user.firstname} + ' ' + ${user.middlename}+ ' ' + ${user.surname}">...</td>
 
-                <td><form method="post" th:action="@{/users/update}" th:object="${RoleDTOUpdatedObject}">
+                <td>
+                    <form method="post" th:action="@{/users/update}" th:object="${RoleDTOUpdatedObject}">
 
                         <th:block th:if="${user.id ==1}">
                             <div th:text="${user.role}">...</div>
@@ -63,7 +66,8 @@
                             &nbsp;
                             <button class="btn btn-light btn-xs">Update</button>
                         </th:block>
-                    </form></td>
+                    </form>
+                </td>
 
             </tr>
         </th:block>

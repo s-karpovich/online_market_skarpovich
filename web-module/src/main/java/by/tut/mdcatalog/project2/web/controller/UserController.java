@@ -65,10 +65,10 @@ public class UserController {
 
     @PostMapping("/users/reset")
     public String resetPassword(@RequestParam(value = "id", required = false) Long id) {
-            userService.resetPassword(id);
-            logger.info("User password reset (ID):{}", id);
-            return "redirect:/success";
-        }
+        userService.resetPassword(id);
+        logger.info("User password reset (ID):{}", id);
+        return "redirect:/success";
+    }
 
 
     @PostMapping("/users/delete")

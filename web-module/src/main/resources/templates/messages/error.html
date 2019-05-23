@@ -7,21 +7,22 @@
 
 <body>
 <div class="container-fluid">
-<div th:replace="include/header :: header"></div>
+    <div th:replace="include/header :: header"></div>
     <h3>Error</h3>
-<p>
+    <p>
     <div class="col-md-4">
         <div class="alert alert-danger" role="alert">
-           Your action has not been completed! <a href="javascript:history.back()">Return Back</a>
-        </div></div>
-</p>
-<header>
+            Your action has not been completed! <a href="javascript:history.back()">Return Back</a>
+        </div>
+    </div>
+    </p>
+    <header>
     <span sec:authorize="isAuthenticated()">
         Logged user : <span sec:authentication="name"></span>   |
         Roles: <span sec:authentication="principal.authorities"></span>   |
         <a th:href="@{/logout}">Logout</a>
     </span>
-</header>
+    </header>
 </div>
 <div th:replace="include/footer :: footer"></div>
 </body>

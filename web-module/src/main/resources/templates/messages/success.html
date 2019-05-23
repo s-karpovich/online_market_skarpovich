@@ -16,13 +16,6 @@
         </div>
 </div>
 </p>
-<header>
-    <span sec:authorize="isAuthenticated()">
-        Logged user : <span sec:authentication="name"></span>   |
-        Roles: <span sec:authentication="principal.authorities"></span>   |
-        <a th:href="@{/logout}">Logout</a>
-    </span>
-</header>
 </div>
 <div th:replace="include/footer :: footer"></div>
 </body>

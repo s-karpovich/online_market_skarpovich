@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:replace="include/header :: header-css"></div>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div th:replace="include/header :: header"></div>
+    <h3>Profile</h3>
+
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">UserName</th>
+            <th scope="col">First Name</th>
+            <th scope="col">SurName</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${user.id}">...</td>
+            <td th:text="${user.username}">...</td>
+            <td th:text="${user.firstname}">...</td>
+            <td th:text="${user.surname}">...</td>
+            <td th:text="${contact.phone}">...</td>
+            <td th:text="${contact.address}">...</td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Edit Profile</h3>
+    <form class="form-horizontal" action="#" th:action="@{/profile/update}" method="post">
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="password">First Name</label>
+                <input th:name="firstname" class="form-control mb-4" id="firstname"
+                       th:value="${user.firstname}" required/></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="password">Surname</label>
+                <input th:name="surname" class="form-control mb-4" id="surname"
+                       th:value="${user.surname}" required/></div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="password">Phone</label>
+                <input th:name="phone" class="form-control mb-4" id="phone"
+                       th:value="${contact.phone}"/></div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="password">Address</label>
+                <input th:name="address" class="form-control mb-4" id="address"
+                       th:value="${contact.address}"/></div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="password">Password</label>
+                <input th:name="password" type="password" class="form-control mb-4" id="password"
+                       th:placeholder="Password" required/></div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                Request has not been completed!
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="alert alert-success" role="alert" th:if="${param.success}">
+                Data has been successfully changed!
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary btn-lg disabled">Update</button>
+            </div>
+        </div>
+    </form>
+    <div th:replace="include/footer :: footer"></div>
+</div>
+</body>
+</html>

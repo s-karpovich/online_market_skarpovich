@@ -88,6 +88,49 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="2.3" author="mdcatalog@tut.by">
+        <createTable tableName="comment">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="message" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_comment_user" references="user(id)"/>
+            </column>
+            <column name="article_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_comment_article" references="article(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2.4" author="mdcatalog@tut.by">
+        <createTable tableName="contact">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="address" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_contact_user" references="user(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
     <changeSet id="3" author="mdcatalog@tut.by">
         <insert tableName="role">
             <column name="name" value="ADMINISTRATOR"/>
@@ -118,34 +161,22 @@
     <changeSet id="4.2" author="mdcatalog@tut.by">
         <insert tableName="user">
             <column name="username" value="user@email.com"/>
-            <column name="password" value="$2a$10$l6wRkqfxG9xtKLDBunBtt.xgQ8VTmSKXa4HzRImvB03tGo/xzmuwG"/>
+            <column name="password" value="$2a$12$tDWHFzb42r/VWiEEf9RnxO9p3bjJ1Voqr9Hv06vPMjIR5XraixNwW"/>
             <column name="firstname" value="User"/>
             <column name="middlename" value="Userovich"/>
             <column name="surname" value="Userov"/>
-            <column name="role_id" valueNumeric="1"/>
+            <column name="role_id" valueNumeric="3"/>
         </insert>
     </changeSet>
 
     <changeSet id="4.3" author="mdcatalog@tut.by">
         <insert tableName="user">
-            <column name="username" value="customer@gmail.com"/>
-            <column name="password" value="$2a$10$l6wRkqfxG9xtKLDBunBtt.xgQ8VTmSKXa4HzRImvB03tGo/xzmuwG"/>
-            <column name="firstname" value="User2"/>
-            <column name="middlename" value="Userovich2"/>
-            <column name="surname" value="Userovich"/>
-            <column name="role_id" valueNumeric="3"/>
-        </insert>
-    </changeSet>
-
-
-    <changeSet id="4.4" author="mdcatalog@tut.by">
-        <insert tableName="user">
-            <column name="username" value="customer@gmail.com"/>
-            <column name="password" value="$2a$10$l6wRkqfxG9xtKLDBunBtt.xgQ8VTmSKXa4HzRImvB03tGo/xzmuwG"/>
-            <column name="firstname" value="Customer1"/>
-            <column name="middlename" value="Customerovcih1"/>
-            <column name="surname" value="Customerov1"/>
-            <column name="role_id" valueNumeric="3"/>
+            <column name="username" value="rest@email.com"/>
+            <column name="password" value="$2a$12$tDWHFzb42r/VWiEEf9RnxO9p3bjJ1Voqr9Hv06vPMjIR5XraixNwW"/>
+            <column name="firstname" value="User3"/>
+            <column name="middlename" value="Apich3"/>
+            <column name="surname" value="Userov3"/>
+            <column name="role_id" valueNumeric="4"/>
         </insert>
     </changeSet>
 
@@ -235,4 +266,34 @@
             <column name="deleted" valueBoolean="false"/>
         </insert>
     </changeSet>
+
+    <changeSet id="7.1" author="mdcatalog@tut.by">
+    <insert tableName="comment">
+        <column name="user_id" valueNumeric="2"/>
+        <column name="article_id" valueNumeric="2"/>
+        <column name="message" value="It's a bad article. My comment"/>
+        <column name="date" valueDate="2019-05-06"/>
+        <column name="deleted" valueBoolean="false"/>
+    </insert>
+    </changeSet>
+
+    <changeSet id="7.2" author="mdcatalog@tut.by">
+        <insert tableName="comment">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="article_id" valueNumeric="2"/>
+            <column name="message" value="I think this article is stupid enough"/>
+            <column name="date" valueDate="2019-05-17"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="8.1" author="mdcatalog@tut.by">
+        <insert tableName="contact">
+            <column name="user_id" valueNumeric="2"/>
+            <column name="phone" value="333-555-777"/>
+            <column name="address" value="New York Street 2"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
 </databaseChangeLog>
