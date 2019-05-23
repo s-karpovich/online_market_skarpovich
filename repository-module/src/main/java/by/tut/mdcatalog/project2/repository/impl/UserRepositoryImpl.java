@@ -75,7 +75,7 @@ public class UserRepositoryImpl extends GenericRepositoryImpl implements UserRep
 
     @Override
     public void add(Connection connection, User user) {
-        String sqlQuery = "INSERT INTO user (username,password,firstname,middlename,surname,deleted,role_id) VALUES (?,?,?,?,?,?,(SELECT id FROM role WHERE name=?))";
+        String sqlQuery = "INSERT INTO user (username,password,firstname,middlename,surname,role_id) VALUES (?,?,?,?,?,(SELECT id FROM role WHERE name=?))";
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 sqlQuery,
                 Statement.RETURN_GENERATED_KEYS
@@ -85,8 +85,7 @@ public class UserRepositoryImpl extends GenericRepositoryImpl implements UserRep
             preparedStatement.setString(3, user.getFirstname());
             preparedStatement.setString(4, user.getMiddlename());
             preparedStatement.setString(5, user.getSurname());
-            preparedStatement.setBoolean(6, false);
-            preparedStatement.setString(7, user.getRole().getName());
+            preparedStatement.setString(6, user.getRole().getName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
@@ -130,14 +129,12 @@ public class UserRepositoryImpl extends GenericRepositoryImpl implements UserRep
 
     @Override
     public void update(Connection connection, User user) {
-        String sqlQuery = "UPDATE user SET firstname =?, surname=?, password=? WHERE id=" + user.getId();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(
-                sqlQuery,
-                Statement.RETURN_GENERATED_KEYS
-        )) {
+        String sqlQuery = "UPDATE user SET firstname =?, surname=?, password=? WHERE id=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
             preparedStatement.setString(1, user.getFirstname());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setLong(4, user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);

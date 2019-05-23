@@ -1,7 +1,9 @@
 package by.tut.mdcatalog.project2.web.controller;
 
 import by.tut.mdcatalog.project2.service.ArticleService;
+import by.tut.mdcatalog.project2.service.UserService;
 import by.tut.mdcatalog.project2.service.model.ArticleDTO;
+import by.tut.mdcatalog.project2.service.model.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -13,15 +15,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+import java.util.Date;
+
 @RestController
 @RequestMapping("/api/articles")
 public class ArticleApiController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final ArticleService articleService;
+    private final UserService userService;
 
-    public ArticleApiController(ArticleService articleService) {
+    public ArticleApiController(ArticleService articleService, UserService userService) {
         this.articleService = articleService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -39,7 +46,13 @@ public class ArticleApiController {
     }
 
     @PostMapping
-    public ResponseEntity addArticle(@RequestBody ArticleDTO articleDTO) {
+    public ResponseEntity addArticle(@RequestBody ArticleDTO articleDTO, Principal principal) {
+        String username = principal.getName();
+        Long id = userService.getByUsername(username).getId();
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(id);
+        articleDTO.setUserDTO(userDTO);
+        articleDTO.setDate(new Date());
         articleService.add(articleDTO);
         logger.info("Added User via REST API");
         return new ResponseEntity(HttpStatus.CREATED);

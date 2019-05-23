@@ -37,18 +37,39 @@ public class ArticleApiControllerIntegrationTest {
                 .build();
     }
 
-    @Test
     @WithMockUser(authorities = {REST_API_ROLE_NAME})
+    @Test
     public void shouldShowArticles() throws Exception {
         mvc.perform(get("/api/articles"))
                 .andExpect(status().isOk());
     }
 
-
-    @Test
     @WithMockUser(authorities = {REST_API_ROLE_NAME})
+    @Test
     public void shouldShowArticle() throws Exception {
         mvc.perform(get("/api/articles/1"))
+                .andExpect(status().isOk());
+    }
+
+    @WithMockUser(username = "rest@email.com",
+            password = "user",
+            authorities = {REST_API_ROLE_NAME})
+    @Test
+    public void shouldAddArticle() throws Exception {
+        mvc.perform(post("/api/articles")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content("{\"user_id\": \"3\", " +
+                        "\"name\": \"Test Article Name\", " +
+                        "\"message\": \"Test Article Message\" " +
+                        "}"))
+                .andExpect(status().isCreated());
+    }
+
+
+    @WithMockUser(authorities = {REST_API_ROLE_NAME})
+    @Test
+    public void shouldDeleteArticle() throws Exception {
+        mvc.perform(post("/api/articles/5"))
                 .andExpect(status().isOk());
     }
 }

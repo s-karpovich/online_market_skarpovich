@@ -59,7 +59,7 @@ public class ArticleRepositoryImpl extends GenericRepositoryImpl implements Arti
 
     @Override
     public void add(Connection connection, Article article) {
-        String sqlQuery = "INSERT INTO article (name,message,date,deleted,user_id) VALUES (?,?,?,?,?))";
+        String sqlQuery = "INSERT INTO article (name,message,date,user_id) VALUES (?,?,?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 sqlQuery,
                 Statement.RETURN_GENERATED_KEYS
@@ -67,8 +67,7 @@ public class ArticleRepositoryImpl extends GenericRepositoryImpl implements Arti
             preparedStatement.setString(1, article.getName());
             preparedStatement.setString(2, article.getMessage());
             preparedStatement.setDate (3, new Date(article.getDate().getTime()));
-            preparedStatement.setBoolean(4, false);
-            preparedStatement.setLong(5, article.getUser().getId());
+            preparedStatement.setLong(4, article.getUser().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
@@ -80,6 +79,7 @@ public class ArticleRepositoryImpl extends GenericRepositoryImpl implements Arti
     public void delete (Connection connection, Long id) {
         String sqlQuery = "UPDATE article SET deleted=true WHERE id=?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
             logger.info("Article deleted (ID):{}", id);
         } catch (SQLException e) {
@@ -89,15 +89,15 @@ public class ArticleRepositoryImpl extends GenericRepositoryImpl implements Arti
     }
 
     private Article buildArticle(ResultSet resultSet) throws SQLException {
-        Article Article = new Article();
-        Article.setId(resultSet.getLong("id"));
-        Article.setDate(resultSet.getDate("date"));
+        Article article = new Article();
+        article.setId(resultSet.getLong("id"));
+        article.setDate(resultSet.getDate("date"));
         User user = new User();
         user.setId(resultSet.getLong("user_id"));
-        Article.setUser(user);
-        Article.setName(resultSet.getString("name"));
-        Article.setMessage(resultSet.getString("message"));
-        Article.setDeleted(resultSet.getBoolean("deleted"));
-        return Article;
+        article.setUser(user);
+        article.setName(resultSet.getString("name"));
+        article.setMessage(resultSet.getString("message"));
+        article.setDeleted(resultSet.getBoolean("deleted"));
+        return article;
     }
 }

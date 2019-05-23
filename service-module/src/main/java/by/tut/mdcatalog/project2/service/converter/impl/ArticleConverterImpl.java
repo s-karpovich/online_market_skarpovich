@@ -17,7 +17,7 @@ public class ArticleConverterImpl implements ArticleConverter {
         articleDTO.setDate(article.getDate());
         articleDTO.setName(article.getName());
         UserDTO userDTO = new UserDTO();
-        userDTO.setUsername(article.getUser().getUsername());
+        userDTO.setId(article.getUser().getId());
         articleDTO.setUserDTO(userDTO);
         articleDTO.setMessage(article.getMessage());
         articleDTO.setDeleted(article.getDeleted());
@@ -30,9 +30,9 @@ public class ArticleConverterImpl implements ArticleConverter {
         article.setId(articleDTO.getId());
         article.setDate(articleDTO.getDate());
         User user = new User();
-        user.setUsername(articleDTO.getUserDTO().getUsername());
+        user.setId(articleDTO.getUserDTO().getId());
         article.setUser(user);
-        article.setName(articleDTO.getMessage());
+        article.setName(articleDTO.getName());
         article.setMessage(articleDTO.getMessage());
         article.setDeleted(articleDTO.getDeleted());
         return article;

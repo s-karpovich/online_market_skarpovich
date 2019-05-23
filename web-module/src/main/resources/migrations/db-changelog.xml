@@ -169,6 +169,17 @@
         </insert>
     </changeSet>
 
+    <changeSet id="4.3" author="mdcatalog@tut.by">
+        <insert tableName="user">
+            <column name="username" value="rest@email.com"/>
+            <column name="password" value="$2a$12$tDWHFzb42r/VWiEEf9RnxO9p3bjJ1Voqr9Hv06vPMjIR5XraixNwW"/>
+            <column name="firstname" value="User3"/>
+            <column name="middlename" value="Apich3"/>
+            <column name="surname" value="Userov3"/>
+            <column name="role_id" valueNumeric="4"/>
+        </insert>
+    </changeSet>
+
     <changeSet id="5.1" author="mdcatalog@tut.by">
         <insert tableName="review">
             <column name="user_id" valueNumeric="1"/>

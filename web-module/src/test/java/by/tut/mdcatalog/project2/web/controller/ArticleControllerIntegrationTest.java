@@ -11,9 +11,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.ADMIN_ROLE_NAME;
+import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.REST_API_ROLE_NAME;
 import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.USER_ROLE_NAME;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -48,13 +52,35 @@ public class ArticleControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
-    @WithMockUser(username = "user@email.com",
-            password = "user",
-            authorities = USER_ROLE_NAME
-    )
+    @WithMockUser(authorities = {ADMIN_ROLE_NAME})
     @Test
-    public void shouldShowProfilePageForCustomer() throws Exception {
-        mvc.perform(get("/profile"))
-                .andExpect(status().isOk());
+    public void shouldRedirectTo403PageIfAdminAccessArticlesPage() throws Exception {
+        mvc.perform(get("/articles"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/403"));
+    }
+
+    @WithMockUser(authorities = {ADMIN_ROLE_NAME})
+    @Test
+    public void shouldRedirectTo403PageIfAdminAccessArticlePage() throws Exception {
+        mvc.perform(get("/articles/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/403"));
+    }
+
+    @WithMockUser(authorities = {REST_API_ROLE_NAME})
+    @Test
+    public void shouldRedirectTo403PageIfRestApiAccessArticlesPage() throws Exception {
+        mvc.perform(get("/articles"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/403"));
+    }
+
+    @WithMockUser(authorities = {REST_API_ROLE_NAME})
+    @Test
+    public void shouldRedirectTo403PageIfRestApiccessArticlePage() throws Exception {
+        mvc.perform(get("/articles/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/403"));
     }
 }
