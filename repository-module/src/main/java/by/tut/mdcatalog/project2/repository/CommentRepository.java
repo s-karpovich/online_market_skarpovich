@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CommentRepository extends GenericRepository {
 
-    List<Comment> getByUserId(Connection connection, Long id);
+    List<Comment> getByArticleId(Long id);
 }

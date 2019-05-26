@@ -22,7 +22,7 @@ public class UserApiController {
 
     @GetMapping
     public ResponseEntity getArticles() {
-        userService.getUsers();
+        userService.getAll();
         logger.info("Added Article via REST API");
         return new ResponseEntity(HttpStatus.OK);
     }

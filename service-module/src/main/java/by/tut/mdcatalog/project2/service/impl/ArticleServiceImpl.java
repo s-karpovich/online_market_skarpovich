@@ -1,7 +1,6 @@
 package by.tut.mdcatalog.project2.service.impl;
 
 import by.tut.mdcatalog.project2.repository.ArticleRepository;
-import by.tut.mdcatalog.project2.repository.RoleRepository;
 import by.tut.mdcatalog.project2.repository.UserRepository;
 import by.tut.mdcatalog.project2.repository.model.Article;
 import by.tut.mdcatalog.project2.repository.model.User;
@@ -15,6 +14,7 @@ import by.tut.mdcatalog.project2.service.model.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -42,91 +42,43 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDTO> getArticles() {
-        try (Connection connection = articleRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                List<ArticleDTO> articleDTOList = new ArrayList<>();
-                List<Article> articleList = articleRepository.getArticles(connection);
-                for (Article article : articleList) {
-                    User user = userRepository.getById(connection, article.getUser().getId());
-                    UserDTO userDTO = userConverter.toDTO(user);
-                    ArticleDTO articleDTO = articleConverter.toDTO(article);
-                    articleDTO.setUserDTO(userDTO);
-                    articleDTOList.add(articleDTO);
-                }
-                connection.commit();
-                return articleDTOList;
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
-            }
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
-        }
-    }
-
-    @Override
-    public ArticleDTO getById(Long id) {
-        try (Connection connection = articleRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                Article article = articleRepository.getById(connection, id);
-                User user = userRepository.getById(connection, article.getUser().getId());
-                ArticleDTO articleDTO = articleConverter.toDTO(article);
-                UserDTO userDTO = userConverter.toDTO(user);
-                articleDTO.setUserDTO(userDTO);
-                connection.commit();
-                return articleDTO;
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
-            }
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
-        }
-    }
-
-    @Override
-    public void add(ArticleDTO articleDTO) {
+    @Transactional
+    public void create(ArticleDTO articleDTO) {
         Article article = articleConverter.fromDTO(articleDTO);
-        try (Connection connection = articleRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                articleRepository.add(connection, article);
-                connection.commit();
-                logger.info("Article added (ID): {}", articleDTO.getId());
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
-            }
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
-        }
+        articleRepository.persist(article);
     }
 
+    @Override
+    @Transactional
     public void delete(Long id) {
-        try (Connection connection = articleRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                articleRepository.delete(connection, id);
-                connection.commit();
-                logger.info("Article deleted (ID): {}", id);
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
-            }
-        } catch (
-                SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
+        Article article = new Article();
+        article.setId(id);
+        articleRepository.delete(article);
+    }
+
+    @Override
+    @Transactional
+    public List<ArticleDTO> getAll() {
+        List<ArticleDTO> articleDTOList = new ArrayList<>();
+        List<Article> articleList = articleRepository.getAll();
+        for (Article article : articleList) {
+            User user = userRepository.getById(article.getUser().getId());
+            UserDTO userDTO = userConverter.toDTO(user);
+            ArticleDTO articleDTO = articleConverter.toDTO(article);
+            articleDTO.setUserDTO(userDTO);
+            articleDTOList.add(articleDTO);
         }
+        return articleDTOList;
+    }
+
+    @Override
+    @Transactional
+    public ArticleDTO getById(Long id) {
+        Article article = articleRepository.getById(id);
+        User user = userRepository.getById(article.getUser().getId());
+        ArticleDTO articleDTO = articleConverter.toDTO(article);
+        UserDTO userDTO = userConverter.toDTO(user);
+        articleDTO.setUserDTO(userDTO);
+        return articleDTO;
     }
 }

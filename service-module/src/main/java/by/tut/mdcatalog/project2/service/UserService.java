@@ -8,17 +8,19 @@ import java.util.List;
 
 public interface UserService {
 
-    List<UserDTO> getUsers();
+    void create(UserDTO userDTO);
 
-    UserDTO getByUsername(String username);
-
-    void add(UserDTO userDTO);
+    void update(UserDTO userDTO);
 
     void updateUserRole(RoleDTOUpdated roleDTOUpdated);
 
     void updateProfile(UserDTO userDTO, ContactDTO contactDTO);
 
-    void deleteUsers(int[] ids);
+    void deleteUsers(Long[] ids);
+
+    List<UserDTO> getAll();
+
+    UserDTO getByUsername(String username);
 
     void resetPassword(Long id);
 }

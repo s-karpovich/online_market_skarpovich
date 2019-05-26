@@ -47,17 +47,17 @@
                     <form method="post" th:action="@{/users/update}" th:object="${RoleDTOUpdatedObject}">
 
                         <th:block th:if="${user.id ==1}">
-                            <div th:text="${user.role}">...</div>
+                            <div th:text="${user.roleDTO.name}">...</div>
                         </th:block>
 
                         <th:block th:if="${user.id !=1}">
                             <input hidden value="#" th:attr="value=${user.id}" th:name="id"/>
-                            <select name="role" th:name="roleId" required>
-                                <option th:each="role,stat:${roles}"
+                            <select name="roleDTO" th:name="roleId" required>
+                                <option th:each="roleDTO.name,stat:${roles}"
                                         th:value="${roles[__${stat.index}__].id}"
                                         th:text="${roles[__${stat.index}__].name}"
-                                        th:selected="${user.role == roles[__${stat.index}__].name}"
-                                        th:disabled="${user.role == roles[__${stat.index}__].name}">
+                                        th:selected="${user.roleDTO.name == roles[__${stat.index}__].name}"
+                                        th:disabled="${user.roleDTO.name == roles[__${stat.index}__].name}">
                                 </option>
                             </select>
                         </th:block>

@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface ArticleRepository extends GenericRepository {
 
-    List<Article> getArticles(Connection connection);
+    void persist(Article article);
 
-    Article getById(Connection connection, Long id);
+    void delete(Article article);
 
-    void add(Connection connection, Article article);
+    List<Article> getAll();
 
-    void delete(Connection connection, Long id);
+    Article getById(Long id);
 }

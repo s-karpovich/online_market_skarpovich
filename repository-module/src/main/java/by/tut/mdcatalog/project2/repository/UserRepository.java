@@ -7,19 +7,19 @@ import java.util.List;
 
 public interface UserRepository extends GenericRepository {
 
-    List<User> getUsers(Connection connection);
+    void persist(User user);
 
-    User getById(Connection connection, Long id);
+    void merge(User user);
 
-    User getByUsername(Connection connection, String username);
+    void delete(User user);
 
-    void add(Connection connection, User user);
+    List<User> getAll();
 
-    void updateUserRole(Connection connection, Long roleId, Long userId);
+    User getById(Long id);
 
-    void update(Connection connection, User user);
+    User getByUsername(String username);
 
-    void deleteUsers(Connection connection, int[] ids);
+    void updateUserRole(Long roleId, Long userId);
 
-    void resetPassword(Connection connection, String encodedPassword, Long id);
+    void resetPassword(String encodedPassword, Long id);
 }

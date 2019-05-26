@@ -3,6 +3,7 @@ package by.tut.mdcatalog.project2.service.impl;
 import by.tut.mdcatalog.project2.repository.ContactRepository;
 import by.tut.mdcatalog.project2.repository.RoleRepository;
 import by.tut.mdcatalog.project2.repository.UserRepository;
+import by.tut.mdcatalog.project2.repository.model.Article;
 import by.tut.mdcatalog.project2.repository.model.Contact;
 import by.tut.mdcatalog.project2.repository.model.Role;
 import by.tut.mdcatalog.project2.repository.model.User;
@@ -12,14 +13,12 @@ import by.tut.mdcatalog.project2.service.converter.RoleConverter;
 import by.tut.mdcatalog.project2.service.converter.UserConverter;
 import by.tut.mdcatalog.project2.service.exception.ServiceException;
 import by.tut.mdcatalog.project2.service.UserService;
-import by.tut.mdcatalog.project2.service.model.ContactDTO;
-import by.tut.mdcatalog.project2.service.model.RoleDTO;
-import by.tut.mdcatalog.project2.service.model.RoleDTOUpdated;
-import by.tut.mdcatalog.project2.service.model.UserDTO;
+import by.tut.mdcatalog.project2.service.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.sql.Connection;
@@ -58,154 +57,79 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getUsers() {
-        try (Connection connection = userRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                List<UserDTO> userDTOList = new ArrayList<>();
-                List<User> userList = userRepository.getUsers(connection);
-                for (User user : userList) {
-                    Role role = roleRepository.getById(connection, user.getRole().getId());
-                    RoleDTO roleDTO = roleConverter.toDTO(role);
-                    UserDTO userDTO = userConverter.toDTO(user);
-                    userDTO.setRole(roleDTO.getName());
-                    userDTOList.add(userDTO);
-                }
-                connection.commit();
-                return userDTOList;
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
-            }
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
-        }
-    }
-
-    @Override
-    public UserDTO getByUsername(String username) {
-        try (Connection connection = userRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                User user = userRepository.getByUsername(connection, username);
-                UserDTO getUserDTO = userConverter.toDTO(user);
-                Role role = roleRepository.getById(connection, user.getRole().getId());
-                getUserDTO.setRole(roleConverter.toDTO(role).getName());
-                connection.commit();
-                return getUserDTO;
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
-            }
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
-        }
-    }
-
-    @Override
-    public void add(UserDTO userDTO) {
+    @Transactional
+    public void create(UserDTO userDTO) {
         User user = userConverter.fromDTO(userDTO);
-        try (Connection connection = userRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                userRepository.add(connection, user);
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
+        userRepository.persist(user);
+    }
+
+    @Override
+    @Transactional
+    public void update(UserDTO userDTO) {
+        User user = userConverter.fromDTO(userDTO);
+        userRepository.merge(user);
+    }
+
+    @Override
+    @Transactional
+    public void deleteUsers(Long[] ids) {
+        for (Long id : ids) {
+            User user = userRepository.getById(id);
+            if (user != null && user.getDeleted()==false) {
+                userRepository.delete(user);
             }
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
         }
     }
 
     @Override
-    public void updateUserRole(RoleDTOUpdated roleDTOUpdated) {
-        try (Connection connection = userRepository.getConnection()) {
-            connection.setAutoCommit(false);
-            try {
-                userRepository.updateUserRole(connection, roleDTOUpdated.getRoleId(), roleDTOUpdated.getId());
-                logger.info("User role successfully updated , user id{} , new role id {}",
-                        roleDTOUpdated.getId(), roleDTOUpdated.getRoleId());
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
-            }
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
-        }
-    }
-
-    @Override
+    @Transactional
     public void updateProfile(UserDTO userDTO, ContactDTO contactDTO) {
-        try (Connection connection = userRepository.getConnection()) {
-            connection.setAutoCommit(false);
-            try {
-                User user = userConverter.fromDTO(userDTO);
-                Contact contact = contactConverter.fromDTO(contactDTO);
-                userRepository.update(connection, user);
-                contactRepository.update(connection, contact);
-                logger.info("User Profile successfully updated , user id{}", userDTO.getId());
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
-            }
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
-        }
+        User user = userConverter.fromDTO(userDTO);
+        Contact contact = contactConverter.fromDTO(contactDTO);
+        userRepository.merge(user);
+        contactRepository.merge(contact);
     }
 
     @Override
-    public void deleteUsers(int[] ids) {
-        try (Connection connection = userRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                userRepository.deleteUsers(connection, ids);
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
-            }
-        } catch (
-                SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
-        }
+    @Transactional
+    public void updateUserRole(RoleDTOUpdated roleDTOUpdated) {
+        userRepository.updateUserRole(roleDTOUpdated.getRoleId(), roleDTOUpdated.getId());
+        logger.info("User role successfully updated , user id{} , new role id {}",
+                roleDTOUpdated.getId(), roleDTOUpdated.getRoleId());
     }
 
     @Override
+    @Transactional
+    public List<UserDTO> getAll() {
+        List<UserDTO> userDTOList = new ArrayList<>();
+        List<User> userList = userRepository.getAll();
+        for (User user : userList) {
+            Role role = roleRepository.getById(user.getRole().getId());
+            RoleDTO roleDTO = roleConverter.toDTO(role);
+            UserDTO userDTO = userConverter.toDTO(user);
+            userDTO.setRoleDTO(roleDTO);
+            userDTOList.add(userDTO);
+        }
+        return userDTOList;
+    }
+
+    @Override
+    @Transactional
+    public UserDTO getByUsername(String username) {
+        User user = userRepository.getByUsername(username);
+        UserDTO userDTO = userConverter.toDTO(user);
+        Role role = roleRepository.getById(user.getRole().getId());
+        userDTO.setRoleDTO(roleConverter.toDTO(role));
+        return userDTO;
+    }
+
+    @Override
+    @Transactional
     public void resetPassword(Long id) {
         String generatedPassword = generatePassword(12);
         String encodedPassword = serviceEncoder.encode(generatedPassword);
-        try (Connection connection = userRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                userRepository.resetPassword(connection, encodedPassword, id);
-                connection.commit();
-                logger.info("Password generated for User (ID): {}. New password: {}", id, generatedPassword);
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
-            }
-        } catch (
-                SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
-        }
+        userRepository.resetPassword(encodedPassword, id);
+        logger.info("Password generated for User (ID): {}. New password: {}", id, generatedPassword);
     }
 
     private String generatePassword(int length) {

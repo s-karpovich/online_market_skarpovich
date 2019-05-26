@@ -1,15 +1,34 @@
 package by.tut.mdcatalog.project2.repository.model;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Date;
+import java.util.Objects;
 
+@Entity
+@Table
+@SQLDelete(sql = "UPDATE article SET deleted=true WHERE id=?")
+@Where(clause = "deleted = 0")
 public class Article {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(updatable = false, nullable = false)
     private Long id;
     private Date date;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
-    private Article article;
     private String name;
     private String message;
+    @Column(name = "deleted")
     private Boolean isDeleted;
 
     public Long getId() {
@@ -36,10 +55,6 @@ public class Article {
         this.user = user;
     }
 
-    public Article getArticle() { return article; }
-
-    public void setArticle(Article article) { this.article = article; }
-
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
@@ -57,4 +72,22 @@ public class Article {
     }
 
     public void setDeleted(Boolean deleted) { isDeleted = deleted; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return Objects.equals(id, article.id) &&
+                Objects.equals(date, article.date) &&
+                Objects.equals(user, article.user) &&
+                Objects.equals(name, article.name) &&
+                Objects.equals(message, article.message) &&
+                Objects.equals(isDeleted, article.isDeleted);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, date, user, name, message, isDeleted);
+    }
 }

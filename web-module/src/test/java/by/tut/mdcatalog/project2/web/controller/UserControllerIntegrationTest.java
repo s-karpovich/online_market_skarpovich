@@ -61,7 +61,7 @@ public class UserControllerIntegrationTest {
     )
     @Test
     public void shouldAddUserbyAdmin() throws Exception {
-        mvc.perform(post("/users/add")
+        mvc.perform(post("/users/create")
                 .param("username", "testuser4@email.com")
                 .param("password", "user")
                 .param("firstname", "User4")
@@ -93,7 +93,7 @@ public class UserControllerIntegrationTest {
     @Test
     @WithMockUser(authorities = {AuthorizationConstants.ADMIN_ROLE_NAME})
     public void shouldDeleteUsers() {
-        int[] ids = {4};
+        Long[] ids = {4L};
         String url = userController.deleteUsers(ids);
         Assert.assertEquals("redirect:/success", url);
     }
@@ -101,7 +101,7 @@ public class UserControllerIntegrationTest {
     @WithMockUser(authorities = {AuthorizationConstants.USER_ROLE_NAME})
     @Test
     public void shouldRedirectTo403PageIfCustomerAccessAddPage() throws Exception {
-        mvc.perform(get("/users/add"))
+        mvc.perform(get("/users/create"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/403"));
     }
@@ -125,7 +125,7 @@ public class UserControllerIntegrationTest {
     @WithMockUser(authorities = {AuthorizationConstants.REST_API_ROLE_NAME})
     @Test
     public void shouldRedirectTo403PageIfRestApiAccessAddPage() throws Exception {
-        mvc.perform(get("/users/add"))
+        mvc.perform(get("/users/create"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/403"));
     }

@@ -7,7 +7,7 @@ import java.sql.Connection;
 
 public interface ContactRepository extends GenericRepository {
 
-    Contact getByUserId(Connection connection, Long id);
+    void merge(Contact contact);
 
-    void update(Connection connection, Contact contact);
+    Contact getByUserId(Long id);
 }

@@ -4,6 +4,8 @@ import by.tut.mdcatalog.project2.service.ContactService;
 import by.tut.mdcatalog.project2.service.UserService;
 import by.tut.mdcatalog.project2.service.model.ContactDTO;
 import by.tut.mdcatalog.project2.service.model.UserDTO;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,16 +39,21 @@ public class ProfileController {
     @PostMapping("/profile/update")
     public String updateProfile(@ModelAttribute UserDTO userDTO,
                                 ContactDTO contactDTO,
-                                ModelMap modelMap,
-                                Principal principal) {
-        String username = principal.getName();
-        Long id = userService.getByUsername(username).getId();
-        userDTO.setId(id);
+                                ModelMap modelMap) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        UserDTO currentUserDTO = userService.getByUsername(username);
+        userDTO.setId(currentUserDTO.getId());
+        userDTO.setUsername(currentUserDTO.getUsername());
+        userDTO.setRoleDTO(currentUserDTO.getRoleDTO());
+        userDTO.setDeleted(false);
+        contactDTO.setId(userDTO.getId());
         contactDTO.setUserDTO(userDTO);
-        userService.updateProfile(userDTO, contactDTO);
+        contactDTO.setDeleted(false);
+        userService.update(userDTO);
+        contactService.update(contactDTO);
         modelMap.addAttribute("user", userDTO);
         modelMap.addAttribute("contact", contactDTO);
         return "redirect:/success";
     }
 }
-

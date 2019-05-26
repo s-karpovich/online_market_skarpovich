@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.security.Principal;
 import java.util.Date;
 
 @RestController
@@ -34,7 +33,7 @@ public class ArticleApiController {
 
     @GetMapping
     public ResponseEntity getArticles() {
-        articleService.getArticles();
+        articleService.getAll();
         logger.info("Added Article via REST API");
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -51,9 +50,11 @@ public class ArticleApiController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         UserDTO userDTO = userService.getByUsername(username);
+        userDTO.setDeleted(false);
         articleDTO.setUserDTO(userDTO);
+        articleDTO.setDeleted(false);
         articleDTO.setDate(new Date());
-        articleService.add(articleDTO);
+        articleService.create(articleDTO);
         logger.info("Added User via REST API");
         return new ResponseEntity(HttpStatus.CREATED);
     }

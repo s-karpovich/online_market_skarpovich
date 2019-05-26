@@ -31,7 +31,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="middlename" type="varchar(40)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="surname" type="varchar(40)">
                 <constraints nullable="false"/>
@@ -113,20 +113,17 @@
 
     <changeSet id="2.4" author="mdcatalog@tut.by">
         <createTable tableName="contact">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="user_id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="address" type="varchar(200)">
+            <column name="address" type="varchar(80)">
                 <constraints nullable="false"/>
             </column>
-            <column name="phone" type="varchar(200)">
+            <column name="phone" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
             <column name="deleted" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
-            </column>
-            <column name="user_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_contact_user" references="user(id)"/>
             </column>
         </createTable>
     </changeSet>

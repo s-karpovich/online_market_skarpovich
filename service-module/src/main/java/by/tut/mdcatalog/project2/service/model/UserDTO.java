@@ -21,8 +21,8 @@ public class UserDTO {
     private String surname;
 
     private Boolean isDeleted;
-    @NotNull
-    private String role;
+
+    private RoleDTO roleDTO;
 
     public UserDTO() {
     }
@@ -83,11 +83,8 @@ public class UserDTO {
         isDeleted = deleted;
     }
 
-    public String getRole() {
-        return role;
-    }
+    public RoleDTO getRoleDTO() { return roleDTO; }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+    public void setRoleDTO(RoleDTO roleDTO) { this.roleDTO = roleDTO; }
+
 }

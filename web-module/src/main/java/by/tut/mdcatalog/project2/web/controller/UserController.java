@@ -33,8 +33,8 @@ public class UserController {
 
     @GetMapping("/users")
     public String getUsers(Model model, RoleDTOUpdated roleDTOUpdated) {
-        List<UserDTO> userDTOList = userService.getUsers();
-        List<RoleDTO> roleDTOList = roleService.getRoles();
+        List<UserDTO> userDTOList = userService.getAll();
+        List<RoleDTO> roleDTOList = roleService.getAll();
         model.addAttribute("users", userDTOList);
         model.addAttribute("roles", roleDTOList);
         model.addAttribute("RoleDTOUpdatedObject", roleDTOUpdated);
@@ -49,7 +49,8 @@ public class UserController {
 
     @PostMapping("/users/add")
     public String addUser(
-            @Valid UserDTO userDTO,
+            @ModelAttribute UserDTO userDTO,
+            Model model,
             BindingResult bindingResult
     ) {
 
@@ -57,11 +58,12 @@ public class UserController {
             logger.info("User has not been added");
             return "redirect:/error";
         }
-        userService.add(userDTO);
-        logger.info("User has been added: {}", userDTO.getUsername());
+        List<RoleDTO> rolesDTO = roleService.getAll();
+        model.addAttribute("roles", rolesDTO);
+        userDTO.setDeleted(false);
+        userService.create(userDTO);
         return "redirect:/success";
     }
-
 
     @PostMapping("/users/reset")
     public String resetPassword(@RequestParam(value = "id", required = false) Long id) {
@@ -70,9 +72,8 @@ public class UserController {
         return "redirect:/success";
     }
 
-
     @PostMapping("/users/delete")
-    public String deleteUsers(@RequestParam(value = "ids", required = false) int[] ids) {
+    public String deleteUsers(@RequestParam(value = "ids", required = false) Long[] ids) {
         if (ids == null) {
             logger.info("Delete not processed: no users selected");
             return "/users";
