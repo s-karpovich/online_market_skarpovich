@@ -12,8 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
-import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.*;
+import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.ADMIN_ROLE_NAME;
+import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.CUSTOMER_ROLE_NAME;
+import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.SALE_ROLE_NAME;
 
 @Configuration
 @Order(2)

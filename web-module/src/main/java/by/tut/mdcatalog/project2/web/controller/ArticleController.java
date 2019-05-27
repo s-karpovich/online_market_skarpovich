@@ -11,12 +11,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -56,8 +60,25 @@ public class ArticleController {
         return "article";
     }
 
+    @PostMapping("/articles/{id}")
+    public String changeArticleInfo(@PathVariable(name = "id") Long id,
+                                    @Valid ArticleDTO articleDTO,
+                                    BindingResult result,
+                                    Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("article", articleDTO);
+            logger.info("Article update invalid (ID) {}", id);
+            return "article";
+        }
+        articleDTO.setId(id);
+        articleDTO.setDate(new Date());
+        articleService.update(articleDTO);
+        logger.info("Article updated (ID) {}", id);
+        return "redirect:/success";
+    }
+
     @PostMapping("/articles/comments")
-    public String deleteItems(@RequestParam(value = "ids", required = false) Long[] ids, ModelMap modelMap) {
+    public String deleteComments(@RequestParam(value = "ids", required = false) Long[] ids, ModelMap modelMap) {
         if (ids == null) {
             logger.info("Delete incompleted: no comments selected");
             return "/article";

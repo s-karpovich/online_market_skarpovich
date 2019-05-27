@@ -47,7 +47,7 @@ public class ReviewControllerIntegrationTest {
     @Test
     @WithMockUser(authorities = {AuthorizationConstants.ADMIN_ROLE_NAME})
     public void shouldDeleteReviewsForAdmin() {
-        Long[] ids = {2L, 3L};
+        Long[] ids = {3L};
         String url = reviewController.deleteReviews(ids);
         Assert.assertEquals("redirect:/success", url);
     }

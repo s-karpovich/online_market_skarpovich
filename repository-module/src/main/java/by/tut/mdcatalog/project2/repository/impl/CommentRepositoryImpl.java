@@ -1,10 +1,8 @@
 package by.tut.mdcatalog.project2.repository.impl;
 
 import by.tut.mdcatalog.project2.repository.CommentRepository;
-import by.tut.mdcatalog.project2.repository.model.Article;
 import by.tut.mdcatalog.project2.repository.model.Comment;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -28,6 +26,7 @@ public class CommentRepositoryImpl extends GenericRepositoryImpl implements Comm
         query.setParameter("id", id);
         return (Comment) query.getSingleResult();
     }
+
     @Override
     public List<Comment> getByArticleId(Long id) {
         String hql = "from Comment as C where C.article.id=:id";

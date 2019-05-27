@@ -55,7 +55,7 @@ public class ArticleApiController {
         articleDTO.setDeleted(false);
         articleDTO.setDate(new Date());
         articleService.create(articleDTO);
-        logger.info("Added User via REST API");
+        logger.info("Added Article via REST API");
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

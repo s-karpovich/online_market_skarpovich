@@ -56,18 +56,19 @@ public class UserControllerIntegrationTest {
     }
 
     @WithMockUser(username = "admin@email.com",
-            password = "admin",
+            password = "1234",
             authorities = AuthorizationConstants.ADMIN_ROLE_NAME
     )
     @Test
     public void shouldAddUserbyAdmin() throws Exception {
-        mvc.perform(post("/users/create")
-                .param("username", "testuser4@email.com")
-                .param("password", "user")
+        mvc.perform(post("/users/add")
+                .param("username", "testuser22@email.com")
+                .param("password", "1234")
                 .param("firstname", "User4")
                 .param("middlename", "Userovich4")
                 .param("surname", "Userov4")
-                .param("role", "CUSTOMER"))
+                .param("deleted", "false")
+                .param("role", "3"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/success"));
     }
@@ -76,7 +77,7 @@ public class UserControllerIntegrationTest {
     @WithMockUser(authorities = {AuthorizationConstants.ADMIN_ROLE_NAME})
     public void shouldUpdateUserRole() {
         RoleDTOUpdated roleDTOUpdated = new RoleDTOUpdated();
-        roleDTOUpdated.setId(4L);
+        roleDTOUpdated.setId(5L);
         roleDTOUpdated.setRoleId(1L);
         Mockito.when(bindingResult.hasErrors()).thenReturn(false);
         String url = userController.changeStatus(roleDTOUpdated, bindingResult);
@@ -86,14 +87,14 @@ public class UserControllerIntegrationTest {
     @Test
     @WithMockUser(authorities = {AuthorizationConstants.ADMIN_ROLE_NAME})
     public void shouldResetPassword() {
-        String url = userController.resetPassword(4L);
+        String url = userController.resetPassword(5L);
         Assert.assertEquals("redirect:/success", url);
     }
 
     @Test
     @WithMockUser(authorities = {AuthorizationConstants.ADMIN_ROLE_NAME})
     public void shouldDeleteUsers() {
-        Long[] ids = {4L};
+        Long[] ids = {5L};
         String url = userController.deleteUsers(ids);
         Assert.assertEquals("redirect:/success", url);
     }

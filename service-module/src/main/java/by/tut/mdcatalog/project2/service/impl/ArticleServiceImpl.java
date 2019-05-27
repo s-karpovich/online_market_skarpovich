@@ -5,19 +5,12 @@ import by.tut.mdcatalog.project2.repository.UserRepository;
 import by.tut.mdcatalog.project2.repository.model.Article;
 import by.tut.mdcatalog.project2.repository.model.User;
 import by.tut.mdcatalog.project2.service.ArticleService;
-import by.tut.mdcatalog.project2.service.constant.ServiceErrors;
 import by.tut.mdcatalog.project2.service.converter.ArticleConverter;
 import by.tut.mdcatalog.project2.service.converter.UserConverter;
-import by.tut.mdcatalog.project2.service.exception.ServiceException;
 import by.tut.mdcatalog.project2.service.model.ArticleDTO;
 import by.tut.mdcatalog.project2.service.model.UserDTO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +38,13 @@ public class ArticleServiceImpl implements ArticleService {
     public void create(ArticleDTO articleDTO) {
         Article article = articleConverter.fromDTO(articleDTO);
         articleRepository.persist(article);
+    }
+
+    @Override
+    @Transactional
+    public void update(ArticleDTO articleDTO) {
+        Article article = articleConverter.fromDTO(articleDTO);
+        articleRepository.merge(article);
     }
 
     @Override

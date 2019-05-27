@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SpringBootModuleApp.class)
-public class ArticleApiControllerIntegrationTest {
+public class ItemApiControllerIntegrationTest {
 
     @Autowired
     private WebApplicationContext context;
@@ -38,15 +38,15 @@ public class ArticleApiControllerIntegrationTest {
 
     @WithMockUser(authorities = {REST_API_ROLE_NAME})
     @Test
-    public void shouldShowArticles() throws Exception {
-        mvc.perform(get("/api/articles"))
+    public void shouldShowItems() throws Exception {
+        mvc.perform(get("/api/items"))
                 .andExpect(status().isOk());
     }
 
     @WithMockUser(authorities = {REST_API_ROLE_NAME})
     @Test
-    public void shouldShowArticle() throws Exception {
-        mvc.perform(get("/api/articles/1"))
+    public void shouldShowItem() throws Exception {
+        mvc.perform(get("/api/items/1"))
                 .andExpect(status().isOk());
     }
 
@@ -54,21 +54,21 @@ public class ArticleApiControllerIntegrationTest {
             password = "1234",
             authorities = {REST_API_ROLE_NAME})
     @Test
-    public void shouldAddArticle() throws Exception {
-        mvc.perform(post("/api/articles")
+    public void shouldAddItem() throws Exception {
+        mvc.perform(post("/api/items")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"user_id\": \"3\", " +
-                        "\"name\": \"Test Article Name\", " +
-                        "\"message\": \"Test Article Message\" " +
+                .content("{\"name\": \"testItem\", " +
+                        "\"unique_number\": \"Test Article Name\", " +
+                        "\"price\": \"99\", " +
+                        "\"text\": \"text description of the item\" " +
                         "}"))
                 .andExpect(status().isCreated());
     }
 
-
     @WithMockUser(authorities = {REST_API_ROLE_NAME})
     @Test
-    public void shouldDeleteArticle() throws Exception {
-        mvc.perform(post("/api/articles/1"))
+    public void shouldDeleteItem() throws Exception {
+        mvc.perform(post("/api/items/1"))
                 .andExpect(status().isOk());
     }
 }

@@ -8,6 +8,8 @@ public interface ArticleService {
 
     void create(ArticleDTO articleDTO);
 
+    void update(ArticleDTO articleDTO);
+
     void delete(Long id);
 
     List<ArticleDTO> getAll();

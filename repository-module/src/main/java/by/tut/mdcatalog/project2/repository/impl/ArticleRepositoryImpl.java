@@ -20,6 +20,9 @@ public class ArticleRepositoryImpl extends GenericRepositoryImpl implements Arti
     }
 
     @Override
+    public void merge(Article article) { entityManager.merge(article); }
+
+    @Override
     public void delete(Article article) {
         entityManager.remove(article);
     }
