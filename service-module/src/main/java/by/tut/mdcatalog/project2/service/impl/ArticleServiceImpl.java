@@ -24,7 +24,6 @@ import java.util.List;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
     private final ArticleConverter articleConverter;
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;

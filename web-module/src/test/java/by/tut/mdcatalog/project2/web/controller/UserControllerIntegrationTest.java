@@ -98,7 +98,7 @@ public class UserControllerIntegrationTest {
         Assert.assertEquals("redirect:/success", url);
     }
 
-    @WithMockUser(authorities = {AuthorizationConstants.USER_ROLE_NAME})
+    @WithMockUser(authorities = {AuthorizationConstants.CUSTOMER_ROLE_NAME})
     @Test
     public void shouldRedirectTo403PageIfCustomerAccessAddPage() throws Exception {
         mvc.perform(get("/users/create"))
@@ -106,7 +106,7 @@ public class UserControllerIntegrationTest {
                 .andExpect(redirectedUrl("/403"));
     }
 
-    @WithMockUser(authorities = {AuthorizationConstants.USER_ROLE_NAME})
+    @WithMockUser(authorities = {AuthorizationConstants.CUSTOMER_ROLE_NAME})
     @Test
     public void shouldRedirectTo403PageIfCustomerAccessUsersPage() throws Exception {
         mvc.perform(get("/users"))

@@ -7,4 +7,6 @@ import java.util.List;
 public interface CommentService {
 
     List<CommentDTO> getByArticleId(Long id);
+
+    void deleteComments(Long[] ids);
 }

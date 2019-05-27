@@ -11,11 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.ADMIN_ROLE_NAME;
-import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.USER_ROLE_NAME;
+import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.*;
 
 @Configuration
 @Order(2)
@@ -38,10 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/create/**", "/users/**", "/reviews/**")
-                .hasAuthority(ADMIN_ROLE_NAME).expressionHandler(new DefaultWebSecurityExpressionHandler())
-                .antMatchers( "/profile", "/articles/**")
-                .hasAuthority(USER_ROLE_NAME)
+                .antMatchers( "/users/**", "/reviews/**")
+                .hasAuthority(ADMIN_ROLE_NAME)
+                .antMatchers("/articles/**")
+                .hasAnyAuthority(CUSTOMER_ROLE_NAME, SALE_ROLE_NAME)
+                .antMatchers("/profile/**")
+                .hasAuthority(CUSTOMER_ROLE_NAME)
+                .antMatchers("/items/**")
+                .hasAuthority(SALE_ROLE_NAME)
                 .antMatchers("/", "/login", "/about", "/messages/**")
                 .permitAll()
                 .and()

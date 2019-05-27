@@ -6,37 +6,113 @@
 </head>
 
 <body>
-<div class="container-fluid">
+<br class="container-fluid">
     <div th:replace="include/header :: header"></div>
-    <h3>Article</h3>
+    <th:block th:if="${currentuserid!=4}">
+        <h3>Article</h3>
 
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Date</th>
-            <th scope="col">Name</th>
-            <th scope="col">Author</th>
-            <th scope="col">Article</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${article.id}">...</td>
-            <td th:text="${article.date}">...</td>
-            <td th:text="${article.name}">...</td>
-            <td th:text="${article.userDTO.getFirstname()}+' '
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Article</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${article.id}">...</td>
+                <td th:text="${article.date}">...</td>
+                <td th:text="${article.name}">...</td>
+                <td th:text="${article.userDTO.getFirstname()}+' '
                  + ${article.userDTO.getSurname()}">...
-            </td>
-            <td th:text="${article.message}">...</td>
-        </tr>
-        </tbody>
-    </table>
+                </td>
+                <td th:text="${article.message}">...</td>
+            </tr>
+            </tbody>
+        </table>
+        </br></br></br>
+    </th:block>
+
+    <th:block th:if="${currentuserid==4}">
+        <h3>Edit Article</h3>
+
+
+        <table class="table">
+            <form class="form-horizontal" action="#" th:action="@{/article/update}" method="post"></form>
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Article</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td th:text="${article.id}">...</td>
+                <td th:text="${article.date}">...</td>
+                <td><input class="form-control mb-2" id="name"
+                           th:value="${article.name}" required/></td>
+                <td th:text="${article.userDTO.getFirstname()}+' '
+                 + ${article.userDTO.getSurname()}">...
+                </td>
+                <td>
+                    <textarea class="form-control mb-6" th:text="${article.message}" id="message" required/></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="float: left;">
+            <button class="btn btn-primary btn-lg disabled">Update</button>
+        </div>
+</br></br></br>
+    </th:block>
+    <!--<h3>Edit Article</h3>-->
+    <!--<form class="form-horizontal" action="#" th:action="@{/article/update}" method="post">-->
+
+    <!--<div class="form-group">-->
+    <!--<div class="col-md-4">-->
+    <!--<label>Title</label>-->
+    <!--<input th:name="name" class="form-control mb-4" id="name"-->
+    <!--th:value="${article.name}" required/></div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<div class="col-md-4">-->
+    <!--<label>Message</label>-->
+    <!--<input th:name="message" class="form-control mb-4" id="message"-->
+    <!--th:value="${article.message}" required/></div>-->
+    <!--</div>-->
+
+    <!--<div class="col-md-4">-->
+    <!--<div class="alert alert-danger" role="alert" th:if="${param.error}">-->
+    <!--Request has not been completed!-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="col-md-4">-->
+    <!--<div class="alert alert-success" role="alert" th:if="${param.success}">-->
+    <!--Data has been successfully changed!-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+    <!--<div class="col-md-4">-->
+    <!--<button type="submit" class="btn btn-primary btn-lg disabled">Update</button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</form>-->
+
 
     <h3>Comments</h3>
     <table class="table">
+        <form id="article-update-form" method="post" action="/articles/comments"></form>
         <thead class="thead-light">
         <tr>
+            <th scope="col"></th>
             <th scope="col">#</th>
             <th scope="col">Date</th>
             <th scope="col">Author</th>
@@ -45,18 +121,29 @@
         </thead>
         <tbody>
         <th:block th:each="comment : ${comments}">
-            <tr>
-                <td th:text="${comment.id}">...</td>
-                <td th:text="${comment.date}">...</td>
-                <td th:text="${comment.userDTO.getFirstname()}+' '
+            <td>
+                <th:block th:if="${currentuserid==4}">
+                    <div class="form-check">
+                        <input type="checkbox" name="ids" th:value="${comment.id}" form="comment-delete-form">
+                    </div>
+                </th:block>
+            </td>
+            <td th:text="${comment.id}">...</td>
+            <td th:text="${comment.date}">...</td>
+            <td th:text="${comment.userDTO.getFirstname()}+' '
                  + ${comment.userDTO.surname}">...
-                </td>
-                <td th:text="${comment.message}">...</td>
+            </td>
+            <td th:text="${comment.message}">...</td>
             </tr>
         </th:block>
         </tbody>
     </table>
 
+    <th:block th:if="${currentuserid==4}">
+        <div style="float: left;">
+            <button th:form="article-update-form" class="btn btn-primary btn-lg disabled">Delete</button>
+        </div>
+    </th:block>
     <div th:replace="include/footer :: footer"></div>
 </div>
 </body>

@@ -39,7 +39,7 @@ public class ProfileControllerIntegrationTest {
 
     @WithMockUser(username = "user@email.com",
             password = "user",
-            authorities = AuthorizationConstants.USER_ROLE_NAME
+            authorities = AuthorizationConstants.CUSTOMER_ROLE_NAME
     )
     @Test
     public void shouldShowProfilePageForCustomer() throws Exception {
@@ -49,7 +49,7 @@ public class ProfileControllerIntegrationTest {
 
     @WithMockUser(username = "user@email.com",
             password = "user",
-            authorities = AuthorizationConstants.USER_ROLE_NAME
+            authorities = AuthorizationConstants.CUSTOMER_ROLE_NAME
     )
     @Test
     public void shouldUpdateUserProfileForCustomer() throws Exception {

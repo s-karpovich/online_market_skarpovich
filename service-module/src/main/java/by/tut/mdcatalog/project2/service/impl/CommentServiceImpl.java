@@ -28,7 +28,6 @@ import java.util.List;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    private static final Logger logger = LoggerFactory.getLogger(CommentServiceImpl.class);
     private final CommentConverter commentConverter;
     private final CommentRepository commentRepository;
     private final UserConverter userConverter;
@@ -67,5 +66,16 @@ public class CommentServiceImpl implements CommentService {
             commentsDTO.add(commentDTO);
         }
         return commentsDTO;
+    }
+
+    @Override
+    @Transactional
+    public void deleteComments(Long[] ids) {
+        for (Long id : ids) {
+            Comment comment = commentRepository.getById(id);
+            if (comment != null && !comment.getDeleted()) {
+                commentRepository.delete(comment);
+            }
+        }
     }
 }

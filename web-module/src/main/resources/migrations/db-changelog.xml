@@ -128,12 +128,33 @@
         </createTable>
     </changeSet>
 
+
+    <changeSet id="2.5" author="mdcatalog@tut.by">
+        <createTable tableName="item">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unique_number" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal(12,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
     <changeSet id="3" author="mdcatalog@tut.by">
         <insert tableName="role">
             <column name="name" value="ADMINISTRATOR"/>
-        </insert>
-        <insert tableName="role">
-            <column name="name" value="SALE"/>
         </insert>
         <insert tableName="role">
             <column name="name" value="CUSTOMER"/>
@@ -141,15 +162,18 @@
         <insert tableName="role">
             <column name="name" value="SECURE API"/>
         </insert>
+        <insert tableName="role">
+            <column name="name" value="SALE"/>
+        </insert>
     </changeSet>
 
     <changeSet id="4.1" author="mdcatalog@tut.by">
         <insert tableName="user">
             <column name="username" value="admin@email.com"/>
-            <column name="password" value="$2a$12$L9eDNHoC6pGJuQAdg4aL6OB1DlCwMObWUPqcpSFoxnah9nxTZbr7m"/>
+            <column name="password" value="$2a$10$h5PxAqKUncmZLhyei5SLvOvov8sm1hqw7F684Fq4aJECwspq0E3vu"/>
             <column name="firstname" value="Admin"/>
-            <column name="middlename" value="Adminovich"/>
-            <column name="surname" value="Adminov"/>
+            <column name="middlename" value="A."/>
+            <column name="surname" value="Adminson"/>
             <column name="role_id" valueNumeric="1"/>
             <column name="deleted" valueBoolean="false"/>
         </insert>
@@ -157,25 +181,40 @@
 
     <changeSet id="4.2" author="mdcatalog@tut.by">
         <insert tableName="user">
-            <column name="username" value="user@email.com"/>
-            <column name="password" value="$2a$12$tDWHFzb42r/VWiEEf9RnxO9p3bjJ1Voqr9Hv06vPMjIR5XraixNwW"/>
-            <column name="firstname" value="User"/>
-            <column name="middlename" value="Userovich"/>
-            <column name="surname" value="Userov"/>
-            <column name="role_id" valueNumeric="3"/>
+            <column name="username" value="customer@email.com"/>
+            <column name="password" value="$2a$10$h5PxAqKUncmZLhyei5SLvOvov8sm1hqw7F684Fq4aJECwspq0E3vu"/>
+            <column name="firstname" value="Customer"/>
+            <column name="middlename" value="C."/>
+            <column name="surname" value="Customerson"/>
+            <column name="role_id" valueNumeric="2"/>
+            <column name="deleted" valueBoolean="false"/>
         </insert>
     </changeSet>
 
     <changeSet id="4.3" author="mdcatalog@tut.by">
         <insert tableName="user">
             <column name="username" value="rest@email.com"/>
-            <column name="password" value="$2a$12$tDWHFzb42r/VWiEEf9RnxO9p3bjJ1Voqr9Hv06vPMjIR5XraixNwW"/>
-            <column name="firstname" value="User3"/>
-            <column name="middlename" value="Apich3"/>
-            <column name="surname" value="Userov3"/>
-            <column name="role_id" valueNumeric="4"/>
+            <column name="password" value="$2a$10$h5PxAqKUncmZLhyei5SLvOvov8sm1hqw7F684Fq4aJECwspq0E3vu"/>
+            <column name="firstname" value="Rest"/>
+            <column name="middlename" value="R."/>
+            <column name="surname" value="Restson"/>
+            <column name="role_id" valueNumeric="3"/>
+            <column name="deleted" valueBoolean="false"/>
         </insert>
     </changeSet>
+
+    <changeSet id="4.4" author="mdcatalog@tut.by">
+        <insert tableName="user">
+            <column name="username" value="sale@email.com"/>
+            <column name="password" value="$2a$10$h5PxAqKUncmZLhyei5SLvOvov8sm1hqw7F684Fq4aJECwspq0E3vu"/>
+            <column name="firstname" value="Sales"/>
+            <column name="middlename" value="S."/>
+            <column name="surname" value="Saleson"/>
+            <column name="role_id" valueNumeric="4"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
 
     <changeSet id="5.1" author="mdcatalog@tut.by">
         <insert tableName="review">
@@ -293,4 +332,13 @@
         </insert>
     </changeSet>
 
+    <changeSet id="9.1" author="mdcatalog@tut.by">
+        <insert tableName="item">
+            <column name="name" value="bad item"/>
+            <column name="unique_number" value="c5c8e53-df0b-4df3-8a8b-5b5b57fcfca8"/>
+            <column name="price" value="100"/>
+            <column name="text" value="It's a very bad item. Never buy it."/>
+            <column name="deleted" valueNumeric="false"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
