@@ -33,24 +33,18 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final RoleConverter roleConverter;
-    private final ContactConverter contactConverter;
-    private final ContactRepository contactRepository;
 
     public UserServiceImpl(PasswordEncoder serviceEncoder,
                            UserConverter userConverter,
                            UserRepository userRepository,
                            RoleRepository roleRepository,
-                           RoleConverter roleConverter,
-                           ContactConverter contactConverter,
-                           ContactRepository contactRepository
+                           RoleConverter roleConverter
     ) {
         this.serviceEncoder = serviceEncoder;
         this.userConverter = userConverter;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.roleConverter = roleConverter;
-        this.contactConverter = contactConverter;
-        this.contactRepository = contactRepository;
     }
 
     @Override
@@ -80,15 +74,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void updateProfile(UserDTO userDTO, ContactDTO contactDTO) {
-        User user = userConverter.fromDTO(userDTO);
-        Contact contact = contactConverter.fromDTO(contactDTO);
-        userRepository.merge(user);
-        contactRepository.merge(contact);
-    }
-
-    @Override
-    @Transactional
     public void updateUserRole(RoleDTOUpdated roleDTOUpdated) {
         userRepository.updateUserRole(roleDTOUpdated.getRoleId(), roleDTOUpdated.getId());
         logger.info("User role successfully updated , user id{} , new role id {}",
@@ -97,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public List<UserDTO> getAll() {
+    public List<UserDTO> getUsers() {
         List<UserDTO> userDTOList = new ArrayList<>();
         List<User> userList = userRepository.getAll();
         for (User user : userList) {

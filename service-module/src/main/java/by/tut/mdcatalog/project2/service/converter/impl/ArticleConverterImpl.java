@@ -20,7 +20,6 @@ public class ArticleConverterImpl implements ArticleConverter {
         userDTO.setId(article.getUser().getId());
         articleDTO.setUserDTO(userDTO);
         articleDTO.setMessage(article.getMessage());
-        articleDTO.setDeleted(article.getDeleted());
         return articleDTO;
     }
 
@@ -34,7 +33,6 @@ public class ArticleConverterImpl implements ArticleConverter {
         article.setUser(user);
         article.setName(articleDTO.getName());
         article.setMessage(articleDTO.getMessage());
-        article.setDeleted(articleDTO.getDeleted());
         return article;
     }
 }

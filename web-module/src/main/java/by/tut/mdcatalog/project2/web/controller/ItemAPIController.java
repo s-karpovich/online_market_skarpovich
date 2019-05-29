@@ -45,7 +45,7 @@ public class ItemAPIController {
 
     @GetMapping
     public ResponseEntity getItems() {
-        List<ItemDTO> itemsDTO = itemService.getAll();
+        List<ItemDTO> itemsDTO = itemService.getItems();
         logger.info("Requested all Items via REST API");
         return new ResponseEntity(itemsDTO, HttpStatus.OK);
     }

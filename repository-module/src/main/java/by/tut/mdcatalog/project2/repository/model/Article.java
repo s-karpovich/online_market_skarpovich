@@ -16,7 +16,7 @@ import java.util.Objects;
 @Entity
 @Table
 @SQLDelete(sql = "UPDATE article SET deleted=true WHERE id=?")
-@Where(clause = "deleted = 0")
+@Where(clause = "deleted = false")
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class Article {
     private String name;
     private String message;
     @Column(name = "deleted")
-    private Boolean isDeleted;
+    private boolean isDeleted = false;
 
     public Long getId() {
         return id;

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ReviewService {
 
-    List<ReviewDTO> getAll();
+    List<ReviewDTO> getReviews();
 
     void deleteReviews(Long[] ids);
 }

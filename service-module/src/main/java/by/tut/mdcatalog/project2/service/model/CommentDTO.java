@@ -9,7 +9,6 @@ public class CommentDTO {
     private UserDTO userDTO;
     private ArticleDTO articleDTO;
     private String message;
-    private Boolean isDeleted;
 
     public Long getId() {
         return id;
@@ -43,11 +42,4 @@ public class CommentDTO {
 
     public void setMessage(String message) { this.message = message; }
 
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
-    }
 }

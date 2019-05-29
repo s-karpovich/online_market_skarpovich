@@ -7,7 +7,6 @@ public class ItemDTO {
     private String uniqueNumber;
     private String price;
     private String text;
-    private Boolean isDeleted;
 
     public Long getId() {
         return id;
@@ -48,8 +47,4 @@ public class ItemDTO {
     public void setText(String text) {
         this.text = text;
     }
-
-    public Boolean getDeleted() { return isDeleted; }
-
-    public void setDeleted(Boolean deleted) { isDeleted = deleted; }
 }

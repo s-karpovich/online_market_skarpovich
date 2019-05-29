@@ -24,7 +24,6 @@ public class ContactConverterImpl implements ContactConverter {
         contactDTO.setAddress(contact.getAddress());
         contactDTO.setPhone(contact.getPhone());
         contactDTO.setUserDTO(userConverter.toDTO(contact.getUser()));
-        contactDTO.setDeleted(contact.getDeleted());
         return contactDTO;
     }
 
@@ -35,7 +34,6 @@ public class ContactConverterImpl implements ContactConverter {
         contact.setAddress(contactDTO.getAddress());
         contact.setPhone(contactDTO.getPhone());
         contact.setUser(userConverter.fromDTO(contactDTO.getUserDTO()));
-        contact.setDeleted(contactDTO.getDeleted());
         return contact;
     }
 }

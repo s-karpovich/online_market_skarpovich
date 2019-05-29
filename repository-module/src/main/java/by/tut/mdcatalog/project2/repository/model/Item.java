@@ -27,7 +27,7 @@ public class Item {
     private BigDecimal price;
     private String text;
     @Column(name = "deleted")
-    private Boolean isDeleted;
+    private boolean isDeleted = false;
 
     public Long getId() {
         return id;

@@ -2,12 +2,8 @@ package by.tut.mdcatalog.project2.web.controller;
 
 import by.tut.mdcatalog.project2.service.ArticleService;
 import by.tut.mdcatalog.project2.service.CommentService;
-import by.tut.mdcatalog.project2.service.UserService;
 import by.tut.mdcatalog.project2.service.model.ArticleDTO;
 import by.tut.mdcatalog.project2.service.model.CommentDTO;
-import by.tut.mdcatalog.project2.service.model.UserDTO;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -28,66 +24,54 @@ public class ArticleController {
     private static final Logger logger = LoggerFactory.getLogger(ItemAPIController.class);
     private final ArticleService articleService;
     private final CommentService commentService;
-    private final UserService userService;
 
 
     public ArticleController(ArticleService articleService,
-                             CommentService commentService,
-                             UserService userService) {
+                             CommentService commentService) {
         this.articleService = articleService;
         this.commentService = commentService;
-        this.userService = userService;
     }
 
     @GetMapping("/articles")
     public String getArticles(Model model) {
-        List<ArticleDTO> articlesDTO = articleService.getAll();
+        List<ArticleDTO> articlesDTO = articleService.getArticles();
         model.addAttribute("articles", articlesDTO);
         return "articles";
     }
 
     @GetMapping("/articles/{id}")
     public String getArticle(@PathVariable(value = "id") Long id, ModelMap modelMap) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        UserDTO currentUserDTO = userService.getByUsername(username);
-
         ArticleDTO articleDTO = articleService.getById(id);
         List<CommentDTO> commentsDTO = commentService.getByArticleId(id);
         modelMap.addAttribute("article", articleDTO);
         modelMap.addAttribute("comments", commentsDTO);
-        modelMap.addAttribute("currentuserid", currentUserDTO.getId());
         return "article";
     }
 
     @PostMapping("/articles/{id}")
-    public String changeArticleInfo(@PathVariable(name = "id") Long id,
-                                    @Valid ArticleDTO articleDTO,
-                                    BindingResult result,
-                                    Model model) {
+    public String updateUrticle(@PathVariable(name = "id") Long id,
+                                @Valid ArticleDTO articleDTO,
+                                BindingResult result,
+                                Model model) {
         if (result.hasErrors()) {
             model.addAttribute("article", articleDTO);
-            logger.info("Article update invalid (ID) {}", id);
+            logger.info("Article update failed (ID): {}", id);
             return "article";
         }
         articleDTO.setId(id);
         articleDTO.setDate(new Date());
+        articleDTO.setUserDTO(articleService.getById(id).getUserDTO());
         articleService.update(articleDTO);
         logger.info("Article updated (ID) {}", id);
         return "redirect:/success";
     }
 
     @PostMapping("/articles/comments")
-    public String deleteComments(@RequestParam(value = "ids", required = false) Long[] ids, ModelMap modelMap) {
+    public String deleteComments(@RequestParam(value = "ids", required = false) Long[] ids) {
         if (ids == null) {
             logger.info("Delete incompleted: no comments selected");
             return "/article";
         } else {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            String username = authentication.getName();
-            UserDTO userDTO = userService.getByUsername(username);
-            userDTO.setDeleted(false);
-            modelMap.addAttribute("user", userDTO);
             commentService.deleteComments(ids);
             logger.info("Comments deleted(IDs):{}", ids);
             return "redirect:/success";

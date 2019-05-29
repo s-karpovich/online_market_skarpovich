@@ -27,7 +27,7 @@ public class User {
     private String middlename;
     private String surname;
     @Column(name = "deleted")
-    private Boolean isDeleted;
+    private boolean isDeleted = false;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
@@ -60,7 +60,7 @@ public class User {
 
     public Boolean getDeleted() { return isDeleted; }
 
-    public void setDeleted(Boolean deleted) { isDeleted = deleted; }
+    public void setDeleted(boolean deleted) { isDeleted = deleted; }
 
     public Role getRole() {
         return role;

@@ -57,7 +57,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public List<ArticleDTO> getAll() {
+    public List<ArticleDTO> getArticles() {
         List<ArticleDTO> articleDTOList = new ArrayList<>();
         List<Article> articleList = articleRepository.getAll();
         for (Article article : articleList) {

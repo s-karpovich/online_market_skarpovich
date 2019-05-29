@@ -46,10 +46,8 @@ public class ProfileController {
         userDTO.setId(currentUserDTO.getId());
         userDTO.setUsername(currentUserDTO.getUsername());
         userDTO.setRoleDTO(currentUserDTO.getRoleDTO());
-        userDTO.setDeleted(false);
         contactDTO.setId(userDTO.getId());
         contactDTO.setUserDTO(userDTO);
-        contactDTO.setDeleted(false);
         userService.update(userDTO);
         contactService.update(contactDTO);
         modelMap.addAttribute("user", userDTO);

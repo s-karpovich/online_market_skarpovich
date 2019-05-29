@@ -40,7 +40,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional
-    public List<ItemDTO> getAll() {
+    public List<ItemDTO> getItems() {
         List<ItemDTO> itemsDTO = new ArrayList<>();
         List<Item> itemList = itemRepository.getAll();
         for (Item item : itemList) {

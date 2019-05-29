@@ -5,14 +5,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface ItemService {
-    @Transactional
+
     void saveItem(ItemDTO itemDTO);
 
-    @Transactional
     ItemDTO getItemById(Long id);
 
-    @Transactional
-    List<ItemDTO> getAll();
+    List<ItemDTO> getItems();
 
     void deleteItemById(Long id);
 

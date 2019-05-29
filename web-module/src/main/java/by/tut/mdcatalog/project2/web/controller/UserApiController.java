@@ -21,9 +21,9 @@ public class UserApiController {
     }
 
     @GetMapping
-    public ResponseEntity getArticles() {
-        userService.getAll();
-        logger.info("Added Article via REST API");
+    public ResponseEntity getUsers() {
+        userService.getUsers();
+        logger.info("Requested Users via REST API");
         return new ResponseEntity(HttpStatus.OK);
     }
 }

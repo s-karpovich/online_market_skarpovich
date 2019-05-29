@@ -44,7 +44,7 @@
                 <td th:text="${user.firstname} + ' ' + ${user.middlename}+ ' ' + ${user.surname}">...</td>
 
                 <td>
-                    <form method="post" th:action="@{/users/update}" th:object="${RoleDTOUpdatedObject}">
+                    <form method="post" th:action="@{/users/update}" th:object="${roleDTOUpdatedObject}">
 
                         <th:block th:if="${user.id ==1}">
                             <div th:text="${user.roleDTO.name}">...</div>

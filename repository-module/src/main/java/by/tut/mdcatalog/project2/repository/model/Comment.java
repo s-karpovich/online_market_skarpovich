@@ -32,7 +32,7 @@ public class Comment {
     private Article article;
     private String message;
     @Column(name = "deleted")
-    private Boolean isDeleted;
+    private boolean isDeleted = false;
 
     public Long getId() {
         return id;

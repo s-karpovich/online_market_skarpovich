@@ -15,7 +15,6 @@ public class ReviewConverterImpl implements ReviewConverter {
         reviewDTO.setId(review.getId());
         reviewDTO.setDate(review.getDate());
         reviewDTO.setMessage(review.getMessage());
-        reviewDTO.setDeleted(review.getDeleted());
         return reviewDTO;
     }
 
@@ -28,7 +27,6 @@ public class ReviewConverterImpl implements ReviewConverter {
         user.setUsername(reviewDTO.getUserDTO().getUsername());
         review.setUser(user);
         review.setMessage(reviewDTO.getMessage());
-        review.setDeleted(reviewDTO.getDeleted());
         return review;
     }
 }

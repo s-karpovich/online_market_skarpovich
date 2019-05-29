@@ -33,11 +33,11 @@ public class UserController {
 
     @GetMapping("/users")
     public String getUsers(Model model, RoleDTOUpdated roleDTOUpdated) {
-        List<UserDTO> userDTOList = userService.getAll();
-        List<RoleDTO> roleDTOList = roleService.getAll();
+        List<UserDTO> userDTOList = userService.getUsers();
+        List<RoleDTO> roleDTOList = roleService.getRoles();
         model.addAttribute("users", userDTOList);
         model.addAttribute("roles", roleDTOList);
-        model.addAttribute("RoleDTOUpdatedObject", roleDTOUpdated);
+        model.addAttribute("roleDTOUpdatedObject", roleDTOUpdated);
         return "users";
     }
 
@@ -58,9 +58,8 @@ public class UserController {
             logger.info("User has not been added");
             return "redirect:/error";
         }
-        List<RoleDTO> rolesDTO = roleService.getAll();
+        List<RoleDTO> rolesDTO = roleService.getRoles();
         model.addAttribute("roles", rolesDTO);
-        userDTO.setDeleted(false);
         userService.create(userDTO);
         return "redirect:/success";
     }
@@ -85,7 +84,7 @@ public class UserController {
     }
 
     @PostMapping("/users/update")
-    public String changeStatus(@ModelAttribute(value = "RoleDTOUpdatedObject")
+    public String changeStatus(@ModelAttribute(value = "roleDTOUpdatedObject")
                                @Valid RoleDTOUpdated roleDTOUpdated,
                                BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

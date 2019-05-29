@@ -12,7 +12,7 @@ public interface ArticleService {
 
     void delete(Long id);
 
-    List<ArticleDTO> getAll();
+    List<ArticleDTO> getArticles();
 
     ArticleDTO getById(Long id);
 

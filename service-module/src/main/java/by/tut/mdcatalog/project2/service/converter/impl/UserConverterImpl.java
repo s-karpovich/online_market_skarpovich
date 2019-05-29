@@ -26,7 +26,6 @@ public class UserConverterImpl implements UserConverter {
         userDTO.setFirstname(user.getFirstname());
         userDTO.setMiddlename(user.getMiddlename());
         userDTO.setSurname(user.getSurname());
-        userDTO.setDeleted(user.getDeleted());
         RoleDTO roleDTO = new RoleDTO();
         roleDTO.setId(user.getRole().getId());
         roleDTO.setName(user.getRole().getName());
@@ -43,7 +42,6 @@ public class UserConverterImpl implements UserConverter {
         user.setFirstname(userDTO.getFirstname());
         user.setMiddlename(userDTO.getMiddlename());
         user.setSurname(userDTO.getSurname());
-        user.setDeleted(userDTO.getDeleted());
         Role role = new Role();
         role.setId(userDTO.getRoleDTO().getId());
         role.setName(userDTO.getRoleDTO().getName());

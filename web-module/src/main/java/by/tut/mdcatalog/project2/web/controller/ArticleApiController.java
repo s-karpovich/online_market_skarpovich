@@ -33,8 +33,8 @@ public class ArticleApiController {
 
     @GetMapping
     public ResponseEntity getArticles() {
-        articleService.getAll();
-        logger.info("Added Article via REST API");
+        articleService.getArticles();
+        logger.info("Requested Articles via REST API");
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -50,9 +50,7 @@ public class ArticleApiController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         UserDTO userDTO = userService.getByUsername(username);
-        userDTO.setDeleted(false);
         articleDTO.setUserDTO(userDTO);
-        articleDTO.setDeleted(false);
         articleDTO.setDate(new Date());
         articleService.create(articleDTO);
         logger.info("Added Article via REST API");

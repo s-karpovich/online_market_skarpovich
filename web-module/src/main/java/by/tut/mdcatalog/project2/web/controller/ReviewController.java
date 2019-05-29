@@ -24,7 +24,7 @@ public class ReviewController {
 
     @GetMapping("/reviews")
     public String getReviews(Model model) {
-        List<ReviewDTO> reviewDTOList = reviewService.getAll();
+        List<ReviewDTO> reviewDTOList = reviewService.getReviews();
         model.addAttribute("reviews", reviewDTOList);
         return "reviews";
     }

@@ -54,15 +54,15 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     @Transactional
-    public List<ReviewDTO> getAll() {
+    public List<ReviewDTO> getReviews() {
         List<ReviewDTO> reviewsDTO = new ArrayList<>();
         List<Review> reviewList = reviewRepository.getAll();
         for (Review review : reviewList) {
-            User user = userRepository.getById(review.getUser().getId());
-            UserDTO userDTO = userConverter.toDTO(user);
-            ReviewDTO reviewDTO = reviewConverter.toDTO(review);
-            reviewDTO.setUserDTO(userDTO);
-            reviewsDTO.add(reviewDTO);
+                User user = userRepository.getById(review.getUser().getId());
+                UserDTO userDTO = userConverter.toDTO(user);
+                ReviewDTO reviewDTO = reviewConverter.toDTO(review);
+                reviewDTO.setUserDTO(userDTO);
+                reviewsDTO.add(reviewDTO);
         }
         return reviewsDTO;
     }

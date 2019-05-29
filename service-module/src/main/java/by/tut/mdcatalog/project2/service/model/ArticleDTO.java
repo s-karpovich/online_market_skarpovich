@@ -9,7 +9,6 @@ public class ArticleDTO {
     private UserDTO userDTO;
     private String name;
     private String message;
-    private Boolean isDeleted;
 
     public Long getId() {
         return id;
@@ -27,13 +26,9 @@ public class ArticleDTO {
         this.date = date;
     }
 
-    public UserDTO getUserDTO() {
-        return userDTO;
-    }
+    public UserDTO getUserDTO() { return userDTO; }
 
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
-    }
+    public void setUserDTO(UserDTO userDTO) { this.userDTO = userDTO; }
 
     public String getName() { return name; }
 
@@ -42,12 +37,4 @@ public class ArticleDTO {
     public String getMessage() { return message; }
 
     public void setMessage(String message) { this.message = message; }
-
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
-    }
 }

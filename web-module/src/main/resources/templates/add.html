@@ -45,19 +45,11 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-4">
-                <td>
-                    <select class="form-control mb-4" th:name="roleDTO.id" required>
-                        <option value="">Choose User Role</option>
-                        <option value="1">ADMINISTRATOR</option>
-                        <option value="2">SALE</option>
-                        <option value="3">CUSTOMER</option>
-                        <option value="4">SECURE API</option>
-                    </select>
-                </td>
-            </div>
-        </div>
+        <select th:field="*{roleDTO.id}">
+            <option value="">Select Role</option>
+            <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+        </select>
+
 
         <div class="col-md-4">
             <div class="alert alert-danger" role="alert" th:if="${param.error}">

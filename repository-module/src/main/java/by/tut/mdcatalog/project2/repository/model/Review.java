@@ -29,7 +29,7 @@ public class Review {
     private User user;
     private String message;
     @Column(name = "deleted")
-    private Boolean isDeleted;
+    private boolean isDeleted = false;
 
     public Long getId() {
         return id;

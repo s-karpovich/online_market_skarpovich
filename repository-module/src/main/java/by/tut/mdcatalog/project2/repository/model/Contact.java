@@ -32,7 +32,7 @@ public class Contact {
     @PrimaryKeyJoinColumn
     private User user;
     @Column(name = "deleted")
-    private Boolean isDeleted;
+    private boolean isDeleted = false;
 
     public Long getId() { return id; }
 

@@ -24,7 +24,7 @@ public class ItemController {
 
     @GetMapping("/items")
     public String getItems(Model model) {
-        List<ItemDTO> itemsDTO = itemService.getAll();
+        List<ItemDTO> itemsDTO = itemService.getItems();
         model.addAttribute("items", itemsDTO);
         return "items";
     }
