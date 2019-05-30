@@ -42,7 +42,7 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public List<ItemDTO> getItems() {
         List<ItemDTO> itemsDTO = new ArrayList<>();
-        List<Item> itemList = itemRepository.getAll();
+        List<Item> itemList = itemRepository.getAllWithOrder();
         for (Item item : itemList) {
             ItemDTO itemDTO = itemConverter.toDTO(item);
             itemsDTO.add(itemDTO);
@@ -56,7 +56,7 @@ public class ItemServiceImpl implements ItemService {
         for (Long id : ids) {
             Item item = itemRepository.getById(id);
             if (item != null && !item.getDeleted()) {
-                itemRepository.delete(item);
+                itemRepository.remove(item);
             }
         }
     }
@@ -66,7 +66,7 @@ public class ItemServiceImpl implements ItemService {
     public void deleteItemById(Long id) {
         Item item = itemRepository.getById(id);
         if (item != null && !item.getDeleted()) {
-            itemRepository.delete(item);
+            itemRepository.remove(item);
         }
     }
 }

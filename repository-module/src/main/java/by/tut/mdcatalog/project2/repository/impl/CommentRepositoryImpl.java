@@ -9,23 +9,10 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Repository
-public class CommentRepositoryImpl extends GenericRepositoryImpl implements CommentRepository {
+public class CommentRepositoryImpl extends GenericRepositoryImpl<Long, Comment> implements CommentRepository {
 
     @PersistenceContext
     protected EntityManager entityManager;
-
-    @Override
-    public void delete(Comment comment) {
-        entityManager.remove(comment);
-    }
-
-    @Override
-    public Comment getById(Long id) {
-        String hql = "from Comment as C where C.id=:id";
-        Query query = entityManager.createQuery(hql);
-        query.setParameter("id", id);
-        return (Comment) query.getSingleResult();
-    }
 
     @Override
     public List<Comment> getByArticleId(Long id) {

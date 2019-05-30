@@ -44,25 +44,24 @@ public class UserController {
     @GetMapping("/users/add")
     public String addItem(UserDTO userDTO, Model model) {
         model.addAttribute(userDTO);
+        List<RoleDTO> rolesDTO = roleService.getRoles();
+        model.addAttribute("roles", rolesDTO);
         return "add";
     }
 
     @PostMapping("/users/add")
     public String addUser(
             @ModelAttribute UserDTO userDTO,
-            Model model,
             BindingResult bindingResult
     ) {
 
         if (bindingResult.hasErrors()) {
             logger.info("User has not been added");
-            return "redirect:/error";
+            return "redirect:/error"; }
+
+            userService.create(userDTO);
+            return "redirect:/success";
         }
-        List<RoleDTO> rolesDTO = roleService.getRoles();
-        model.addAttribute("roles", rolesDTO);
-        userService.create(userDTO);
-        return "redirect:/success";
-    }
 
     @PostMapping("/users/reset")
     public String resetPassword(@RequestParam(value = "id", required = false) Long id) {

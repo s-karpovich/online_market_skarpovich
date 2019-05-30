@@ -47,7 +47,7 @@ public class ReviewServiceImpl implements ReviewService {
         for (Long id : ids) {
             Review review = reviewRepository.getById(id);
             if (review != null && !review.getDeleted()) {
-                reviewRepository.delete(review);
+                reviewRepository.remove(review);
             }
         }
     }

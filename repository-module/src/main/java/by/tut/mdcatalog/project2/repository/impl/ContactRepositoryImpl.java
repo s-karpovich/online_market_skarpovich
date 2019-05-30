@@ -3,20 +3,10 @@ package by.tut.mdcatalog.project2.repository.impl;
 import by.tut.mdcatalog.project2.repository.ContactRepository;
 import by.tut.mdcatalog.project2.repository.model.Contact;
 import org.springframework.stereotype.Repository;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 @Repository
-public class ContactRepositoryImpl extends GenericRepositoryImpl implements ContactRepository {
-
-    @PersistenceContext
-    protected EntityManager entityManager;
-
-    @Override
-    public void merge(Contact contact) {
-        entityManager.merge(contact);
-    }
+public class ContactRepositoryImpl extends GenericRepositoryImpl<Long, Contact> implements ContactRepository {
 
     @Override
     public Contact getByUserId(Long id) {

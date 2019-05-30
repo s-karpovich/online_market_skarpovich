@@ -44,12 +44,12 @@
                        required/>
             </div>
         </div>
-
-        <select th:field="*{roleDTO.id}">
-            <option value="">Select Role</option>
-            <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
-        </select>
-
+        <div class="col-md-4">
+            <select th:field="*{roleDTO.id}" required>
+                <option value="">Select Role</option>
+                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+            </select>
+        </div>
 
         <div class="col-md-4">
             <div class="alert alert-danger" role="alert" th:if="${param.error}">

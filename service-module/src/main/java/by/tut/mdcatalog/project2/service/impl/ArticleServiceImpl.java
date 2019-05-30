@@ -52,14 +52,14 @@ public class ArticleServiceImpl implements ArticleService {
     public void delete(Long id) {
         Article article = new Article();
         article.setId(id);
-        articleRepository.delete(article);
+        articleRepository.remove(article);
     }
 
     @Override
     @Transactional
     public List<ArticleDTO> getArticles() {
         List<ArticleDTO> articleDTOList = new ArrayList<>();
-        List<Article> articleList = articleRepository.getAll();
+        List<Article> articleList = articleRepository.getAllWithOrder();
         for (Article article : articleList) {
             User user = userRepository.getById(article.getUser().getId());
             UserDTO userDTO = userConverter.toDTO(user);

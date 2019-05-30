@@ -6,15 +6,18 @@ import by.tut.mdcatalog.project2.repository.model.User;
 import java.sql.Connection;
 import java.util.List;
 
-public interface ArticleRepository extends GenericRepository {
+public interface ArticleRepository extends GenericRepository<Long, Article> {
+//
+//    void persist(Article article);
+//
+//    void merge(Article article);
 
-    void persist(Article article);
 
-    void merge(Article article);
+    List<Article> getAllWithOrder();
 
-    void delete(Article article);
+    //  void delete(Article article);
 
-    List<Article> getAll();
+    //List<Article> getAll();
 
-    Article getById(Long id);
+    // Article getById(Long id);
 }

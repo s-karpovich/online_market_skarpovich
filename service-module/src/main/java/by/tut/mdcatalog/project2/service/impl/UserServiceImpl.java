@@ -1,16 +1,12 @@
 package by.tut.mdcatalog.project2.service.impl;
 
-import by.tut.mdcatalog.project2.repository.ContactRepository;
 import by.tut.mdcatalog.project2.repository.RoleRepository;
 import by.tut.mdcatalog.project2.repository.UserRepository;
-import by.tut.mdcatalog.project2.repository.model.Contact;
 import by.tut.mdcatalog.project2.repository.model.Role;
 import by.tut.mdcatalog.project2.repository.model.User;
-import by.tut.mdcatalog.project2.service.converter.ContactConverter;
 import by.tut.mdcatalog.project2.service.converter.RoleConverter;
 import by.tut.mdcatalog.project2.service.converter.UserConverter;
 import by.tut.mdcatalog.project2.service.UserService;
-import by.tut.mdcatalog.project2.service.model.ContactDTO;
 import by.tut.mdcatalog.project2.service.model.RoleDTO;
 import by.tut.mdcatalog.project2.service.model.RoleDTOUpdated;
 import by.tut.mdcatalog.project2.service.model.UserDTO;
@@ -66,8 +62,8 @@ public class UserServiceImpl implements UserService {
     public void deleteUsers(Long[] ids) {
         for (Long id : ids) {
             User user = userRepository.getById(id);
-            if (user != null && user.getDeleted()==false) {
-                userRepository.delete(user);
+            if (user != null && !user.getDeleted()) {
+                userRepository.remove(user);
             }
         }
     }
@@ -84,7 +80,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public List<UserDTO> getUsers() {
         List<UserDTO> userDTOList = new ArrayList<>();
-        List<User> userList = userRepository.getAll();
+        List<User> userList = userRepository.getAllWithOrder();
         for (User user : userList) {
             Role role = roleRepository.getById(user.getRole().getId());
             RoleDTO roleDTO = roleConverter.toDTO(role);

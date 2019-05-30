@@ -74,7 +74,7 @@ public class CommentServiceImpl implements CommentService {
         for (Long id : ids) {
             Comment comment = commentRepository.getById(id);
             if (comment != null && !comment.getDeleted()) {
-                commentRepository.delete(comment);
+                commentRepository.remove(comment);
             }
         }
     }
