@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/api/articles")
 public class ArticleApiController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ArticleApiController.class);
     private final ArticleService articleService;
     private final UserService userService;
 
@@ -51,7 +50,7 @@ public class ArticleApiController {
         String username = authentication.getName();
         UserDTO userDTO = userService.getByUsername(username);
         articleDTO.setUserDTO(userDTO);
-        articleDTO.setDate(new Date());
+        articleDTO.setDate(articleDTO.getDate());
         articleService.create(articleDTO);
         logger.info("Added Article via REST API");
         return new ResponseEntity(HttpStatus.CREATED);

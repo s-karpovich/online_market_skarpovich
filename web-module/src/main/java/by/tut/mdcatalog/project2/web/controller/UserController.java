@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/users/add")
-    public String addItem(UserDTO userDTO, Model model) {
+    public String addUser(UserDTO userDTO, Model model) {
         model.addAttribute(userDTO);
         List<RoleDTO> rolesDTO = roleService.getRoles();
         model.addAttribute("roles", rolesDTO);
