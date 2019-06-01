@@ -2,8 +2,6 @@ package by.tut.mdcatalog.project2.repository.model;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +22,6 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
     private Long id;
-    @DateTimeFormat (pattern="yyyy-MM-dd")
     private Date date;
     @ManyToOne
     @JoinColumn(name = "user_id")

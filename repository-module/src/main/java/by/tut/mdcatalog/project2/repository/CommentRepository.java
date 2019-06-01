@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface CommentRepository extends GenericRepository<Long, Comment> {
 
-   // void delete(Comment comment);
-
     Comment getById(Long id);
 
     List<Comment> getByArticleId(Long id);

@@ -15,8 +15,6 @@ public interface GenericRepository<I, T> {
 
     T getById(I id);
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    //List<T> getAll(int offset, int limit);
     List<T> getAll();
     int getCountOfEntities();
 }

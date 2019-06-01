@@ -71,8 +71,6 @@ public class GenericRepositoryImpl<I, T> implements GenericRepository<I, T> {
     public List<T> getAll() {
         String query = "from " + entityClass.getName() + " c";
         Query q = entityManager.createQuery(query);
-//                .setFirstResult(offset)
-//                .setMaxResults(limit);
         return q.getResultList();
     }
 

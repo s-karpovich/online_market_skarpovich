@@ -3,21 +3,24 @@ package by.tut.mdcatalog.project2.web.controller;
 import by.tut.mdcatalog.project2.service.ArticleService;
 import by.tut.mdcatalog.project2.service.CommentService;
 import by.tut.mdcatalog.project2.service.UserService;
-import by.tut.mdcatalog.project2.service.model.*;
+import by.tut.mdcatalog.project2.service.model.ArticleDTO;
+import by.tut.mdcatalog.project2.service.model.CommentDTO;
+import by.tut.mdcatalog.project2.service.model.UserDTO;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -65,7 +68,6 @@ public class ArticleController {
         String username = authentication.getName();
         UserDTO userDTO = userService.getByUsername(username);
         articleDTO.setUserDTO(userDTO);
-     //   articleDTO.setDate(new Date());
         articleService.create(articleDTO);
         logger.info("Created article (ID): {}", articleDTO.getId());
         return "redirect:/success";

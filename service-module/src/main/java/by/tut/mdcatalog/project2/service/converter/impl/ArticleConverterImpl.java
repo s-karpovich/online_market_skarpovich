@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import static by.tut.mdcatalog.project2.service.constant.DateTimeConstant.DATE_PATTERN;
+
 @Component
 public class ArticleConverterImpl implements ArticleConverter {
 
@@ -16,7 +18,7 @@ public class ArticleConverterImpl implements ArticleConverter {
     public ArticleDTO toDTO(Article article) {
         ArticleDTO articleDTO = new ArticleDTO();
         articleDTO.setId(article.getId());
-        articleDTO.setDate(new SimpleDateFormat("yyyy-MM-dd").format(article.getDate()));
+        articleDTO.setDate(new SimpleDateFormat(DATE_PATTERN).format(article.getDate()));
         articleDTO.setName(article.getName());
         UserDTO userDTO = new UserDTO();
         userDTO.setId(article.getUser().getId());
@@ -30,7 +32,7 @@ public class ArticleConverterImpl implements ArticleConverter {
         Article article = new Article();
         article.setId(articleDTO.getId());
         try {
-            article.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(articleDTO.getDate()));
+            article.setDate(new SimpleDateFormat(DATE_PATTERN).parse(articleDTO.getDate()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
