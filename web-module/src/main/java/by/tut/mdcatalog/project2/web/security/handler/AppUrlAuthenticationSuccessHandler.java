@@ -1,5 +1,6 @@
 package by.tut.mdcatalog.project2.web.security.handler;
 
+import by.tut.mdcatalog.project2.web.constant.AuthorizationConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -9,15 +10,11 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collection;
-
-import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.ADMIN_ROLE_NAME;
-import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.USER_ROLE_NAME;
 
 @Component
 public class AppUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -51,13 +48,17 @@ public class AppUrlAuthenticationSuccessHandler implements AuthenticationSuccess
     private String targetURL(Authentication authentication) {
         boolean isCustomer = false;
         boolean isAdministrator = false;
+        boolean isSale = false;
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals(USER_ROLE_NAME)) {
+            if (grantedAuthority.getAuthority().equals(AuthorizationConstants.CUSTOMER_ROLE_NAME)) {
                 isCustomer = true;
                 break;
-            } else if (grantedAuthority.getAuthority().equals(ADMIN_ROLE_NAME)) {
+            } else if (grantedAuthority.getAuthority().equals(AuthorizationConstants.ADMIN_ROLE_NAME)) {
                 isAdministrator = true;
+                break;
+            } else if (grantedAuthority.getAuthority().equals(AuthorizationConstants.SALE_ROLE_NAME)) {
+                isSale = true;
                 break;
             }
         }
@@ -65,6 +66,8 @@ public class AppUrlAuthenticationSuccessHandler implements AuthenticationSuccess
             return "/profile";
         } else if (isAdministrator) {
             return "/users";
+        } else if (isSale) {
+            return "/items";
         } else {
             logger.info("Impossible to redirect. User role:" + authentication.getCredentials() + " - is not recognized.");
             return "redirect:/login?role";

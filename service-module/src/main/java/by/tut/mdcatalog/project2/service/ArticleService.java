@@ -6,11 +6,15 @@ import java.util.List;
 
 public interface ArticleService {
 
+    void create(ArticleDTO articleDTO);
+
+    void update(ArticleDTO articleDTO);
+
+    void delete(Long id);
+
     List<ArticleDTO> getArticles();
 
     ArticleDTO getById(Long id);
 
-    void add(ArticleDTO articleDTO);
 
-    void delete(Long id);
 }

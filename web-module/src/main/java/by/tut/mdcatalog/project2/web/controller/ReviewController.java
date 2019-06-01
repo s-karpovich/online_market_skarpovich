@@ -30,7 +30,7 @@ public class ReviewController {
     }
 
     @PostMapping("/reviews/delete")
-    public String deleteReviews(@RequestParam(value = "ids", required = false) int[] ids) {
+    public String deleteReviews(@RequestParam(value = "ids", required = false) Long[] ids) {
         if (ids == null) {
             logger.info("no reviews selected");
             return "/reviews";

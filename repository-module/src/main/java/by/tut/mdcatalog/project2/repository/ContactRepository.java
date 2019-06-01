@@ -1,13 +1,10 @@
 package by.tut.mdcatalog.project2.repository;
 
-
 import by.tut.mdcatalog.project2.repository.model.Contact;
 
-import java.sql.Connection;
+public interface ContactRepository extends GenericRepository<Long, Contact> {
 
-public interface ContactRepository extends GenericRepository {
+    void merge(Contact contact);
 
-    Contact getByUserId(Connection connection, Long id);
-
-    void update(Connection connection, Contact contact);
+    Contact getByUserId(Long id);
 }

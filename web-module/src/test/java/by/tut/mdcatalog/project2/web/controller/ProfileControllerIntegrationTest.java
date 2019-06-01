@@ -37,9 +37,9 @@ public class ProfileControllerIntegrationTest {
                 .build();
     }
 
-    @WithMockUser(username = "user@email.com",
-            password = "user",
-            authorities = AuthorizationConstants.USER_ROLE_NAME
+    @WithMockUser(username = "customer@email.com",
+            password = "1234",
+            authorities = AuthorizationConstants.CUSTOMER_ROLE_NAME
     )
     @Test
     public void shouldShowProfilePageForCustomer() throws Exception {
@@ -47,9 +47,9 @@ public class ProfileControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
-    @WithMockUser(username = "user@email.com",
-            password = "user",
-            authorities = AuthorizationConstants.USER_ROLE_NAME
+    @WithMockUser(username = "customer@email.com",
+            password = "1234",
+            authorities = AuthorizationConstants.CUSTOMER_ROLE_NAME
     )
     @Test
     public void shouldUpdateUserProfileForCustomer() throws Exception {
@@ -57,7 +57,7 @@ public class ProfileControllerIntegrationTest {
                 .param("firstname", "testFirstname")
                 .param("middle", "testMiddleName")
                 .param("surname", "testSurname")
-                .param("password", "user")
+                .param("password", "1234")
                 .param("phone", "testPhone")
                 .param("address", "TestAddress"))
                 .andExpect(status().is3xxRedirection())
@@ -92,6 +92,6 @@ public class ProfileControllerIntegrationTest {
     @Test
     public void shouldReturnTo405StatusForRestApiIfUpdatesProfilePage() throws Exception {
         mvc.perform(get("/profile/update"))
-                .andExpect(status().is4xxClientError());
+                .andExpect(redirectedUrl("/403"));
     }
 }

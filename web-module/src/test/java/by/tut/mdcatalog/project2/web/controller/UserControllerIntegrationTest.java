@@ -56,18 +56,19 @@ public class UserControllerIntegrationTest {
     }
 
     @WithMockUser(username = "admin@email.com",
-            password = "admin",
+            password = "1234",
             authorities = AuthorizationConstants.ADMIN_ROLE_NAME
     )
     @Test
     public void shouldAddUserbyAdmin() throws Exception {
         mvc.perform(post("/users/add")
-                .param("username", "testuser4@email.com")
-                .param("password", "user")
+                .param("username", "testuser22@email.com")
+                .param("password", "1234")
                 .param("firstname", "User4")
                 .param("middlename", "Userovich4")
                 .param("surname", "Userov4")
-                .param("role", "CUSTOMER"))
+                .param("deleted", "false")
+                .param("role", "3"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/success"));
     }
@@ -76,7 +77,7 @@ public class UserControllerIntegrationTest {
     @WithMockUser(authorities = {AuthorizationConstants.ADMIN_ROLE_NAME})
     public void shouldUpdateUserRole() {
         RoleDTOUpdated roleDTOUpdated = new RoleDTOUpdated();
-        roleDTOUpdated.setId(4L);
+        roleDTOUpdated.setId(5L);
         roleDTOUpdated.setRoleId(1L);
         Mockito.when(bindingResult.hasErrors()).thenReturn(false);
         String url = userController.changeStatus(roleDTOUpdated, bindingResult);
@@ -86,27 +87,27 @@ public class UserControllerIntegrationTest {
     @Test
     @WithMockUser(authorities = {AuthorizationConstants.ADMIN_ROLE_NAME})
     public void shouldResetPassword() {
-        String url = userController.resetPassword(4L);
+        String url = userController.resetPassword(5L);
         Assert.assertEquals("redirect:/success", url);
     }
 
     @Test
     @WithMockUser(authorities = {AuthorizationConstants.ADMIN_ROLE_NAME})
     public void shouldDeleteUsers() {
-        int[] ids = {4};
+        Long[] ids = {5L};
         String url = userController.deleteUsers(ids);
         Assert.assertEquals("redirect:/success", url);
     }
 
-    @WithMockUser(authorities = {AuthorizationConstants.USER_ROLE_NAME})
+    @WithMockUser(authorities = {AuthorizationConstants.CUSTOMER_ROLE_NAME})
     @Test
     public void shouldRedirectTo403PageIfCustomerAccessAddPage() throws Exception {
-        mvc.perform(get("/users/add"))
+        mvc.perform(get("/users/create"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/403"));
     }
 
-    @WithMockUser(authorities = {AuthorizationConstants.USER_ROLE_NAME})
+    @WithMockUser(authorities = {AuthorizationConstants.CUSTOMER_ROLE_NAME})
     @Test
     public void shouldRedirectTo403PageIfCustomerAccessUsersPage() throws Exception {
         mvc.perform(get("/users"))
@@ -125,7 +126,7 @@ public class UserControllerIntegrationTest {
     @WithMockUser(authorities = {AuthorizationConstants.REST_API_ROLE_NAME})
     @Test
     public void shouldRedirectTo403PageIfRestApiAccessAddPage() throws Exception {
-        mvc.perform(get("/users/add"))
+        mvc.perform(get("/users/create"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/403"));
     }

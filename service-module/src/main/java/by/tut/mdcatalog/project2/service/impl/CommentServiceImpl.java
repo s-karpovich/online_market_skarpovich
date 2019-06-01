@@ -18,6 +18,7 @@ import by.tut.mdcatalog.project2.service.model.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,7 +28,6 @@ import java.util.List;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    private static final Logger logger = LoggerFactory.getLogger(CommentServiceImpl.class);
     private final CommentConverter commentConverter;
     private final CommentRepository commentRepository;
     private final UserConverter userConverter;
@@ -36,12 +36,12 @@ public class CommentServiceImpl implements CommentService {
     private final ArticleConverter articleConverter;
 
     public CommentServiceImpl(
-                               CommentConverter commentConverter,
-                               CommentRepository commentRepository,
-                               UserRepository userRepository,
-                               UserConverter userConverter,
-                               ArticleRepository articleRepository,
-                               ArticleConverter articleConverter) {
+            CommentConverter commentConverter,
+            CommentRepository commentRepository,
+            UserRepository userRepository,
+            UserConverter userConverter,
+            ArticleRepository articleRepository,
+            ArticleConverter articleConverter) {
         this.commentConverter = commentConverter;
         this.commentRepository = commentRepository;
         this.userConverter = userConverter;
@@ -51,32 +51,31 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public List<CommentDTO> getByArticleId(Long id) {
-        try (Connection connection = commentRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                List<CommentDTO> commentDTOList = new ArrayList<>();
-                List<Comment> commentList = commentRepository.getByUserId(connection, id);
-                Article article = articleRepository.getById(connection, id);
-                ArticleDTO articleDTO = articleConverter.toDTO(article);
-                for (Comment comment : commentList) {
-                    User user = userRepository.getById(connection, comment.getUser().getId());
-                    UserDTO userDTO = userConverter.toDTO(user);
-                    CommentDTO commentDTO = commentConverter.toDTO(comment);
-                    commentDTO.setArticleDTO(articleDTO);
-                    commentDTO.setUserDTO(userDTO);
-                    commentDTOList.add(commentDTO);
-                }
-                connection.commit();
-                return commentDTOList;
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
+        List<CommentDTO> commentsDTO = new ArrayList<>();
+        List<Comment> comments = commentRepository.getByArticleId(id);
+        Article article = articleRepository.getById(id);
+        ArticleDTO articleDTO = articleConverter.toDTO(article);
+        for (Comment comment : comments) {
+            User user = userRepository.getById(comment.getUser().getId());
+            UserDTO userDTO = userConverter.toDTO(user);
+            CommentDTO commentDTO = commentConverter.toDTO(comment);
+            commentDTO.setArticleDTO(articleDTO);
+            commentDTO.setUserDTO(userDTO);
+            commentsDTO.add(commentDTO);
+        }
+        return commentsDTO;
+    }
+
+    @Override
+    @Transactional
+    public void deleteComments(Long[] ids) {
+        for (Long id : ids) {
+            Comment comment = commentRepository.getById(id);
+            if (comment != null && !comment.getDeleted()) {
+                commentRepository.remove(comment);
             }
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
         }
     }
 }

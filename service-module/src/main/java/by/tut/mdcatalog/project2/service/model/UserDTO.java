@@ -20,9 +20,7 @@ public class UserDTO {
     @Size(min = 1, max = 50)
     private String surname;
 
-    private Boolean isDeleted;
-    @NotNull
-    private String role;
+    private RoleDTO roleDTO;
 
     public UserDTO() {
     }
@@ -75,19 +73,8 @@ public class UserDTO {
         this.middlename = middlename;
     }
 
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
+    public RoleDTO getRoleDTO() { return roleDTO; }
 
-    public void setDeleted(Boolean deleted) {
-        isDeleted = deleted;
-    }
+    public void setRoleDTO(RoleDTO roleDTO) { this.roleDTO = roleDTO; }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 }

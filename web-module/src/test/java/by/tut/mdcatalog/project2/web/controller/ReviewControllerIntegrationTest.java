@@ -47,12 +47,12 @@ public class ReviewControllerIntegrationTest {
     @Test
     @WithMockUser(authorities = {AuthorizationConstants.ADMIN_ROLE_NAME})
     public void shouldDeleteReviewsForAdmin() {
-        int[] ids = {2, 3};
+        Long[] ids = {3L};
         String url = reviewController.deleteReviews(ids);
         Assert.assertEquals("redirect:/success", url);
     }
 
-    @WithMockUser(authorities = {AuthorizationConstants.USER_ROLE_NAME})
+    @WithMockUser(authorities = {AuthorizationConstants.CUSTOMER_ROLE_NAME})
     @Test
     public void shouldRedirectTo403PageIfCustomerAccessReviewsPage() throws Exception {
         mvc.perform(get("/reviews"))
@@ -60,7 +60,7 @@ public class ReviewControllerIntegrationTest {
                 .andExpect(redirectedUrl("/403"));
     }
 
-    @WithMockUser(authorities = {AuthorizationConstants.USER_ROLE_NAME})
+    @WithMockUser(authorities = {AuthorizationConstants.CUSTOMER_ROLE_NAME})
     @Test
     public void shouldRedirectTo403PageIfCustomerAccessDeletePage() throws Exception {
         mvc.perform(get("/reviews/delete"))

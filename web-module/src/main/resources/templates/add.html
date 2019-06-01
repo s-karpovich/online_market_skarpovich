@@ -44,19 +44,11 @@
                        required/>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-4">
-                <td>
-                    <select class="form-control mb-4" th:name="role" required>
-                        <option value="">Choose User Role</option>
-                        <option value="ADMINISTRATOR">ADMINISTRATOR</option>
-                        <option value="SALE">SALE</option>
-                        <option value="CUSTOMER">CUSTOMER</option>
-                        <option value="SECURE API">SECURE API</option>
-                    </select>
-                </td>
-            </div>
+        <div class="col-md-4">
+            <select th:field="*{roleDTO.id}" required>
+                <option value="">Select Role</option>
+                <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+            </select>
         </div>
 
         <div class="col-md-4">

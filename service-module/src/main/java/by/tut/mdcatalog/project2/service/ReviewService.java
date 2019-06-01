@@ -8,5 +8,5 @@ public interface ReviewService {
 
     List<ReviewDTO> getReviews();
 
-    void deleteReviews(int[] ids);
+    void deleteReviews(Long[] ids);
 }

@@ -3,6 +3,7 @@ package by.tut.mdcatalog.project2.service.converter.impl;
 import by.tut.mdcatalog.project2.repository.model.Role;
 import by.tut.mdcatalog.project2.repository.model.User;
 import by.tut.mdcatalog.project2.service.converter.UserConverter;
+import by.tut.mdcatalog.project2.service.model.RoleDTO;
 import by.tut.mdcatalog.project2.service.model.UserDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,10 @@ public class UserConverterImpl implements UserConverter {
         userDTO.setFirstname(user.getFirstname());
         userDTO.setMiddlename(user.getMiddlename());
         userDTO.setSurname(user.getSurname());
-        userDTO.setDeleted(user.getDeleted());
+        RoleDTO roleDTO = new RoleDTO();
+        roleDTO.setId(user.getRole().getId());
+        roleDTO.setName(user.getRole().getName());
+        userDTO.setRoleDTO(roleDTO);
         return userDTO;
     }
 
@@ -38,9 +42,9 @@ public class UserConverterImpl implements UserConverter {
         user.setFirstname(userDTO.getFirstname());
         user.setMiddlename(userDTO.getMiddlename());
         user.setSurname(userDTO.getSurname());
-        user.setDeleted(userDTO.getDeleted());
         Role role = new Role();
-        role.setName(userDTO.getRole());
+        role.setId(userDTO.getRoleDTO().getId());
+        role.setName(userDTO.getRoleDTO().getName());
         user.setRole(role);
         return user;
     }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/users")
 public class UserApiController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserApiController.class);
     private final UserService userService;
 
     public UserApiController(UserService userService) {
@@ -21,9 +21,9 @@ public class UserApiController {
     }
 
     @GetMapping
-    public ResponseEntity getArticles() {
+    public ResponseEntity getUsers() {
         userService.getUsers();
-        logger.info("Added Article via REST API");
+        logger.info("Requested Users via REST API");
         return new ResponseEntity(HttpStatus.OK);
     }
 }

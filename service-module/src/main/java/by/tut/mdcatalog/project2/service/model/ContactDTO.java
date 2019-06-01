@@ -6,7 +6,6 @@ public class ContactDTO {
     private String Address;
     private String Phone;
     private UserDTO userDTO;
-    private Boolean isDeleted;
 
     public Long getId() {
         return id;
@@ -30,9 +29,4 @@ public class ContactDTO {
 
     public void setUserDTO(UserDTO userDTO) { this.userDTO = userDTO; }
 
-    public Boolean getDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(Boolean deleted) { isDeleted = deleted; }
 }

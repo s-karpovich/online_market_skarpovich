@@ -37,31 +37,31 @@ public class UserController {
         List<RoleDTO> roleDTOList = roleService.getRoles();
         model.addAttribute("users", userDTOList);
         model.addAttribute("roles", roleDTOList);
-        model.addAttribute("RoleDTOUpdatedObject", roleDTOUpdated);
+        model.addAttribute("roleDTOUpdatedObject", roleDTOUpdated);
         return "users";
     }
 
     @GetMapping("/users/add")
-    public String addItem(UserDTO userDTO, Model model) {
+    public String addUser(UserDTO userDTO, Model model) {
         model.addAttribute(userDTO);
+        List<RoleDTO> rolesDTO = roleService.getRoles();
+        model.addAttribute("roles", rolesDTO);
         return "add";
     }
 
     @PostMapping("/users/add")
     public String addUser(
-            @Valid UserDTO userDTO,
+            @ModelAttribute UserDTO userDTO,
             BindingResult bindingResult
     ) {
 
         if (bindingResult.hasErrors()) {
             logger.info("User has not been added");
-            return "redirect:/error";
-        }
-        userService.add(userDTO);
-        logger.info("User has been added: {}", userDTO.getUsername());
-        return "redirect:/success";
-    }
+            return "redirect:/error"; }
 
+            userService.create(userDTO);
+            return "redirect:/success";
+        }
 
     @PostMapping("/users/reset")
     public String resetPassword(@RequestParam(value = "id", required = false) Long id) {
@@ -70,9 +70,8 @@ public class UserController {
         return "redirect:/success";
     }
 
-
     @PostMapping("/users/delete")
-    public String deleteUsers(@RequestParam(value = "ids", required = false) int[] ids) {
+    public String deleteUsers(@RequestParam(value = "ids", required = false) Long[] ids) {
         if (ids == null) {
             logger.info("Delete not processed: no users selected");
             return "/users";
@@ -84,7 +83,7 @@ public class UserController {
     }
 
     @PostMapping("/users/update")
-    public String changeStatus(@ModelAttribute(value = "RoleDTOUpdatedObject")
+    public String changeStatus(@ModelAttribute(value = "roleDTOUpdatedObject")
                                @Valid RoleDTOUpdated roleDTOUpdated,
                                BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

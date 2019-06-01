@@ -3,7 +3,6 @@ package by.tut.mdcatalog.project2.service.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +15,7 @@ public class AppUserPrincipal implements UserDetails {
     public AppUserPrincipal(UserDTO userDTO) {
         this.userDTO = userDTO;
         this.grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(userDTO.getRole()));
+        grantedAuthorities.add(new SimpleGrantedAuthority(userDTO.getRoleDTO().getName()));
     }
 
     @Override

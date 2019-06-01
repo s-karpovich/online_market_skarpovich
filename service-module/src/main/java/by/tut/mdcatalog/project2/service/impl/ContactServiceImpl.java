@@ -5,18 +5,15 @@ import by.tut.mdcatalog.project2.repository.UserRepository;
 import by.tut.mdcatalog.project2.repository.model.Contact;
 import by.tut.mdcatalog.project2.repository.model.User;
 import by.tut.mdcatalog.project2.service.ContactService;
-import by.tut.mdcatalog.project2.service.constant.ServiceErrors;
 import by.tut.mdcatalog.project2.service.converter.ContactConverter;
 import by.tut.mdcatalog.project2.service.converter.UserConverter;
-import by.tut.mdcatalog.project2.service.exception.ServiceException;
 import by.tut.mdcatalog.project2.service.model.ContactDTO;
 import by.tut.mdcatalog.project2.service.model.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 
 @Service
 public class ContactServiceImpl implements ContactService {
@@ -39,25 +36,20 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
+    @Transactional
+    public void update(ContactDTO contactDTO) {
+        Contact contact = contactConverter.fromDTO(contactDTO);
+        contactRepository.merge(contact);
+    }
+
+    @Override
+    @Transactional
     public ContactDTO getByUserId(Long id) {
-        try (Connection connection = contactRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                Contact contact = contactRepository.getByUserId(connection, id);
-                ContactDTO contactDTO = contactConverter.toDTO(contact);
-                User user = userRepository.getById(connection, contact.getUser().getId());
-                UserDTO userDTO = userConverter.toDTO(user);
-                contactDTO.setUserDTO(userDTO);
-                connection.commit();
-                return contactDTO;
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
-            }
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
-        }
+        Contact contact = contactRepository.getByUserId(id);
+        ContactDTO contactDTO = contactConverter.toDTO(contact);
+        User user = userRepository.getById(contact.getUser().getId());
+        UserDTO userDTO = userConverter.toDTO(user);
+        contactDTO.setUserDTO(userDTO);
+        return contactDTO;
     }
 }

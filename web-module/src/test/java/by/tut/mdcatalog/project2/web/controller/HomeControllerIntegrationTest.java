@@ -37,7 +37,7 @@ public class HomeControllerIntegrationTest {
     public void shouldRedirectAdminToUsersPageOnLogin() throws Exception {
         mvc.perform(post("/login")
                 .param("username", "admin@email.com")
-                .param("password", "admin"))
+                .param("password", "1234"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/users"));
     }
@@ -45,8 +45,8 @@ public class HomeControllerIntegrationTest {
     @Test
     public void shouldRedirectCustomerToProfilePageOnLogin() throws Exception {
         mvc.perform(post("/login")
-                .param("username", "user@email.com")
-                .param("password", "user"))
+                .param("username", "customer@email.com")
+                .param("password", "1234"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/profile"));
     }

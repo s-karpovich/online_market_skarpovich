@@ -1,6 +1,5 @@
 package by.tut.mdcatalog.project2.web.controller;
 
-
 import by.tut.mdcatalog.project2.web.app.SpringBootModuleApp;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +51,7 @@ public class ArticleApiControllerIntegrationTest {
     }
 
     @WithMockUser(username = "rest@email.com",
-            password = "user",
+            password = "1234",
             authorities = {REST_API_ROLE_NAME})
     @Test
     public void shouldAddArticle() throws Exception {
@@ -69,7 +68,7 @@ public class ArticleApiControllerIntegrationTest {
     @WithMockUser(authorities = {REST_API_ROLE_NAME})
     @Test
     public void shouldDeleteArticle() throws Exception {
-        mvc.perform(post("/api/articles/5"))
+        mvc.perform(post("/api/articles/1"))
                 .andExpect(status().isOk());
     }
 }

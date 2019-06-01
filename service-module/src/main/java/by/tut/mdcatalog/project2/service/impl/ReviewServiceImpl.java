@@ -14,6 +14,7 @@ import by.tut.mdcatalog.project2.service.ReviewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -29,12 +30,11 @@ public class ReviewServiceImpl implements ReviewService {
     private final UserRepository userRepository;
     private final UserConverter userConverter;
 
-
     public ReviewServiceImpl(
-                               ReviewConverter reviewConverter,
-                               ReviewRepository reviewRepository,
-                               UserRepository userRepository,
-                               UserConverter userConverter) {
+            ReviewConverter reviewConverter,
+            ReviewRepository reviewRepository,
+            UserRepository userRepository,
+            UserConverter userConverter) {
         this.reviewConverter = reviewConverter;
         this.reviewRepository = reviewRepository;
         this.userRepository = userRepository;
@@ -42,47 +42,28 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<ReviewDTO> getReviews() {
-        try (Connection connection = reviewRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                List<ReviewDTO> reviewDTOList = new ArrayList<>();
-                List<Review> reviewList = reviewRepository.getReviews(connection);
-                for (Review review : reviewList) {
-                    User user = userRepository.getById(connection, review.getUser().getId());
-                    UserDTO userDTO = userConverter.toDTO(user);
-                    ReviewDTO reviewDTO = reviewConverter.toDTO(review);
-                    reviewDTO.setUserDTO(userDTO);
-                    reviewDTOList.add(reviewDTO);
-                }
-                connection.commit();
-                return reviewDTOList;
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
+    @Transactional
+    public void deleteReviews(Long[] ids) {
+        for (Long id : ids) {
+            Review review = reviewRepository.getById(id);
+            if (review != null && !review.getDeleted()) {
+                reviewRepository.remove(review);
             }
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
         }
     }
 
     @Override
-    public void deleteReviews(int[] ids) {
-        try (Connection connection = reviewRepository.getConnection()) {
-            try {
-                connection.setAutoCommit(false);
-                reviewRepository.deleteReviews(connection, ids);
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-                logger.error(e.getMessage(), e);
-                throw new ServiceException(ServiceErrors.QUERY_FAILED, e);
-            }
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new ServiceException(ServiceErrors.DATABASE_CONNECTION_ERROR, e);
+    @Transactional
+    public List<ReviewDTO> getReviews() {
+        List<ReviewDTO> reviewsDTO = new ArrayList<>();
+        List<Review> reviewList = reviewRepository.getAll();
+        for (Review review : reviewList) {
+                User user = userRepository.getById(review.getUser().getId());
+                UserDTO userDTO = userConverter.toDTO(user);
+                ReviewDTO reviewDTO = reviewConverter.toDTO(review);
+                reviewDTO.setUserDTO(userDTO);
+                reviewsDTO.add(reviewDTO);
         }
+        return reviewsDTO;
     }
 }
