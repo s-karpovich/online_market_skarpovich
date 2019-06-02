@@ -46,24 +46,24 @@
     </changeSet>
 
     <changeSet id="2.1" author="mdcatalog@tut.by">
-    <createTable tableName="review">
-        <column name="id" type="bigint" autoIncrement="true">
-            <constraints primaryKey="true" nullable="false"/>
-        </column>
-        <column name="message" type="varchar(200)">
-            <constraints nullable="false"/>
-        </column>
-        <column name="date" type="datetime">
-            <constraints nullable="false"/>
-        </column>
-        <column name="deleted" type="boolean" defaultValueBoolean="false">
-            <constraints nullable="false"/>
-        </column>
-        <column name="user_id" type="bigint">
-            <constraints nullable="false" foreignKeyName="fk_review_user" references="user(id)"/>
-        </column>
-    </createTable>
-</changeSet>
+        <createTable tableName="review">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="message" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_review_user" references="user(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
 
     <changeSet id="2.2" author="mdcatalog@tut.by">
         <createTable tableName="article">
@@ -148,6 +148,35 @@
             </column>
             <column name="deleted" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2.6" author="mdcatalog@tut.by">
+        <createTable tableName="order">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unique_number" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="count" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total" type="decimal(12,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_order_user" references="user(id)"/>
+            </column>
+            <column name="item_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_order_item" references="item(id)"/>
             </column>
         </createTable>
     </changeSet>
@@ -315,13 +344,13 @@
     </changeSet>
 
     <changeSet id="7.1" author="mdcatalog@tut.by">
-    <insert tableName="comment">
-        <column name="user_id" valueNumeric="2"/>
-        <column name="article_id" valueNumeric="2"/>
-        <column name="message" value="It's a bad article. My comment"/>
-        <column name="date" valueDate="2019-05-06"/>
-        <column name="deleted" valueBoolean="false"/>
-    </insert>
+        <insert tableName="comment">
+            <column name="user_id" valueNumeric="2"/>
+            <column name="article_id" valueNumeric="2"/>
+            <column name="message" value="It's a bad article. My comment"/>
+            <column name="date" valueDate="2019-05-06"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
     </changeSet>
 
     <changeSet id="7.2" author="mdcatalog@tut.by">
@@ -350,6 +379,18 @@
             <column name="price" value="100"/>
             <column name="text" value="It's a very bad item. Never buy it."/>
             <column name="deleted" valueNumeric="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="10.1" author="mdcatalog@tut.by">
+        <insert tableName="order">
+            <column name="user_id" valueNumeric="2"/>
+            <column name="item_id" valueNumeric="1"/>
+            <column name="date" valueDate="2019-06-01"/>
+            <column name="status" value="NEW"/>
+            <column name="unique_number" value="a4n8u11-df0b-4df3-8a8b-3b3b53fcvvb9"/>
+            <column name="count" value="10"/>
+            <column name="total" value="1000"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

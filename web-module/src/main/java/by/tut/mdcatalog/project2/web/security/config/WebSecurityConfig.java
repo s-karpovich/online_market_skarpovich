@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAuthority(ADMIN_ROLE_NAME)
                 .antMatchers("/articles/{\\d+}")
                 .hasAnyAuthority(CUSTOMER_ROLE_NAME, SALE_ROLE_NAME)
-                .antMatchers("/profile/**")
+                .antMatchers("/profile/**", "/orders/**")
                 .hasAuthority(CUSTOMER_ROLE_NAME)
                 .antMatchers("/items/**", "/articles/add", "/articles/comments")
                 .hasAuthority(SALE_ROLE_NAME)

@@ -2,7 +2,6 @@ package by.tut.mdcatalog.project2.service.impl;
 
 import by.tut.mdcatalog.project2.repository.ItemRepository;
 import by.tut.mdcatalog.project2.repository.model.Item;
-import by.tut.mdcatalog.project2.repository.model.User;
 import by.tut.mdcatalog.project2.service.ItemService;
 import by.tut.mdcatalog.project2.service.converter.ItemConverter;
 import by.tut.mdcatalog.project2.service.model.ItemDTO;
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class ItemServiceImpl implements ItemService {

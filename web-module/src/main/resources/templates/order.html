@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:replace="include/header :: header-css"></div>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div th:replace="include/header :: header"></div>
+    <h3>Order Details</h3>
+
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Order UID</th>
+            <th scope="col">Status</th>
+            <th scope="col">Item</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${order.uniqueNumber}">...</td>
+            <td th:text="${order.status}">...</td>
+            <td th:text="${order.itemDTO.name}">...</td>
+            <td th:text="${order.userDTO.firstname}+' '
+                + ${order.userDTO.middlename}+' '
+                 + ${order.userDTO.surname}">...
+            </td>
+            <td th:text="${contact.phone}">...</td>
+            <td th:text="${order.count}">...</td>
+            <td th:text="${order.total}">...</td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="include/footer :: footer"></div>
+</div>
+</body>
+</html>
