@@ -1,11 +1,13 @@
 package by.tut.mdcatalog.project2.service.model;
 
+import java.math.BigDecimal;
+
 public class ItemDTO {
 
     private Long id;
     private String name;
     private String uniqueNumber;
-    private String price;
+    private BigDecimal price;
     private String text;
 
     public Long getId() {
@@ -32,13 +34,9 @@ public class ItemDTO {
         this.uniqueNumber = uniqueNumber;
     }
 
-    public String getPrice() {
-        return price;
-    }
+    public BigDecimal getPrice() { return price; }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
+    public void setPrice(BigDecimal price) { this.price = price; }
 
     public String getText() {
         return text;

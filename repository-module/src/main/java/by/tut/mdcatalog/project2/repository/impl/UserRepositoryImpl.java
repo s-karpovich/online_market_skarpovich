@@ -4,6 +4,7 @@ import by.tut.mdcatalog.project2.repository.model.User;
 import by.tut.mdcatalog.project2.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -33,13 +34,22 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<Long, User> implem
         String hql = "from User as U where U.username=:username";
         Query query = entityManager.createQuery(hql);
         query.setParameter("username", username);
-        return (User) query.getSingleResult();
+        try {
+            return (User) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
+
 
     @Override
     public List<User> getAllWithOrder() {
-        String hql = "from User as U ORDER BY username ASC";
+        String hql = "from User as U where deleted=false ORDER BY username ASC";
         Query query = entityManager.createQuery(hql);
-        return query.getResultList();
+        try {
+            return query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

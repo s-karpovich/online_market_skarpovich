@@ -66,7 +66,7 @@ public class ItemControllerIntegrationTest {
     @WithMockUser(authorities = {ADMIN_ROLE_NAME})
     @Test
     public void shouldRedirectTo403PageIfAdminAccessItemPage() throws Exception {
-        mvc.perform(get("/items/1"))
+        mvc.perform(get("/items/2"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/403"));
     }

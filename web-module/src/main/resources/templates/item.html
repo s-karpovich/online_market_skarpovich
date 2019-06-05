@@ -4,30 +4,65 @@
 <head>
     <div th:replace="include/header :: header-css"></div>
 </head>
-
 <body>
 <div class="container-fluid">
     <div th:replace="include/header :: header"></div>
-    <h3>Article</h3>
 
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">UID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${item.name}">...</td>
-            <td th:text="${item.uniqueNumber}">...</td>
-            <td th:text="${item.price}">...</td>
-            <td th:text="${item.text}">...</td>
-        </tr>
-        </tbody>
-    </table>
+    <div sec:authorize="hasAuthority('SALE')">
+        <h3>Items</h3>
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">UID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${item.name}">...</td>
+                <td th:text="${item.uniqueNumber}">...</td>
+                <td th:text="${item.price}">...</td>
+                <td th:text="${item.text}">...</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div sec:authorize="hasAuthority('CUSTOMER')">
+        <h3>Buy Items</h3>
+        <form class="form-horizontal" th:action="@{'/items/' + ${item.id}}" th:object="${orderDTO}" method="post">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">UID</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${item.name}">...</td>
+                    <td th:text="${item.uniqueNumber}">...</td>
+                    <td th:text="${item.price}">...</td>
+                    <td th:text="${item.text}">...</td>
+                    <td>
+                        <div class="col-xs-1">
+                            <input th:name="count" class="form-control" type="number" id="count" size="1" min="1"
+                                   max="100" required/>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div>
+                <button class="btn btn-primary btn-lg disabled">Buy</button>
+            </div>
+        </form>
+    </div>
+    </br></br>
     <div th:replace="include/footer :: footer"></div>
 </div>
 </body>

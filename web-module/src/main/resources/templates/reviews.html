@@ -10,12 +10,11 @@
     <div th:replace="include/header :: header"></div>
     <h3>Reviews List</h3>
 
-    <table class="table">
+    <table class="table table-hover">
         <form id="reviews-delete-form" method="post" action="/reviews/delete"></form>
         <thead class="thead-light">
         <tr>
             <th scope="col"></th>
-            <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Date</th>
             <th scope="col">Message</th>
@@ -33,7 +32,6 @@
                         </div>
                     </th:block>
                 </td>
-                <td th:text="${review.id}">...</td>
                 <td th:text="${review.userDTO.getFirstname()}+' '
                 + ${review.userDTO.getMiddlename()}+' '
                  + ${review.userDTO.getSurname()}">...
@@ -61,7 +59,7 @@
         <button th:form="reviews-hide-form" class="btn btn-light btn-lg disabled">Hide</button>
     </div>
 </div>
-
+</br></br>
 <div th:replace="include/footer :: footer"></div>
 </body>
 

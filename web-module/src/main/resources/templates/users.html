@@ -9,12 +9,11 @@
 <div class="container-fluid">
     <div th:replace="include/header :: header"></div>
     <h3>Users List</h3>
-    <table class="table">
+    <table class="table table-hover">
         <form id="users-delete-form" method="post" action="/users/delete"></form>
         <thead class="thead-light">
         <tr>
             <th scope="col"></th>
-            <th scope="col">#</th>
             <th scope="col">Username</th>
             <th scope="col">Password</th>
             <th scope="col">Full Name</th>
@@ -32,7 +31,6 @@
                         </div>
                     </th:block>
                 </td>
-                <td th:text="${user.id}">...</td>
                 <td th:text="${user.username}">...</td>
                 <td>
                     <form method="post" th:action="@{/users/reset}">
@@ -78,7 +76,7 @@
         <button th:form="users-delete-form" class="btn btn-primary btn-lg disabled">Delete</button>
     </div>
 </div>
-
+</br></br>
 <div th:replace="include/footer :: footer"></div>
 
 </body>

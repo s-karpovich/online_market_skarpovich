@@ -10,10 +10,9 @@
     <div th:replace="include/header :: header"></div>
     <h3>Profile</h3>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead class="thead-light">
         <tr>
-            <th scope="col">#</th>
             <th scope="col">UserName</th>
             <th scope="col">First Name</th>
             <th scope="col">SurName</th>
@@ -23,7 +22,6 @@
         </thead>
         <tbody>
         <tr>
-            <td th:text="${user.id}">...</td>
             <td th:text="${user.username}">...</td>
             <td th:text="${user.firstname}">...</td>
             <td th:text="${user.surname}">...</td>
@@ -39,33 +37,33 @@
             <div class="col-md-4">
                 <label for="password">First Name</label>
                 <input th:name="firstname" class="form-control mb-4" id="firstname"
-                       th:value="${user.firstname}" required/></div>
+                       th:value="${user.firstname}" minlength="3" maxlength="20" required/></div>
         </div>
         <div class="form-group">
             <div class="col-md-4">
                 <label for="password">Surname</label>
                 <input th:name="surname" class="form-control mb-4" id="surname"
-                       th:value="${user.surname}" required/></div>
+                       th:value="${user.surname}" minlength="3" maxlength="40" required/></div>
         </div>
 
         <div class="form-group">
             <div class="col-md-4">
                 <label for="password">Phone</label>
                 <input th:name="phone" class="form-control mb-4" id="phone"
-                       th:value="${contact.phone}"/></div>
+                       th:value="${contact.phone}" minlength="3" maxlength="20"/></div>
         </div>
         <div class="form-group">
             <div class="col-md-4">
                 <label for="password">Address</label>
                 <input th:name="address" class="form-control mb-4" id="address"
-                       th:value="${contact.address}"/></div>
+                       th:value="${contact.address}" minlength="3" maxlength="80"/></div>
         </div>
 
         <div class="form-group">
             <div class="col-md-4">
                 <label for="password">Password</label>
                 <input th:name="password" type="password" class="form-control mb-4" id="password"
-                       th:placeholder="Password" required/></div>
+                       th:placeholder="Password" minlength="3" maxlength="72" required/></div>
         </div>
 
         <div class="col-md-4">
@@ -85,6 +83,7 @@
             </div>
         </div>
     </form>
+    </br></br>
     <div th:replace="include/footer :: footer"></div>
 </div>
 </body>

@@ -4,6 +4,7 @@ import by.tut.mdcatalog.project2.repository.model.Review;
 import by.tut.mdcatalog.project2.repository.model.User;
 import by.tut.mdcatalog.project2.service.converter.ReviewConverter;
 import by.tut.mdcatalog.project2.service.model.ReviewDTO;
+import by.tut.mdcatalog.project2.service.model.UserDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +16,10 @@ public class ReviewConverterImpl implements ReviewConverter {
         reviewDTO.setId(review.getId());
         reviewDTO.setDate(review.getDate());
         reviewDTO.setMessage(review.getMessage());
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(review.getUser().getId());
+        reviewDTO.setUserDTO(userDTO);
         return reviewDTO;
     }
 
@@ -23,10 +28,11 @@ public class ReviewConverterImpl implements ReviewConverter {
         Review review = new Review();
         review.setId(reviewDTO.getId());
         review.setDate(reviewDTO.getDate());
-        User user = new User();
-        user.setUsername(reviewDTO.getUserDTO().getUsername());
-        review.setUser(user);
         review.setMessage(reviewDTO.getMessage());
+
+        User user = new User();
+        user.setId(reviewDTO.getUserDTO().getId());
+        review.setUser(user);
         return review;
     }
 }

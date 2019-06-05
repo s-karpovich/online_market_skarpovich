@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:fragment="header-css">
-        <title>Online Market Skarpovich</title>
+        <title>Online Tours Market.</title>
         <meta http-equiv="Cache-Control" content="no-cache">
         <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -19,8 +19,9 @@
     </div>
 </head>
 
-<body>
+<br>
 <div th:fragment="header">
+    <div class="navbar-nav"><img th:src="@{/images/header3.jpg}"></div>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #5663B4;">
         <a class="navbar-brand" th:href="@{/}">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -33,6 +34,7 @@
                 <a class="nav-item nav-link" th:href="@{/users}">Users</a>
                 <a class="nav-item nav-link" th:href="@{/users/add}">Add User</a>
                 <a class="nav-item nav-link" th:href="@{/reviews}">Reviews</a>
+                <a class="nav-item nav-link" th:href="@{/reviews/add}">Add Review</a>
                 <a class="nav-item nav-link" th:href="@{/articles}">Articles</a>
                 <a class="nav-item nav-link" th:href="@{/articles/add}">Add Article</a>
                 <a class="nav-item nav-link" th:href="@{/items}">Items</a>
@@ -42,6 +44,7 @@
         </div>
     </nav>
 </div>
+</br>
 </body>
 
 </html>

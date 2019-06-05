@@ -5,8 +5,8 @@
             <PatternLayout pattern="%d %-5p %msg%n"/>
         </Console>
         <RollingFile name="RollingFile"
-                     fileName="logs/week4app.log"
-                     filePattern="logs/week4app.%d{dd-MMM}.log">
+                     fileName="logs/project2.log"
+                     filePattern="logs/project2.%d{dd-MMM}.log">
             <PatternLayout pattern="%d %-5p %msg%n"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="10 MB"/>

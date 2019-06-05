@@ -1,5 +1,6 @@
 package by.tut.mdcatalog.project2.web.controller;
 
+import by.tut.mdcatalog.project2.service.model.RoleDTO;
 import by.tut.mdcatalog.project2.service.model.RoleDTOUpdated;
 import by.tut.mdcatalog.project2.web.app.SpringBootModuleApp;
 import by.tut.mdcatalog.project2.web.constant.AuthorizationConstants;
@@ -11,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,6 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.context.WebApplicationContext;
 
+import static by.tut.mdcatalog.project2.web.constant.AuthorizationConstants.REST_API_ROLE_NAME;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -55,29 +58,11 @@ public class UserControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
-    @WithMockUser(username = "admin@email.com",
-            password = "1234",
-            authorities = AuthorizationConstants.ADMIN_ROLE_NAME
-    )
-    @Test
-    public void shouldAddUserbyAdmin() throws Exception {
-        mvc.perform(post("/users/add")
-                .param("username", "testuser22@email.com")
-                .param("password", "1234")
-                .param("firstname", "User4")
-                .param("middlename", "Userovich4")
-                .param("surname", "Userov4")
-                .param("deleted", "false")
-                .param("role", "3"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/success"));
-    }
-
     @Test
     @WithMockUser(authorities = {AuthorizationConstants.ADMIN_ROLE_NAME})
     public void shouldUpdateUserRole() {
         RoleDTOUpdated roleDTOUpdated = new RoleDTOUpdated();
-        roleDTOUpdated.setId(5L);
+        roleDTOUpdated.setId(6L);
         roleDTOUpdated.setRoleId(1L);
         Mockito.when(bindingResult.hasErrors()).thenReturn(false);
         String url = userController.changeStatus(roleDTOUpdated, bindingResult);
@@ -94,7 +79,7 @@ public class UserControllerIntegrationTest {
     @Test
     @WithMockUser(authorities = {AuthorizationConstants.ADMIN_ROLE_NAME})
     public void shouldDeleteUsers() {
-        Long[] ids = {5L};
+        Long[] ids = {6L};
         String url = userController.deleteUsers(ids);
         Assert.assertEquals("redirect:/success", url);
     }

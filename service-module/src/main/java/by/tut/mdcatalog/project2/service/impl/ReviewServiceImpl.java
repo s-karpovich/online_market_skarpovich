@@ -4,10 +4,8 @@ import by.tut.mdcatalog.project2.repository.ReviewRepository;
 import by.tut.mdcatalog.project2.repository.UserRepository;
 import by.tut.mdcatalog.project2.repository.model.Review;
 import by.tut.mdcatalog.project2.repository.model.User;
-import by.tut.mdcatalog.project2.service.constant.ServiceErrors;
 import by.tut.mdcatalog.project2.service.converter.ReviewConverter;
 import by.tut.mdcatalog.project2.service.converter.UserConverter;
-import by.tut.mdcatalog.project2.service.exception.ServiceException;
 import by.tut.mdcatalog.project2.service.model.ReviewDTO;
 import by.tut.mdcatalog.project2.service.model.UserDTO;
 import by.tut.mdcatalog.project2.service.ReviewService;
@@ -15,9 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,5 +60,12 @@ public class ReviewServiceImpl implements ReviewService {
                 reviewsDTO.add(reviewDTO);
         }
         return reviewsDTO;
+    }
+
+    @Override
+    @Transactional
+    public void create(ReviewDTO reviewDTO) {
+        Review review = reviewConverter.fromDTO(reviewDTO);
+        reviewRepository.persist(review);
     }
 }

@@ -1,9 +1,16 @@
 package by.tut.mdcatalog.project2.service.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class ContactDTO {
 
     private Long id;
+    @NotNull
+    @Size(min = 1, max = 80)
     private String Address;
+    @NotNull
+    @Size(min = 1, max = 20)
     private String Phone;
     private UserDTO userDTO;
 

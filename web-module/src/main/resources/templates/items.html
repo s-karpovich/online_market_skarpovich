@@ -10,7 +10,7 @@
     <div th:replace="include/header :: header"></div>
     <h3>Items List</h3>
 
-    <table class="table">
+    <table class="table table-hover">
         <form id="item-delete-form" method="post" action="/items/delete"></form>
         <thead class="thead-light">
         <tr>
@@ -55,7 +55,7 @@
         <button th:form="item-delete-form" class="btn btn-primary btn-lg disabled">Delete</button>
     </div>
 </div>
-
+</br></br>
 <div th:replace="include/footer :: footer"></div>
 </body>
 

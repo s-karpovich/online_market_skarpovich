@@ -8,4 +8,5 @@ import java.util.List;
 public interface OrderRepository extends GenericRepository<Long, Order> {
 
     List<Order> getAllWithOrder();
+    List<Order> getByUserIdWithOrder(Long id);
 }

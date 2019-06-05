@@ -10,32 +10,77 @@
     <div th:replace="include/header :: header"></div>
     <h3>Orders List</h3>
 
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">Order UID</th>
-            <th scope="col">Status</th>
-            <th scope="col">Item Name</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Total Price</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <th:block th:each="order : ${orders} ">
+    <div sec:authorize="hasAuthority('SALE')">
+        <table class="table table-hover">
+            <thead class="thead-light">
             <tr>
-                <td th:text="${order.uniqueNumber}">...</td>
-                <td th:text="${order.status}">...</td>
-                <td th:text="${order.itemDTO.name}">...</td>
-                <td th:text="${order.count}">...</td>
-                <td th:text="${order.total}">...</td>
-                <td><a class="btn btn-primary btn-xs" th:href="@{'/orders/' + ${order.id}}"
-                       role="button">Details</a></td>
+                <th scope="col">Order UID</th>
+                <th scope="col">Status</th>
+                <th scope="col">Item Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Price</th>
+                <th scope="col"></th>
             </tr>
-        </th:block>
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+
+            <th:block th:each="order : ${orders} ">
+                <tr>
+                    <form class="form-horizontal" th:action="@{'/orders/' + ${order.id}}" th:object="${orderDTO}"
+                          method="post">
+
+                        <td th:text="${order.uniqueNumber}">...</td>
+                        <td>
+                            <div>
+                                <select th:field="*{statusDTO.id}" required/>
+                                <option th:each="status : ${statuses}" th:value="${status.id}"
+                                        th:text="${status.name}"
+                                        th:selected="${status.name==order.statusDTO.name}"></option>
+                                </select>
+                                <button class="btn btn-light btn-xs">Update</button>
+                            </div>
+
+                        </td>
+                        <td th:text="${order.itemDTO.name}">...</td>
+                        <td th:text="${order.count}">...</td>
+                        <td th:text="${order.total}">...</td>
+                    </form>
+                    <td><a class="btn btn-primary btn-xs" th:href="@{'/orders/' + ${order.id}}"
+                           role="button">Details</a></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+
+    <div sec:authorize="hasAuthority('CUSTOMER')">
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Order UID</th>
+                <th scope="col">Status</th>
+                <th scope="col">Item Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total Price</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <th:block th:each="userorder : ${userorders} ">
+                <tr>
+                    <td th:text="${userorder.uniqueNumber}">...</td>
+                    <td th:text="${userorder.statusDTO.name}">...</td>
+                    <td th:text="${userorder.itemDTO.name}">...</td>
+                    <td th:text="${userorder.count}">...</td>
+                    <td th:text="${userorder.total}">...</td>
+                </tr>
+            </th:block>
+
+            </tbody>
+        </table>
+    </div>
+    </br></br>
     <div th:replace="include/footer :: footer"></div>
 </div>
 

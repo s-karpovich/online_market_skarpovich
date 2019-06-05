@@ -6,6 +6,7 @@ import by.tut.mdcatalog.project2.repository.model.Article;
 import by.tut.mdcatalog.project2.repository.model.Order;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -16,6 +17,23 @@ public class OrderRepositoryImpl extends GenericRepositoryImpl<Long, Order> impl
     public List<Order> getAllWithOrder() {
         String hql = "FROM Order as O ORDER BY date DESC";
         Query query = entityManager.createQuery(hql);
-        return query.getResultList();
+        try {
+            return query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+
+    @Override
+    public List<Order> getByUserIdWithOrder(Long id) {
+        String hql = "FROM Order as O where user.id=:id ORDER BY date DESC";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("id", id);
+        try {
+            return query.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

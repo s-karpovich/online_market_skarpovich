@@ -21,7 +21,7 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="username" type="varchar(70)">
+            <column name="username" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="password" type="varchar(72)">
@@ -153,14 +153,22 @@
     </changeSet>
 
     <changeSet id="2.6" author="mdcatalog@tut.by">
+        <createTable tableName="status">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(40)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2.7" author="mdcatalog@tut.by">
         <createTable tableName="order">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="date" type="datetime">
-                <constraints nullable="false"/>
-            </column>
-            <column name="status" type="varchar(40)">
                 <constraints nullable="false"/>
             </column>
             <column name="unique_number" type="varchar(40)">
@@ -177,6 +185,9 @@
             </column>
             <column name="item_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_order_item" references="item(id)"/>
+            </column>
+            <column name="status_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_order_status" references="status(id)"/>
             </column>
         </createTable>
     </changeSet>
@@ -251,7 +262,7 @@
             <column name="firstname" value="Test"/>
             <column name="middlename" value="T."/>
             <column name="surname" value="Testson"/>
-            <column name="role_id" valueNumeric="4"/>
+            <column name="role_id" valueNumeric="2"/>
             <column name="deleted" valueBoolean="false"/>
         </insert>
     </changeSet>
@@ -260,7 +271,7 @@
         <insert tableName="review">
             <column name="user_id" valueNumeric="1"/>
             <column name="message" value="It is review message #1.
-            Your company is the BEST in the world! I will recommend your company to all of friends and relatives!"/>
+            You provide awesome tours and excellent services. I had the best trip in my life! I will recommend your company to all of friends and relatives!"/>
             <column name="date" valueDate="2019-05-06"/>
             <column name="deleted" valueBoolean="false"/>
         </insert>
@@ -271,7 +282,7 @@
             <column name="user_id" valueNumeric="2"/>
 
             <column name="message" value="It second review message #2.
-            Your company is the BEST in the world! I will recommend your company to all of friends and relatives!"/>
+            Your travel service is the BEST in the world! I will recommend your tours to all of friends and relatives!"/>
             <column name="date" valueDate="2019-05-06"/>
             <column name="deleted" valueBoolean="false"/>
         </insert>
@@ -281,7 +292,7 @@
         <insert tableName="review">
             <column name="user_id" valueNumeric="2"/>
             <column name="message" value="It is review message #3.
-            Your company is the WORST in the world! I will recommend your company to all of friends and relatives!"/>
+            Your company is the WORST in the world! I will not recommend your tours to all of friends and relatives!"/>
             <column name="date" valueDate="2019-05-06"/>
             <column name="deleted" valueBoolean="false"/>
         </insert>
@@ -290,19 +301,15 @@
     <changeSet id="6.1" author="mdcatalog@tut.by">
         <insert tableName="article">
             <column name="user_id" valueNumeric="1"/>
-            <column name="name" value="Amazon trashing millions of unsold items"/>
-            <column name="message" value="If you've ever visited a dump or landfill,
-            you probably know how sad it is to see tons of unused items go to waste.
-            Americans throw out a great deal of otherwise usable products and goods,
-            often doing so in the name of freshness, decluttering, and profitability.
-            As bad as this is, a growing number of people are recycling or donating their unwanted
-            items to those in need. If the trend continues, we may see less garbage in landfills and a
-            less wasteful culture going forward.
-            That being said, there are a number of corporate entities who don't give donations or recycling
-            the same priority as we might.
-            In a recent series of investigations, Amazon was revealed to have potentially destroyed millions
-            of unsold items in various countries. This is a shocking move, as these products are good as new --
-            making donation the more logical choice of disposal."/>
+            <column name="name" value="About Fiji Island" />
+            <column name="message" value="Fiji is an island nation in the South Pacific.
+             The country is made up of over 300 islands, of which 110 are inhabited.
+             The two main Fijian Islands, Viti Levu and Vanua Levu, account for 87% of the population of almost 850,000.
+The capital of Fiji is Suva, situated on Viti Levu. Almost three quarters of the total population live in Suva.
+Important towns are Nadi, which is the location of the international airport, and Lautoka, which is a large seaport.
+Other important islands in Fiji include Kadavu Island, the Lau Group, the Mamanuca Islands and the Yasawa Islands.
+The majority of Fiji's islands were formed through volcanic activity.
+There is still some geothermal activity today on the islands of Vanua Levu and Tavenui."/>
             <column name="date" valueDate="2019-05-07"/>
             <column name="deleted" valueBoolean="false"/>
         </insert>
@@ -311,14 +318,14 @@
     <changeSet id="6.2" author="mdcatalog@tut.by">
         <insert tableName="article">
             <column name="user_id" valueNumeric="2"/>
-            <column name="name" value="Hackers steal payment info from hundreds of online stores"/>
-            <column name="message" value="If you've never been the victim of a data breach,
-             consider yourself lucky. They've become an everyday part of online life, as they continue to grow in
-             frequency and number of people affected.While 2019 has seen its share of breaches so far, 2018 was
-             definitely not a good year, either. Cambridge Analytica, the Marriott and others aside from last year,
-              one of the popular methods was the Magecart attack where hackers would upload malicious code into
-              checkout pages of various online sites to steal personal details and payment info.
-            Some high profile hacks involving Magecart last year impacted Ticketmaster and computer shopping giant Newegg."/>
+            <column name="name" value="About Seychelles"/>
+            <column name="message" value="Seychelles is an island nation spanning an archipelago
+            in the Indian Ocean. It lies northeast of Madagascar and about 1,500 km east of
+             the mainland of Africa. Its island neighbors include and Réunion and Mauritius to
+              the south, Mayotte and Comoros to the southwest, and Zanzibar to the west.
+The country is officially known as Republic of Seychelles or as the République des Seychelles in
+French, and the Repiblik Sesel in Creole. It is the smallest African state in terms of population
+at 95,601 thousand (2019)."/>
             <column name="date" valueDate="2019-05-06"/>
             <column name="deleted" valueBoolean="false"/>
         </insert>
@@ -327,17 +334,12 @@
     <changeSet id="6.3" author="mdcatalog@tut.by">
         <insert tableName="article">
             <column name="user_id" valueNumeric="2"/>
-            <column name="name" value="Walmart’s newest shipping option might make you cancel Amazon Prime"/>
-            <column name="message" value="When you order a product online and you want it the next day, Walmart may be the best way to go. Wait, Walmart?
-            Yep. Walmart is giving Amazon a run for its money in the one-day delivery race and you don't even have to pay
-            an annual fee to get it.
-            Last month, Amazon announced it was offering free next-day shipping to Prime members. Prime membership costs
-            $119 a year.
-            Walmart's free service, called NextDay, requires an order of at least $35. The one-day service is now operating
-             in select cities but will be most places soon.
-            Walmart rolls out NextDay
-            With next-day service already in Phoenix and Las Vegas, Walmart says Southern California will be going online
-            within days."/>
+            <column name="name" value="About Maldives Islands"/>
+            <column name="message" value="The Maldives is a republic lies south-west of the Indian sub-continent.
+            It is made up of a chain of nearly 1,200 islands, most of them uninhabited.
+None of the coral islands stand more than 1.8 metres (six feet) above sea level, making the country vulnerable to
+any rise in sea levels associated with global warming.
+The economy revolves around tourism, and scores of islands have been developed for the top end of the tourist market."/>
             <column name="date" valueDate="2019-05-10"/>
             <column name="deleted" valueBoolean="false"/>
         </insert>
@@ -365,30 +367,83 @@
 
     <changeSet id="8.1" author="mdcatalog@tut.by">
         <insert tableName="contact">
+            <column name="user_id" valueNumeric="1"/>
+            <column name="phone" value="111-555-777"/>
+            <column name="address" value="Admin Street 2"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="8.2" author="mdcatalog@tut.by">
+        <insert tableName="contact">
             <column name="user_id" valueNumeric="2"/>
+            <column name="phone" value="222-555-777"/>
+            <column name="address" value="Customer Street 2"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="8.3" author="mdcatalog@tut.by">
+        <insert tableName="contact">
+            <column name="user_id" valueNumeric="3"/>
             <column name="phone" value="333-555-777"/>
-            <column name="address" value="New York Street 2"/>
+            <column name="address" value="Rest Street 2"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="8.4" author="mdcatalog@tut.by">
+        <insert tableName="contact">
+            <column name="user_id" valueNumeric="4"/>
+            <column name="phone" value="444-555-777"/>
+            <column name="address" value="Sales Street 2"/>
+            <column name="deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="8.5" author="mdcatalog@tut.by">
+        <insert tableName="contact">
+            <column name="user_id" valueNumeric="5"/>
+            <column name="phone" value="555-555-777"/>
+            <column name="address" value="Test Street 2"/>
             <column name="deleted" valueBoolean="false"/>
         </insert>
     </changeSet>
 
     <changeSet id="9.1" author="mdcatalog@tut.by">
         <insert tableName="item">
-            <column name="name" value="bad item"/>
+            <column name="name" value="Kurumba Maldives Hotel 5*"/>
             <column name="unique_number" value="c5c8e53-df0b-4df3-8a8b-5b5b57fcfca8"/>
-            <column name="price" value="100"/>
-            <column name="text" value="It's a very bad item. Never buy it."/>
+            <column name="price" value="500"/>
+            <column name="text" value="
+As the first resort in the Maldives, Kurumba Maldives offers a wide range of comfortable accommodations.
+This resort is just 10 minutes away by speedboat from the Male International Airport."/>
             <column name="deleted" valueNumeric="false"/>
         </insert>
     </changeSet>
 
     <changeSet id="10.1" author="mdcatalog@tut.by">
+        <insert tableName="status">
+            <column name="name" value="NEW"/>
+        </insert>
+        <insert tableName="status">
+            <column name="name" value="IN_PROGRESS"/>
+        </insert>
+        <insert tableName="status">
+            <column name="name" value="DELIVERED"/>
+        </insert>
+        <insert tableName="status">
+            <column name="name" value="REJECTED"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="11.1" author="mdcatalog@tut.by">
         <insert tableName="order">
             <column name="user_id" valueNumeric="2"/>
             <column name="item_id" valueNumeric="1"/>
+            <column name="status_id" valueNumeric="1"/>
             <column name="date" valueDate="2019-06-01"/>
-            <column name="status" value="NEW"/>
-            <column name="unique_number" value="a4n8u11-df0b-4df3-8a8b-3b3b53fcvvb9"/>
+            <column name="unique_number" value="a4n8u1"/>
             <column name="count" value="10"/>
             <column name="total" value="1000"/>
         </insert>

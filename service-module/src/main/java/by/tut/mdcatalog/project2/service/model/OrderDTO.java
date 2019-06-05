@@ -1,7 +1,9 @@
 package by.tut.mdcatalog.project2.service.model;
 
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -12,8 +14,10 @@ public class OrderDTO {
     private Date date;
     private UserDTO userDTO;
     private ItemDTO itemDTO;
-    private String status;
+    private StatusDTO statusDTO;
     private String uniqueNumber;
+    @NotNull
+    @Size(min = 1, max = 100)
     private int count;
     private BigDecimal total;
 
@@ -23,9 +27,9 @@ public class OrderDTO {
         this.id = id;
     }
 
-    public String getStatus() { return status; }
+    public StatusDTO getStatusDTO() { return statusDTO; }
 
-    public void setStatus(String status) { this.status = status; }
+    public void setStatusDTO(StatusDTO statusDTO) { this.statusDTO = statusDTO; }
 
     public Date getDate() {
         return date;

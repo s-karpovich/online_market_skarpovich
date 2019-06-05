@@ -1,6 +1,13 @@
 package by.tut.mdcatalog.project2.repository.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
@@ -12,6 +19,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
     private Long id;
+    @Column(name="`date`")
     private Date date;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -19,7 +27,9 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
-    private String status;
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
     private int count;
     private String uniqueNumber;
     private BigDecimal total;
@@ -44,13 +54,9 @@ public class Order {
 
     public void setItem(Item item) { this.item = item; }
 
-    public String getStatus() {
-        return status;
-    }
+    public Status getStatus() { return status; }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public void setStatus(Status status) { this.status = status; }
 
     public int getCount() {
         return count;

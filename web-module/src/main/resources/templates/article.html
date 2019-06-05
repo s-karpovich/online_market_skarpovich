@@ -7,41 +7,11 @@
 
 <body>
 <div class="container-fluid">
-<div th:replace="include/header :: header"></div>
-<div sec:authorize="!hasAuthority('SALE')">
-    <h3>Article</h3>
+    <div th:replace="include/header :: header"></div>
+    <div sec:authorize="!hasAuthority('SALE')">
+        <h3>Article</h3>
 
-    <table class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Date</th>
-            <th scope="col">Title</th>
-            <th scope="col">Author</th>
-            <th scope="col">Article</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${article.id}">...</td>
-            <td th:text="${article.date}">...</td>
-            <td th:text="${article.name}">...</td>
-            <td th:text="${article.userDTO.getFirstname()}+' '
-                 + ${article.userDTO.getSurname()}">...
-            </td>
-            <td th:text="${article.message}">...</td>
-        </tr>
-        </tbody>
-    </table>
-    </br></br></br>
-</div>
-
-<div sec:authorize="hasAuthority('SALE')">
-    <h3>Edit Article</h3>
-
-    <table class="table">
-        <form id="article-update-form" class="form-horizontal" th:action="@{'/articles/' + ${article.id}}"
-              th:object="${articleDTO}" method="post">
+        <table class="table table-hover">
             <thead class="thead-light">
             <tr>
                 <th scope="col">#</th>
@@ -51,70 +21,97 @@
                 <th scope="col">Article</th>
             </tr>
             </thead>
-
             <tbody>
             <tr>
                 <td th:text="${article.id}">...</td>
                 <td th:text="${article.date}">...</td>
-                <td><input th:name="name" type="text" class="form-control mb-4" id="name"
-                           th:value="${article.name}" required maxlength="70"></td>
-                <td th:text="${article.userDTO.firstname}+' '
-                 + ${article.userDTO.surname}">...
+                <td th:text="${article.name}">...</td>
+                <td th:text="${article.userDTO.getFirstname()}+' '
+                 + ${article.userDTO.getSurname()}">...
                 </td>
-                <td>
-                    <textarea rows="5" cols="25" class="form-control mb-6" th:name="message"
-                              th:text="${article.message}" required maxlength="1000"></textarea>
-                </td>
+                <td th:text="${article.message}">...</td>
             </tr>
             </tbody>
-        </form>
-    </table>
-    <div style="float: left;">
-        <button th:form="article-update-form" class="btn btn-primary btn-lg disabled">Update</button>
+        </table>
+        </br></br></br>
     </div>
 
-    </br></br></br>
-</div>
+    <div sec:authorize="hasAuthority('SALE')">
+        <h3>Edit Article</h3>
 
-<h3>Comments</h3>
-<table class="table">
-    <form id="comment-delete-form" method="post" action="/articles/comments"></form>
-    <thead class="thead-light">
-    <tr>
-        <th scope="col"></th>
-        <th scope="col">#</th>
-        <th scope="col">Date</th>
-        <th scope="col">Author</th>
-        <th scope="col">Comment</th>
-    </tr>
-    </thead>
-    <tbody>
-    <th:block th:each="comment : ${comments}">
-        <td>
-            <div sec:authorize="hasAuthority('SALE')">
-                <div class="form-check">
-                    <input type="checkbox" name="ids" th:value="${comment.id}" form="comment-delete-form">
-                </div>
-            </div>
-        </td>
-        <td th:text="${comment.id}">...</td>
-        <td th:text="${comment.date}">...</td>
-        <td th:text="${comment.userDTO.getFirstname()}+' '
-                 + ${comment.userDTO.surname}">...
-        </td>
-        <td th:text="${comment.message}">...</td>
+        <table class="table table-hover">
+            <form id="article-update-form" class="form-horizontal" th:action="@{'/articles/' + ${article.id}}"
+                  th:object="${articleDTO}" method="post">
+                <thead class="thead-light">
+                <tr>
+
+                    <th scope="col">Date</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Article</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td th:text="${article.date}">...</td>
+                    <td><input th:name="name" type="text" class="form-control mb-4" id="name"
+                               th:value="${article.name}" required maxlength="70"></td>
+                    <td th:text="${article.userDTO.firstname}+' '
+                 + ${article.userDTO.surname}">...
+                    </td>
+                    <td>
+                    <textarea rows="5" cols="25" class="form-control mb-6" th:name="message"
+                              th:text="${article.message}" required maxlength="1000"></textarea>
+                    </td>
+                </tr>
+                </tbody>
+            </form>
+        </table>
+        <div style="float: left;">
+            <button th:form="article-update-form" class="btn btn-primary btn-lg disabled">Update</button>
+        </div>
+
+        </br></br></br>
+    </div>
+
+    <h3>Comments</h3>
+    <table class="table table-hover">
+        <form id="comment-delete-form" method="post" action="/articles/comments"></form>
+        <thead class="thead-light">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Date</th>
+            <th scope="col">Author</th>
+            <th scope="col">Comment</th>
         </tr>
-    </th:block>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <th:block th:each="comment : ${comments}">
+            <td>
+                <div sec:authorize="hasAuthority('SALE')">
+                    <div class="form-check">
+                        <input type="checkbox" name="ids" th:value="${comment.id}" form="comment-delete-form">
+                    </div>
+                </div>
+            </td>
+            <td th:text="${comment.date}">...</td>
+            <td th:text="${comment.userDTO.getFirstname()}+' '
+                 + ${comment.userDTO.surname}">...
+            </td>
+            <td th:text="${comment.message}">...</td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
 
-<div sec:authorize="hasAuthority('SALE')">
-    <div style="float: left;">
-        <button th:form="comment-delete-form" class="btn btn-primary btn-lg disabled">Delete</button>
+    <div sec:authorize="hasAuthority('SALE')">
+        <div style="float: left;">
+            <button th:form="comment-delete-form" class="btn btn-primary btn-lg disabled">Delete</button>
+        </div>
     </div>
-</div>
-
-<div th:replace="include/footer :: footer"></div>
+    </br></br>
+    <div th:replace="include/footer :: footer"></div>
 </div>
 </body>
 </html>

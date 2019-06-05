@@ -17,7 +17,7 @@ public class UserDTO {
     @Size(max = 40)
     private String middlename;
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 40)
     private String surname;
 
     private RoleDTO roleDTO;

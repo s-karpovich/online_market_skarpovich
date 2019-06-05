@@ -11,8 +11,13 @@ import by.tut.mdcatalog.project2.service.model.ArticleDTO;
 import by.tut.mdcatalog.project2.service.model.UserDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import static by.tut.mdcatalog.project2.service.constant.DateTimeConstant.DATE_PATTERN;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -43,6 +48,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void update(ArticleDTO articleDTO) {
+        articleDTO.setDate(new SimpleDateFormat(DATE_PATTERN).format(new Date()));
         Article article = articleConverter.fromDTO(articleDTO);
         articleRepository.merge(article);
     }
@@ -50,9 +56,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public void delete(Long id) {
-        Article article = new Article();
-        article.setId(id);
-        articleRepository.remove(article);
+        Article article = articleRepository.getById(id);
+        if (article != null && !article.getDeleted()) {
+            articleRepository.remove(article);
+        }
     }
 
     @Override

@@ -62,7 +62,8 @@ public class ArticleController {
 
         if (bindingResult.hasErrors()) {
             logger.info("Article has not been added");
-            return "redirect:/error"; }
+            return "redirect:/error";
+        }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -83,7 +84,7 @@ public class ArticleController {
     }
 
     @PostMapping("/articles/{id}")
-    public String updateUrticle(@PathVariable(name = "id") Long id,
+    public String updateArticle(@PathVariable(name = "id") Long id,
                                 @Valid ArticleDTO articleDTO,
                                 BindingResult result,
                                 Model model) {

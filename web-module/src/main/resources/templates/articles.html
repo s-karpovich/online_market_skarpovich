@@ -10,10 +10,9 @@
     <div th:replace="include/header :: header"></div>
     <h3>Articles List</h3>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead class="thead-light">
         <tr>
-            <th scope="col">#</th>
             <th scope="col">Date</th>
             <th scope="col">Name</th>
             <th scope="col">Author</th>
@@ -25,7 +24,6 @@
         <tbody>
         <th:block th:each="article : ${articles} ">
             <tr>
-                <td th:text="${article.id}">...</td>
                 <td th:text="${article.date}">...</td>
                 <td th:text="${article.name}">...</td>
                 <td th:text="${article.userDTO.getFirstname()}+' '
@@ -38,7 +36,9 @@
         </th:block>
         </tbody>
     </table>
-    <div th:replace="include/footer :: footer"></div>
+</div>
+</br></br>
+<div th:replace="include/footer :: footer"></div>
 </div>
 
 </body>

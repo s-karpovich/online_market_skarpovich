@@ -57,18 +57,19 @@ public class ArticleApiControllerIntegrationTest {
     public void shouldAddArticle() throws Exception {
         mvc.perform(post("/api/articles")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"user_id\": \"3\", " +
-                        "\"name\": \"Test Article Name\", " +
-                        "\"message\": \"Test Article Message\" " +
+                .content("{\"name\": \"Test Travel Article Name\", " +
+                        "\"message\": \"Test Travel Article Message\", " +
+                        "\"date\": \"2019-06-04\" " +
                         "}"))
                 .andExpect(status().isCreated());
     }
 
-
-    @WithMockUser(authorities = {REST_API_ROLE_NAME})
+    @WithMockUser(username = "rest@email.com",
+            password = "1234",
+            authorities = {REST_API_ROLE_NAME})
     @Test
     public void shouldDeleteArticle() throws Exception {
-        mvc.perform(post("/api/articles/1"))
+        mvc.perform(post("/api/articles/2"))
                 .andExpect(status().isOk());
     }
 }

@@ -1,11 +1,16 @@
 package by.tut.mdcatalog.project2.service.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class ArticleDTO {
 
     private Long id;
     private String date;
     private UserDTO userDTO;
     private String name;
+    @NotNull
+    @Size(min = 1, max = 1000)
     private String message;
 
     public Long getId() {

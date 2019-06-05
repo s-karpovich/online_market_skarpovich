@@ -16,7 +16,6 @@ import java.util.Objects;
 @Entity
 @Table
 @SQLDelete(sql = "UPDATE user SET deleted=true WHERE id=?")
-@Where(clause = "deleted=false")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

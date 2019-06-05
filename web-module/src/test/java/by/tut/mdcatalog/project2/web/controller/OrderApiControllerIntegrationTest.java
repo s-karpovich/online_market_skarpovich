@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SpringBootModuleApp.class)
-public class ItemApiControllerIntegrationTest {
+public class OrderApiControllerIntegrationTest {
 
     @Autowired
     private WebApplicationContext context;
@@ -38,37 +38,16 @@ public class ItemApiControllerIntegrationTest {
 
     @WithMockUser(authorities = {REST_API_ROLE_NAME})
     @Test
-    public void shouldShowItems() throws Exception {
-        mvc.perform(get("/api/items"))
-                .andExpect(status().isOk());
-    }
-
-    @WithMockUser(username = "rest@email.com",
-            password = "1234",
-            authorities = {REST_API_ROLE_NAME})
-    @Test
-    public void shouldAddItem() throws Exception {
-        mvc.perform(post("/api/items")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\"name\": \"Rest Item Hotel 3*\", " +
-                        "\"unique_number\": \"6at71h \", " +
-                        "\"price\": \"1000\", " +
-                        "\"text\": \"Rest Hotel Tour description\" " +
-                        "}"))
-                .andExpect(status().isCreated());
-    }
-
-    @WithMockUser(authorities = {REST_API_ROLE_NAME})
-    @Test
-    public void shouldShowItem() throws Exception {
-        mvc.perform(get("/api/items/1"))
+    public void shouldShowOrders() throws Exception {
+        mvc.perform(get("/api/orders"))
                 .andExpect(status().isOk());
     }
 
     @WithMockUser(authorities = {REST_API_ROLE_NAME})
     @Test
-    public void shouldDeleteItem() throws Exception {
-        mvc.perform(post("/api/items/2"))
+    public void shouldShowOrder() throws Exception {
+        mvc.perform(get("/api/orders/1"))
                 .andExpect(status().isOk());
     }
+
 }

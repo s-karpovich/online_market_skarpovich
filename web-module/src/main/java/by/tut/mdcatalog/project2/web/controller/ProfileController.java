@@ -38,13 +38,15 @@ public class ProfileController {
 
     @PostMapping("/profile/update")
     public String updateProfile(@ModelAttribute UserDTO userDTO,
-                                ContactDTO contactDTO,
+                                @ModelAttribute ContactDTO contactDTO,
                                 ModelMap modelMap) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+
         UserDTO currentUserDTO = userService.getByUsername(username);
         userDTO.setId(currentUserDTO.getId());
         userDTO.setUsername(currentUserDTO.getUsername());
+        userDTO.setMiddlename(currentUserDTO.getMiddlename());
         userDTO.setRoleDTO(currentUserDTO.getRoleDTO());
         contactDTO.setId(userDTO.getId());
         contactDTO.setUserDTO(userDTO);

@@ -14,7 +14,7 @@ public class ItemConverterImpl implements ItemConverter {
             itemDTO.setId(item.getId());
             itemDTO.setName(item.getName());
             itemDTO.setUniqueNumber(item.getUniqueNumber());
-            itemDTO.setPrice(item.getPrice().toString());
+            itemDTO.setPrice(item.getPrice());
             itemDTO.setText(item.getText());
             return itemDTO;
     }
@@ -25,7 +25,7 @@ public class ItemConverterImpl implements ItemConverter {
         item.setId(itemDTO.getId());
         item.setName(itemDTO.getName());
         item.setUniqueNumber(itemDTO.getUniqueNumber());
-        item.setPrice(new BigDecimal(itemDTO.getPrice()));
+        item.setPrice((itemDTO.getPrice()));
         item.setText(itemDTO.getText());
         return item;
     }

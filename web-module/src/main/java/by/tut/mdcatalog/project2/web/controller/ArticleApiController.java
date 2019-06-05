@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/articles")
 public class ArticleApiController {
@@ -32,16 +34,16 @@ public class ArticleApiController {
 
     @GetMapping
     public ResponseEntity getArticles() {
-        articleService.getArticles();
+        List<ArticleDTO> articlesDTO = articleService.getArticles();
         logger.info("Requested Articles via REST API");
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(articlesDTO, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getArticle(@PathVariable Long id){
-        articleService.getById(id);
+    public ResponseEntity getArticle(@PathVariable Long id) {
+        ArticleDTO articleDTO = articleService.getById(id);
         logger.info("Added Article via REST API");
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(articleDTO, HttpStatus.OK);
     }
 
     @PostMapping
@@ -50,14 +52,13 @@ public class ArticleApiController {
         String username = authentication.getName();
         UserDTO userDTO = userService.getByUsername(username);
         articleDTO.setUserDTO(userDTO);
-        articleDTO.setDate(articleDTO.getDate());
         articleService.create(articleDTO);
         logger.info("Added Article via REST API");
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity deleteArticle(@PathVariable Long id) {
+    public ResponseEntity deleteArticle(@PathVariable("id") Long id) {
         articleService.delete(id);
         logger.info("Deleted User via REST API");
         return new ResponseEntity(HttpStatus.OK);

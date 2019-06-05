@@ -9,12 +9,11 @@ public interface OrderService {
 
     void create(OrderDTO orderDTO);
 
-   // void update(OrderDTO orderDTO);
-
-    //void delete(Long id);
+    void update(OrderDTO orderDTO);
 
     List<OrderDTO> getOrders();
 
     OrderDTO getById(Long id);
 
+    List<OrderDTO> getByUserId(Long id);
 }
