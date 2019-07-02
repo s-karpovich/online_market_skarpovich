@@ -1,0 +1,12 @@
+### Intellig IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+*.jar
+
+### Maven ###
+target/
+
+### customer ###
+logs/
