@@ -69,7 +69,7 @@ public class AppUrlAuthenticationSuccessHandler implements AuthenticationSuccess
         } else if (isSale) {
             return "/items";
         } else {
-            logger.info("Impossible to redirect. User role:" + authentication.getCredentials() + " - is not recognized.");
+            logger.info("Impossible to redirect. User role:{}" + authentication.getCredentials() + " - is not recognized.");
             return "redirect:/login?role";
         }
     }

@@ -31,7 +31,7 @@ public class StatusServiceImpl implements StatusService {
         List<StatusDTO> statuses = statusNames.stream()
                 .map(statusConverter::toDTO)
                 .collect(Collectors.toList());
-        logger.info("Statuss successfully requested from database:{}", statuses.size());
+        logger.info("Status successfully requested from database:{}", statuses.size());
         return statuses;
     }
 

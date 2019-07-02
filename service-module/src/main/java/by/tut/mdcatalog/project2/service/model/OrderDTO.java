@@ -1,14 +1,8 @@
 package by.tut.mdcatalog.project2.service.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table
 public class OrderDTO {
     private Long id;
     private Date date;
@@ -16,8 +10,6 @@ public class OrderDTO {
     private ItemDTO itemDTO;
     private StatusDTO statusDTO;
     private String uniqueNumber;
-    @NotNull
-    @Size(min = 1, max = 100)
     private int count;
     private BigDecimal total;
 
