@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:replace="include/header :: header-css"></div>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div th:replace="include/header :: header"></div>
+    <h3>Reviews List</h3>
+
+    <table class="table">
+        <form id="reviews-delete-form" method="post" action="/reviews/delete"></form>
+        <thead class="thead-light">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Message</th>
+            <th scope="col">Hide</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <th:block th:each="review : ${reviews} ">
+            <tr>
+                <td>
+                    <th:block>
+                        <div class="form-check">
+                            <input type="checkbox" name="ids" th:value="${review.id}" form="reviews-delete-form">
+                        </div>
+                    </th:block>
+                </td>
+                <td th:text="${review.id}">...</td>
+                <td th:text="${review.userDTO.getFirstname()}+' '
+                + ${review.userDTO.getMiddlename()}+' '
+                 + ${review.userDTO.getSurname()}">...
+                </td>
+                <td th:text="${review.date}">...</td>
+                <td th:text="${review.message}">...</td>
+                <td>
+                    <th:block>
+                        <div class="form-check">
+                            <form method="post" th:action="@{/reviews/update}" form="reviews-hide-form">
+                                <input type="checkbox" name="ids" th:value="${review.id}">
+                            </form>
+                        </div>
+                    </th:block>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+    <div style="float: left;">
+        <button th:form="reviews-delete-form" class="btn btn-primary btn-lg disabled">Delete</button>
+    </div>
+    <div style="float: right;">
+        <button th:form="reviews-hide-form" class="btn btn-light btn-lg disabled">Hide</button>
+    </div>
+</div>
+
+<div th:replace="include/footer :: footer"></div>
+</body>
+
+</html>

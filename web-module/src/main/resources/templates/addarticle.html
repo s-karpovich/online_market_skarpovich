@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+
+    <div th:replace="include/header :: header-css"></div>
+</head>
+<div class="container-fluid">
+    <div th:replace="include/header :: header"></div>
+    <h3>Add Article</h3>
+
+    <form class="form-horizontal" action="#" th:action="@{/articles/add}" th:object="${articleDTO}" method="post">
+
+
+        <div class="form-group">
+            <div class="col-md-4"><label>Date</label>
+                <input th:name="date" type="date" class="form-control mb-4" id="date"
+                       placeholder="2019-05-05"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4"><label>Name</label>
+                <input th:name="name" type="textinput" class="form-control mb-4" id="name"
+                       placeholder="Richard Branson" required/></div>
+        </div>
+
+        <div class="form-group">
+        <div class="col-md-4"><label>Message</label>
+        <input th:name="message" type="textinput" class="form-control mb-4" id="message" placeholder="Message"/></div>
+        </div>
+        <!--<div class="form-group">-->
+            <!--<div class="col-md-4"><label>Message</label>-->
+                <!--<textarea rows="5" cols="25" class="form-control mb-6" th:name="message" placeholder="Article text"-->
+                          <!--maxlength="1000" required></textarea>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="col-md-4">
+            <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                Request has not been completed!
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="alert alert-success" role="alert" th:if="${param.success}">
+                User has been successfully added!
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary btn-lg disabled">Add Article</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div th:replace="include/footer :: footer"></div>
+
+</body>
+</html>

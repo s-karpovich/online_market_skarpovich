@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:replace="include/header :: header-css"></div>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div th:replace="include/header :: header"></div>
+    <h3>Items List</h3>
+
+    <table class="table">
+        <form id="item-delete-form" method="post" action="/items/delete"></form>
+        <thead class="thead-light">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">UID</th>
+            <th scope="col">Price</th>
+            <th scope="col">Description</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <th:block th:each="item : ${items} ">
+            <tr>
+                <td>
+                    <th:block>
+                        <div class="form-check">
+                            <input type="checkbox" name="ids" th:value="${item.id}" form="item-delete-form">
+                        </div>
+                    </th:block>
+                </td>
+                <td th:text="${item.name}">...</td>
+                <td th:text="${item.uniqueNumber}">...</td>
+                <td th:text="${item.price}">...</td>
+                <td th:text="${item.text}">...</td>
+                <td><a class="btn btn-primary btn-xs" th:href="@{'/items/' + ${item.id}}" role="button">Read
+                    more</a></td>
+                <td>
+                    <form method="post" th:action="@{/items/copy}">
+                        <input type="hidden" th:attr="value=${item.id}" th:name="id"/>
+                        <button class="btn btn-light btn-xs">Copy</button>
+                    </form>
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+    <div style="float: left;">
+        <button th:form="item-delete-form" class="btn btn-primary btn-lg disabled">Delete</button>
+    </div>
+</div>
+
+<div th:replace="include/footer :: footer"></div>
+</body>
+
+</html>
