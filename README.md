@@ -1,1 +1,0 @@
-#README file with information how to install the project.
