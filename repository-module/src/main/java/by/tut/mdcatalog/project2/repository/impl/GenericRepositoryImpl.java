@@ -1,7 +1,6 @@
 package by.tut.mdcatalog.project2.repository.impl;
 
 import by.tut.mdcatalog.project2.repository.GenericRepository;
-import by.tut.mdcatalog.project2.repository.exception.DataBaseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,26 +23,11 @@ public class GenericRepositoryImpl<I, T> implements GenericRepository<I, T> {
     @PersistenceContext
     protected EntityManager entityManager;
 
-    @Autowired
-    private DataSource dataSource;
-
     @SuppressWarnings("unchecked")
     public GenericRepositoryImpl() {
         ParameterizedType genericSuperclass = (ParameterizedType) getClass()
                 .getGenericSuperclass();
         this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[1];
-    }
-
-    @Override
-    public Connection getConnection() {
-        Connection connection = null;
-        try {
-            connection = dataSource.getConnection();
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new DataBaseException(e.getMessage(), e);
-        }
-        return connection;
     }
 
     @Override
@@ -72,13 +56,6 @@ public class GenericRepositoryImpl<I, T> implements GenericRepository<I, T> {
         String query = "from " + entityClass.getName() + " c";
         Query q = entityManager.createQuery(query);
         return q.getResultList();
-    }
-
-    @Override
-    public int getCountOfEntities() {
-        String query = "SELECT COUNT(*) FROM " + entityClass.getName() + " c";
-        Query q = entityManager.createQuery(query);
-        return ((Number) q.getSingleResult()).intValue();
     }
 }
 

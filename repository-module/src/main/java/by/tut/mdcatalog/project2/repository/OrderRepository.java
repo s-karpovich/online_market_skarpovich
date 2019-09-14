@@ -1,6 +1,5 @@
 package by.tut.mdcatalog.project2.repository;
 
-import by.tut.mdcatalog.project2.repository.model.Article;
 import by.tut.mdcatalog.project2.repository.model.Order;
 
 import java.util.List;

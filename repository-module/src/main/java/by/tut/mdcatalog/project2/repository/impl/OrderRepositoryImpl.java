@@ -1,8 +1,6 @@
 package by.tut.mdcatalog.project2.repository.impl;
 
-import by.tut.mdcatalog.project2.repository.ArticleRepository;
 import by.tut.mdcatalog.project2.repository.OrderRepository;
-import by.tut.mdcatalog.project2.repository.model.Article;
 import by.tut.mdcatalog.project2.repository.model.Order;
 import org.springframework.stereotype.Repository;
 
